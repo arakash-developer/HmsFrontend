@@ -25,9 +25,9 @@ import '@/app/globals.css'
 import '@assets/iconify-icons/generated-icons.css'
 
 export const metadata = {
-  title: 'Materio - Material Design Next.js Admin Template',
+  title: 'HMS - Hospital Management System',
   description:
-    'Materio - Material Design Next.js Admin Dashboard Template - is the most developer friendly & highly customizable Admin Dashboard Template based on MUI v5.'
+    'HMS - Hospital Management System - is the most developer friendly & highly customizable Hospital Management System Template based on MUI v5.'
 }
 
 const RootLayout = async props => {
