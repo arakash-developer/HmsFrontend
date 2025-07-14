@@ -35,6 +35,10 @@ const languageData = [
     langName: 'English'
   },
   {
+    langCode: 'bn',
+    langName: 'Bangla'
+  },
+  {
     langCode: 'fr',
     langName: 'French'
   },
