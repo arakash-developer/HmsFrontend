@@ -1,5 +1,5 @@
 {
-  "name": "materio-mui-nextjs-admin-template",
+  "name": "hospital-management-system",
   "version": "5.0.0",
   "license": "Commercial",
   "private": true,
@@ -36,6 +36,7 @@
     "@mui/lab": "6.0.0-beta.19",
     "@mui/material": "6.2.1",
     "@mui/material-nextjs": "6.2.1",
+    "@next/bundle-analyzer": "^15.4.1",
     "@prisma/client": "5.22.0",
     "@reduxjs/toolkit": "2.5.0",
     "@tanstack/match-sorter-utils": "8.19.4",
