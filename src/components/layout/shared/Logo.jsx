@@ -61,16 +61,19 @@ const Logo = ({ color }) => {
   return (
     <div className='flex items-center min-bs-[24px]'>
       <MaterioLogo className='text-[22px] text-primary' />
-      <LogoText
-        color={color}
-        ref={logoTextRef}
-        isHovered={isHovered}
-        isCollapsed={layout === 'collapsed'}
-        transitionDuration={transitionDuration}
-        isBreakpointReached={isBreakpointReached}
-      >
-        {themeConfig.templateName}
-      </LogoText>
+      <div className='flex flex-col justify-center'>
+        <LogoText
+          color={color}
+          ref={logoTextRef}
+          isHovered={isHovered}
+          isCollapsed={layout === 'collapsed'}
+          transitionDuration={transitionDuration}
+          isBreakpointReached={isBreakpointReached}
+        >
+          {themeConfig.templateName}
+        </LogoText>
+        <p className='ml-[10px] text-xs'>{themeConfig.templateSubtitle}</p>
+      </div>
     </div>
   )
 }
