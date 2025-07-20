@@ -72,7 +72,7 @@ const Logo = ({ color }) => {
         >
           {themeConfig.templateName}
         </LogoText>
-        <p className='ml-[10px] text-xs'>{themeConfig.templateSubtitle}</p>
+        <p className='ml-[10px] text-xs text-[var(--mui-palette-text-secondary)]'>{themeConfig.templateSubtitle}</p>
       </div>
     </div>
   )
