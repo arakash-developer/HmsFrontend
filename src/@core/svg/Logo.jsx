@@ -122,9 +122,9 @@ const Logo = props => {
           <stop stop-color='#2E90FA' />
           <stop offset='1' stop-color='#5AC2FF' />
         </linearGradient>
-        <clip-path id='clip0_248_666'>
+        <clipPath id='clip0_248_666'>
           <rect width='34' height='62' fill='white' transform='translate(0.5)' />
-        </clip-path>
+        </clipPath>
       </defs>
     </svg>
   )
