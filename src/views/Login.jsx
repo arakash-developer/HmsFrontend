@@ -238,11 +238,11 @@ const Login = ({ mode }) => {
             className='max-bs-[500px] max-is-full bs-auto'
           />
         </div>
-        {/* <Illustrations
+        <Illustrations
           image1={{ src: '/images/illustrations/objects/tree-2.png' }}
           image2={null}
           maskImg={{ src: authBackground }}
-        /> */}
+        />
       </div>
     </div>
   )
