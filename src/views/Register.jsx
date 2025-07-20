@@ -60,27 +60,6 @@ const RegisterV2 = ({ mode }) => {
 
   return (
     <div className='flex bs-full justify-center'>
-      <div
-        className={classnames(
-          'flex bs-full items-center justify-center flex-1 min-bs-[100dvh] relative p-6 max-md:hidden',
-          {
-            'border-ie': settings.skin === 'bordered'
-          }
-        )}
-      >
-        <div className='plb-12 pis-12'>
-          <img
-            src={characterIllustration}
-            alt='character-illustration'
-            className='max-bs-[500px] max-is-full bs-auto'
-          />
-        </div>
-        <Illustrations
-          image1={{ src: '/images/illustrations/objects/tree-3.png' }}
-          image2={null}
-          maskImg={{ src: authBackground }}
-        />
-      </div>
       <div className='flex justify-center items-center bs-full bg-backgroundPaper !min-is-full p-6 md:!min-is-[unset] md:p-12 md:is-[480px]'>
         <Link
           href={getLocalizedUrl('/', locale)}
@@ -158,6 +137,28 @@ const RegisterV2 = ({ mode }) => {
           </form>
         </div>
       </div>
+      <div
+        className={classnames(
+          'flex bs-full items-center justify-center flex-1 min-bs-[100dvh] relative p-6 max-md:hidden',
+          {
+            'border-ie': settings.skin === 'bordered'
+          }
+        )}
+      >
+        <div className='plb-12 pis-12'>
+          <img
+            src={characterIllustration}
+            alt='character-illustration'
+            className='max-bs-[500px] max-is-full bs-auto'
+          />
+        </div>
+        <Illustrations
+          image1={{ src: '/images/illustrations/objects/tree-3.png' }}
+          image2={null}
+          maskImg={{ src: authBackground }}
+        />
+      </div>
+
     </div>
   )
 }
