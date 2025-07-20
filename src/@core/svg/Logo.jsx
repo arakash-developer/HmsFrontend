@@ -70,7 +70,7 @@ const Logo = props => {
     // </svg>
 
     <svg width='' height='2em' viewBox='0 0 35 62' fill='none' xmlns='http://www.w3.org/2000/svg' {...props}>
-      <g clip-path='url(#clip0_248_666)'>
+      <g clipPath='url(#clip0_248_666)'>
         <path
           d='M21.9408 10.025C23.4884 7.3521 23.0997 4.23923 21.0727 3.07222C19.0456 1.90521 16.1478 3.12598 14.6002 5.79888C13.0527 8.47179 13.4413 11.5847 15.4684 12.7517C17.4955 13.9187 20.3933 12.6979 21.9408 10.025Z'
           fill='currentColor'
