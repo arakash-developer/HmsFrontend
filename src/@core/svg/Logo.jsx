@@ -28,8 +28,8 @@ const Logo = props => {
           y2='47.4976'
           gradientUnits='userSpaceOnUse'
         >
-          <stop stop-color='#2E90FA' />
-          <stop offset='1' stop-color='#5AC2FF' />
+          <stop stopColor='#2E90FA' />
+          <stop offset='1' stopColor='#5AC2FF' />
         </linearGradient>
         <linearGradient
           id='paint1_linear_248_666'
@@ -39,8 +39,8 @@ const Logo = props => {
           y2='48.1198'
           gradientUnits='userSpaceOnUse'
         >
-          <stop stop-color='#2E90FA' />
-          <stop offset='1' stop-color='#5AC2FF' />
+          <stop stopColor='#2E90FA' />
+          <stop offset='1' stopColor='#5AC2FF' />
         </linearGradient>
         <linearGradient
           id='paint2_linear_248_666'
@@ -50,8 +50,8 @@ const Logo = props => {
           y2='22.9252'
           gradientUnits='userSpaceOnUse'
         >
-          <stop stop-color='#2E90FA' />
-          <stop offset='1' stop-color='#5AC2FF' />
+          <stop stopColor='#2E90FA' />
+          <stop offset='1' stopColor='#5AC2FF' />
         </linearGradient>
         <clipPath id='clip0_248_666'>
           <rect width='34' height='62' fill='white' transform='translate(0.5)' />
