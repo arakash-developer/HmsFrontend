@@ -1,6 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
+import "./index.css";
 import "./assets/scss/style.scss";
 import "./assets/css/apexcharts.css";
 import "./assets/css/jsvectormap.min.css";
