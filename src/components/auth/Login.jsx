@@ -1,4 +1,9 @@
 import SignIn from "@public/images/sign-in.jpg"
+import Logo from "@public/images/logo-big.svg"
+import whiteLogo from "@public/images/white-logo-big.svg"
+import Google from "@public/images/icons/google.svg"
+import Apple from "@public/images/icons/apple.svg"
+import Facebook from "@public/images/icons/facebook2.svg"
 const Login = () => {
   return (
     <>
@@ -27,12 +32,12 @@ const Login = () => {
             </div>
             <div className="xl:ltr:pl-[90px] xl:rtl:pr-[90px] 2xl:ltr:pl-[120px] 2xl:rtl:pr-[120px] order-1 lg:order-2">
               <img
-                src="assets/images/logo-big.svg"
+                src={Logo}
                 alt="logo"
                 className="inline-block dark:hidden"
               />
               <img
-                src="assets/images/white-logo-big.svg"
+                src={whiteLogo}
                 alt="logo"
                 className="hidden dark:inline-block"
               />
@@ -51,7 +56,7 @@ const Login = () => {
                     className="block text-center w-full rounded-md transition-all py-[8px] md:py-[10.5px] px-[15px] md:px-[25px] text-black dark:text-white border border-[#D6DAE1] bg-white dark:bg-[#0a0e19] dark:border-[#172036] shadow-sm hover:border-primary-500"
                   >
                     <img
-                      src="assets/images/icons/google.svg"
+                      src={Google}
                       className="inline-block"
                       alt="google"
                     />
@@ -63,7 +68,7 @@ const Login = () => {
                     className="block text-center w-full rounded-md transition-all py-[8px] md:py-[10.5px] px-[15px] md:px-[25px] text-black dark:text-white border border-[#D6DAE1] bg-white dark:bg-[#0a0e19] dark:border-[#172036] shadow-sm hover:border-primary-500"
                   >
                     <img
-                      src="assets/images/icons/facebook2.svg"
+                      src={Facebook}
                       className="inline-block"
                       alt="google"
                     />
@@ -75,7 +80,7 @@ const Login = () => {
                     className="block text-center w-full rounded-md transition-all py-[8px] md:py-[10.5px] px-[15px] md:px-[25px] text-black dark:text-white border border-[#D6DAE1] bg-white dark:bg-[#0a0e19] dark:border-[#172036] shadow-sm hover:border-primary-500"
                   >
                     <img
-                      src="assets/images/icons/apple.svg"
+                      src={Apple}
                       className="inline-block"
                       alt="google"
                     />
