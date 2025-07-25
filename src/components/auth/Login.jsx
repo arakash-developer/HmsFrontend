@@ -3,7 +3,7 @@ import Apple from "@public/images/icons/apple.svg";
 import Facebook from "@public/images/icons/facebook2.svg";
 import Google from "@public/images/icons/google.svg";
 import Logo from "@public/images/logo-big.svg";
-import SignIn from "@public/images/sign-in.jpg";
+import SignIn from "@public/images/sign-in.webp";
 import whiteLogo from "@public/images/white-logo-big.svg";
 import { useState } from "react";
 import { Link } from "react-router";
