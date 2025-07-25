@@ -84,6 +84,7 @@ const Login = () => {
                 src={SignIn}
                 alt="sign-in-image"
                 className="rounded-[25px]"
+                loading="lazy"
               />
             </div>
             <div className="xl:ltr:pl-[90px] xl:rtl:pr-[90px] 2xl:ltr:pl-[120px] 2xl:rtl:pr-[120px] order-1 lg:order-2">
