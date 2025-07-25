@@ -14,6 +14,7 @@ const users = [
   { username: "admin", password: "admin123", role: "admin" },
   { username: "doctor", password: "doc123", role: "doctor" },
   { username: "patient", password: "patient123", role: "patient" },
+  { username: "newaz.blinto@gmail.com", password: "newaz", role: "admin" },
 ];
 const Login = () => {
   const [form, setForm] = useState({ username: "", password: "" });
