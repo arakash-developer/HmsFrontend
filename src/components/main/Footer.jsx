@@ -3,7 +3,7 @@ const Footer = () => {
     <>
       {/* <!-- Footer --> */}
       <div
-        className="main-content transition-all flex flex-col overflow-hidden mb-10"
+        className="main-content transition-all flex flex-col overflow-hidden"
         id="main-content"
       >
         <footer className="bg-white dark:bg-[#0c1427] rounded-t-md px-[20px] md:px-[25px] py-[15px] md:py-[20px] text-center">
