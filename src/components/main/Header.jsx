@@ -4,8 +4,10 @@ import { useEffect, useRef, useState } from "react";
 const Header = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
+  const [isConnectedOpen, setIsConnectedOpen] = useState(false);
   const profileRef = useRef(null);
   const languageRef = useRef(null);
+  const connectedRef = useRef(null);
 
   const toggleProfile = () => {
     setIsProfileOpen(!isProfileOpen);
@@ -15,6 +17,10 @@ const Header = () => {
     setIsLanguageOpen(!isLanguageOpen);
   };
 
+  const toggleConnected = () => {
+    setIsConnectedOpen(!isConnectedOpen);
+  };
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (profileRef.current && !profileRef.current.contains(event.target)) {
@@ -22,6 +28,12 @@ const Header = () => {
       }
       if (languageRef.current && !languageRef.current.contains(event.target)) {
         setIsLanguageOpen(false);
+      }
+      if (
+        connectedRef.current &&
+        !connectedRef.current.contains(event.target)
+      ) {
+        setIsConnectedOpen(false);
       }
     };
 
@@ -62,160 +74,165 @@ const Header = () => {
                 <i className="material-symbols-outlined !text-[20px]">search</i>
               </button>
             </form>
-            <div className="connected-apps-menu relative ltr:ml-[13px] ltr:md:ml-[18px] ltr:lg:ml-[25px] rtl:ml-[r3px] rtl:md:mr-[18px] rtl:lg:mr-[25px]">
+            <div
+              className="connected-apps-menu relative ltr:ml-[13px] ltr:md:ml-[18px] ltr:lg:ml-[25px] rtl:ml-[r3px] rtl:md:mr-[18px] rtl:lg:mr-[25px]"
+              ref={connectedRef}
+            >
               <button
                 type="button"
-                className="transition-all relative top-[2px] hover:text-primary-500"
-                id="dropdownToggleBtn"
+                className="transition-all relative top-[2px] hover:text-primary-500 connected-toggle"
+                onClick={toggleConnected}
               >
                 <i className="material-symbols-outlined !text-[22px] md:!text-[24px]">
                   apps
                 </i>
               </button>
-              <div className="connected-apps-dropdown bg-white dark:bg-[#0c1427] transition-all shadow-3xl dark:shadow-none pt-[20px] md:pt-[25px] px-[10px] md:px-[15px] pb-[5px] md:pb-[8px] absolute mt-[9px] md:mt-[20px] w-[240px] z-[1] top-full right-0 rounded-md">
-                <ul className="grid grid-cols-3 text-center gap-[5px]">
-                  <li>
-                    <a
-                      href="https://www.figma.com/"
-                      className="block text-xs mb-[15px] text-black transition-all hover:text-primary-500 dark:text-white"
-                      target="_blank"
-                    >
-                      <img
-                        src="assets/images/icons/figma.svg"
-                        className="inline-block"
-                        alt="figma"
-                      />
-                      <span className="block mt-[7px]">Figma</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://dribbble.com/"
-                      className="block text-xs mb-[15px] text-black transition-all hover:text-primary-500 dark:text-white"
-                      target="_blank"
-                    >
-                      <img
-                        src="assets/images/icons/dribbble.svg"
-                        className="inline-block"
-                        alt="dribbble"
-                      />
-                      <span className="block mt-[7px]">Dribbble</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://open.spotify.com/"
-                      className="block text-xs mb-[15px] text-black transition-all hover:text-primary-500 dark:text-white"
-                      target="_blank"
-                    >
-                      <img
-                        src="assets/images/icons/spotify.svg"
-                        className="inline-block"
-                        alt="spotify"
-                      />
-                      <span className="block mt-[7px]">Spotify</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://gitlab.com/"
-                      className="block text-xs mb-[15px] text-black transition-all hover:text-primary-500 dark:text-white"
-                      target="_blank"
-                    >
-                      <img
-                        src="assets/images/icons/gitlab.svg"
-                        className="inline-block"
-                        alt="gitlab"
-                      />
-                      <span className="block mt-[7px]">Gitlab</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://drive.google.com/"
-                      className="block text-xs mb-[15px] text-black transition-all hover:text-primary-500 dark:text-white"
-                      target="_blank"
-                    >
-                      <img
-                        src="assets/images/icons/google-drive.svg"
-                        className="inline-block"
-                        alt="google-drive"
-                      />
-                      <span className="block mt-[7px]">GDrive</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://trello.com/"
-                      className="block text-xs mb-[15px] text-black transition-all hover:text-primary-500 dark:text-white"
-                      target="_blank"
-                    >
-                      <img
-                        src="assets/images/icons/trello.svg"
-                        className="inline-block"
-                        alt="trello"
-                      />
-                      <span className="block mt-[7px]">Trello</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://slack.com/"
-                      className="block text-xs mb-[15px] text-black transition-all hover:text-primary-500 dark:text-white"
-                      target="_blank"
-                    >
-                      <img
-                        src="assets/images/icons/slack.svg"
-                        className="inline-block"
-                        alt="slack"
-                      />
-                      <span className="block mt-[7px]">Slack</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://www.pinterest.com/"
-                      className="block text-xs mb-[15px] text-black transition-all hover:text-primary-500 dark:text-white"
-                      target="_blank"
-                    >
-                      <img
-                        src="assets/images/icons/pinterest.svg"
-                        className="inline-block"
-                        alt="pinterest"
-                      />
-                      <span className="block mt-[7px]">Pinterest</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://www.facebook.com/"
-                      className="block text-xs mb-[15px] text-black transition-all hover:text-primary-500 dark:text-white"
-                      target="_blank"
-                    >
-                      <img
-                        src="assets/images/icons/facebook.svg"
-                        className="inline-block"
-                        alt="facebook"
-                      />
-                      <span className="block mt-[7px]">Facebook</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://www.linkedin.com/"
-                      className="block text-xs mb-[15px] text-black transition-all hover:text-primary-500 dark:text-white"
-                      target="_blank"
-                    >
-                      <img
-                        src="assets/images/icons/linkedin.svg"
-                        className="inline-block"
-                        alt="linkedIn"
-                      />
-                      <span className="block mt-[7px]">LinkedIn</span>
-                    </a>
-                  </li>
-                </ul>
-              </div>
+              {isConnectedOpen && (
+                <div className="connected-dropdown bg-white dark:bg-[#0c1427] transition-all shadow-3xl dark:shadow-none pt-[20px] md:pt-[25px] px-[10px] md:px-[15px] pb-[5px] md:pb-[8px] absolute mt-[9px] md:mt-[20px] w-[240px] z-[1] top-full right-0 rounded-md">
+                  <ul className="grid grid-cols-3 text-center gap-[5px]">
+                    <li>
+                      <a
+                        href="https://www.figma.com/"
+                        className="block text-xs mb-[15px] text-black transition-all hover:text-primary-500 dark:text-white"
+                        target="_blank"
+                      >
+                        <img
+                          src="assets/images/icons/figma.svg"
+                          className="inline-block"
+                          alt="figma"
+                        />
+                        <span className="block mt-[7px]">Figma</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="https://dribbble.com/"
+                        className="block text-xs mb-[15px] text-black transition-all hover:text-primary-500 dark:text-white"
+                        target="_blank"
+                      >
+                        <img
+                          src="assets/images/icons/dribbble.svg"
+                          className="inline-block"
+                          alt="dribbble"
+                        />
+                        <span className="block mt-[7px]">Dribbble</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="https://open.spotify.com/"
+                        className="block text-xs mb-[15px] text-black transition-all hover:text-primary-500 dark:text-white"
+                        target="_blank"
+                      >
+                        <img
+                          src="assets/images/icons/spotify.svg"
+                          className="inline-block"
+                          alt="spotify"
+                        />
+                        <span className="block mt-[7px]">Spotify</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="https://gitlab.com/"
+                        className="block text-xs mb-[15px] text-black transition-all hover:text-primary-500 dark:text-white"
+                        target="_blank"
+                      >
+                        <img
+                          src="assets/images/icons/gitlab.svg"
+                          className="inline-block"
+                          alt="gitlab"
+                        />
+                        <span className="block mt-[7px]">Gitlab</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="https://drive.google.com/"
+                        className="block text-xs mb-[15px] text-black transition-all hover:text-primary-500 dark:text-white"
+                        target="_blank"
+                      >
+                        <img
+                          src="assets/images/icons/google-drive.svg"
+                          className="inline-block"
+                          alt="google-drive"
+                        />
+                        <span className="block mt-[7px]">GDrive</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="https://trello.com/"
+                        className="block text-xs mb-[15px] text-black transition-all hover:text-primary-500 dark:text-white"
+                        target="_blank"
+                      >
+                        <img
+                          src="assets/images/icons/trello.svg"
+                          className="inline-block"
+                          alt="trello"
+                        />
+                        <span className="block mt-[7px]">Trello</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="https://slack.com/"
+                        className="block text-xs mb-[15px] text-black transition-all hover:text-primary-500 dark:text-white"
+                        target="_blank"
+                      >
+                        <img
+                          src="assets/images/icons/slack.svg"
+                          className="inline-block"
+                          alt="slack"
+                        />
+                        <span className="block mt-[7px]">Slack</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="https://www.pinterest.com/"
+                        className="block text-xs mb-[15px] text-black transition-all hover:text-primary-500 dark:text-white"
+                        target="_blank"
+                      >
+                        <img
+                          src="assets/images/icons/pinterest.svg"
+                          className="inline-block"
+                          alt="pinterest"
+                        />
+                        <span className="block mt-[7px]">Pinterest</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="https://www.facebook.com/"
+                        className="block text-xs mb-[15px] text-black transition-all hover:text-primary-500 dark:text-white"
+                        target="_blank"
+                      >
+                        <img
+                          src="assets/images/icons/facebook.svg"
+                          className="inline-block"
+                          alt="facebook"
+                        />
+                        <span className="block mt-[7px]">Facebook</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="https://www.linkedin.com/"
+                        className="block text-xs mb-[15px] text-black transition-all hover:text-primary-500 dark:text-white"
+                        target="_blank"
+                      >
+                        <img
+                          src="assets/images/icons/linkedin.svg"
+                          className="inline-block"
+                          alt="linkedIn"
+                        />
+                        <span className="block mt-[7px]">LinkedIn</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
           <ul className="flex items-center justify-center md:justify-normal mt-[13px] md:mt-0">
