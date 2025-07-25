@@ -1,5 +1,27 @@
 import Admin from "@public/images/admin.png";
+import { useEffect, useRef, useState } from "react";
+
 const Header = () => {
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const profileRef = useRef(null);
+
+  const toggleProfile = () => {
+    setIsProfileOpen(!isProfileOpen);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (profileRef.current && !profileRef.current.contains(event.target)) {
+        setIsProfileOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <>
       {/* <!-- Header --> */}
@@ -391,11 +413,14 @@ const Header = () => {
                 </div>
               </div>
             </li>
-            <li className="relative profile-menu mx-[8px] md:mx-[10px] lg:mx-[12px] ltr:first:ml-0 ltr:last:mr-0 rtl:first:mr-0 rtl:last:ml-0">
+            <li
+              className="relative profile-menu mx-[8px] md:mx-[10px] lg:mx-[12px] ltr:first:ml-0 ltr:last:mr-0 rtl:first:mr-0 rtl:last:ml-0"
+              ref={profileRef}
+            >
               <button
                 type="button"
-                className="flex items-center -mx-[5px] relative ltr:pr-[14px] rtl:pl-[14px] text-black dark:text-white"
-                id="dropdownToggleBtn"
+                className="flex items-center -mx-[5px] relative ltr:pr-[14px] rtl:pl-[14px] text-black dark:text-white profile-toggle"
+                onClick={toggleProfile}
               >
                 <img
                   src={Admin}
@@ -407,114 +432,116 @@ const Header = () => {
                 </span>
                 <i className="ri-arrow-down-s-line text-[15px] absolute ltr:-right-[3px] rtl:-left-[3px] top-1/2 -translate-y-1/2 mt-px"></i>
               </button>
-              <div className="profile-dropdown bg-white dark:bg-[#0c1427] transition-all shadow-3xl dark:shadow-none py-[22px] absolute mt-[13px] md:mt-[14px] w-[195px] z-[1] top-full ltr:right-0 rtl:left-0 rounded-md">
-                <div className="flex items-center border-b border-gray-100 dark:border-[#172036] pb-[12px] mx-[20px] mb-[10px]">
-                  <img
-                    src={Admin}
-                    className="rounded-full w-[31px] h-[31px] ltr:mr-[9px] rtl:ml-[9px] border-2 border-primary-200 inline-block"
-                    alt="admin-image"
-                  />
-                  <div>
-                    <span className="block text-black dark:text-white font-medium">
-                      Olivia John
-                    </span>
-                    <span className="block text-xs">Marketing Manager</span>
+              {isProfileOpen && (
+                <div className="profile-dropdown bg-white dark:bg-[#0c1427] transition-all shadow-3xl dark:shadow-none py-[22px] absolute mt-[13px] md:mt-[14px] w-[195px] z-[1] top-full ltr:right-0 rtl:left-0 rounded-md">
+                  <div className="flex items-center border-b border-gray-100 dark:border-[#172036] pb-[12px] mx-[20px] mb-[10px]">
+                    <img
+                      src={Admin}
+                      className="rounded-full w-[31px] h-[31px] ltr:mr-[9px] rtl:ml-[9px] border-2 border-primary-200 inline-block"
+                      alt="admin-image"
+                    />
+                    <div>
+                      <span className="block text-black dark:text-white font-medium">
+                        Olivia John
+                      </span>
+                      <span className="block text-xs">Marketing Manager</span>
+                    </div>
                   </div>
+                  <ul>
+                    <li>
+                      <a
+                        href="my-profile.html"
+                        className="block relative py-[7px] ltr:pl-[50px] ltr:pr-[20px] rtl:pr-[50px] rtl:pl-[20px] text-black dark:text-white transition-all hover:text-primary-500"
+                      >
+                        <i className="material-symbols-outlined top-1/2 -translate-y-1/2 !text-[22px] absolute ltr:left-[20px] rtl:right-[20px]">
+                          account_circle
+                        </i>
+                        My Profile
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="chat.html"
+                        className="block relative py-[7px] ltr:pl-[50px] ltr:pr-[20px] rtl:pr-[50px] rtl:pl-[20px] text-black dark:text-white transition-all hover:text-primary-500"
+                      >
+                        <i className="material-symbols-outlined top-1/2 -translate-y-1/2 !text-[22px] absolute ltr:left-[20px] rtl:right-[20px]">
+                          chat
+                        </i>
+                        Messages
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="to-do-list.html"
+                        className="block relative py-[7px] ltr:pl-[50px] ltr:pr-[20px] rtl:pr-[50px] rtl:pl-[20px] text-black dark:text-white transition-all hover:text-primary-500"
+                      >
+                        <i className="material-symbols-outlined top-1/2 -translate-y-1/2 !text-[22px] absolute ltr:left-[20px] rtl:right-[20px]">
+                          format_list_bulleted
+                        </i>
+                        My Task
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="checkout.html"
+                        className="block relative py-[7px] ltr:pl-[50px] ltr:pr-[20px] rtl:pr-[50px] rtl:pl-[20px] text-black dark:text-white transition-all hover:text-primary-500"
+                      >
+                        <i className="material-symbols-outlined top-1/2 -translate-y-1/2 !text-[22px] absolute ltr:left-[20px] rtl:right-[20px]">
+                          credit_card
+                        </i>
+                        Billing
+                      </a>
+                    </li>
+                  </ul>
+                  <div className="border-t border-gray-100 dark:border-[#172036] mx-[20px] my-[9px]"></div>
+                  <ul>
+                    <li>
+                      <a
+                        href="settings.html"
+                        className="block relative py-[7px] ltr:pl-[50px] ltr:pr-[20px] rtl:pr-[50px] rtl:pl-[20px] text-black dark:text-white transition-all hover:text-primary-500"
+                      >
+                        <i className="material-symbols-outlined top-1/2 -translate-y-1/2 !text-[22px] absolute ltr:left-[20px] rtl:right-[20px]">
+                          settings
+                        </i>
+                        Settings
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="faq.html"
+                        className="block relative py-[7px] ltr:pl-[50px] ltr:pr-[20px] rtl:pr-[50px] rtl:pl-[20px] text-black dark:text-white transition-all hover:text-primary-500"
+                      >
+                        <i className="material-symbols-outlined top-1/2 -translate-y-1/2 !text-[22px] absolute ltr:left-[20px] rtl:right-[20px]">
+                          support
+                        </i>
+                        Support
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="lock-screen.html"
+                        className="block relative py-[7px] ltr:pl-[50px] ltr:pr-[20px] rtl:pr-[50px] rtl:pl-[20px] text-black dark:text-white transition-all hover:text-primary-500"
+                      >
+                        <i className="material-symbols-outlined top-1/2 -translate-y-1/2 !text-[22px] absolute ltr:left-[20px] rtl:right-[20px]">
+                          lock
+                        </i>
+                        Lock Screen
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="logout.html"
+                        className="block relative py-[7px] ltr:pl-[50px] ltr:pr-[20px] rtl:pr-[50px] rtl:pl-[20px] text-black dark:text-white transition-all hover:text-primary-500"
+                      >
+                        <i className="material-symbols-outlined top-1/2 -translate-y-1/2 !text-[22px] absolute ltr:left-[20px] rtl:right-[20px]">
+                          logout
+                        </i>
+                        Logout
+                      </a>
+                    </li>
+                  </ul>
                 </div>
-                <ul>
-                  <li>
-                    <a
-                      href="my-profile.html"
-                      className="block relative py-[7px] ltr:pl-[50px] ltr:pr-[20px] rtl:pr-[50px] rtl:pl-[20px] text-black dark:text-white transition-all hover:text-primary-500"
-                    >
-                      <i className="material-symbols-outlined top-1/2 -translate-y-1/2 !text-[22px] absolute ltr:left-[20px] rtl:right-[20px]">
-                        account_circle
-                      </i>
-                      My Profile
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="chat.html"
-                      className="block relative py-[7px] ltr:pl-[50px] ltr:pr-[20px] rtl:pr-[50px] rtl:pl-[20px] text-black dark:text-white transition-all hover:text-primary-500"
-                    >
-                      <i className="material-symbols-outlined top-1/2 -translate-y-1/2 !text-[22px] absolute ltr:left-[20px] rtl:right-[20px]">
-                        chat
-                      </i>
-                      Messages
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="to-do-list.html"
-                      className="block relative py-[7px] ltr:pl-[50px] ltr:pr-[20px] rtl:pr-[50px] rtl:pl-[20px] text-black dark:text-white transition-all hover:text-primary-500"
-                    >
-                      <i className="material-symbols-outlined top-1/2 -translate-y-1/2 !text-[22px] absolute ltr:left-[20px] rtl:right-[20px]">
-                        format_list_bulleted
-                      </i>
-                      My Task
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="checkout.html"
-                      className="block relative py-[7px] ltr:pl-[50px] ltr:pr-[20px] rtl:pr-[50px] rtl:pl-[20px] text-black dark:text-white transition-all hover:text-primary-500"
-                    >
-                      <i className="material-symbols-outlined top-1/2 -translate-y-1/2 !text-[22px] absolute ltr:left-[20px] rtl:right-[20px]">
-                        credit_card
-                      </i>
-                      Billing
-                    </a>
-                  </li>
-                </ul>
-                <div className="border-t border-gray-100 dark:border-[#172036] mx-[20px] my-[9px]"></div>
-                <ul>
-                  <li>
-                    <a
-                      href="settings.html"
-                      className="block relative py-[7px] ltr:pl-[50px] ltr:pr-[20px] rtl:pr-[50px] rtl:pl-[20px] text-black dark:text-white transition-all hover:text-primary-500"
-                    >
-                      <i className="material-symbols-outlined top-1/2 -translate-y-1/2 !text-[22px] absolute ltr:left-[20px] rtl:right-[20px]">
-                        settings
-                      </i>
-                      Settings
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="faq.html"
-                      className="block relative py-[7px] ltr:pl-[50px] ltr:pr-[20px] rtl:pr-[50px] rtl:pl-[20px] text-black dark:text-white transition-all hover:text-primary-500"
-                    >
-                      <i className="material-symbols-outlined top-1/2 -translate-y-1/2 !text-[22px] absolute ltr:left-[20px] rtl:right-[20px]">
-                        support
-                      </i>
-                      Support
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="lock-screen.html"
-                      className="block relative py-[7px] ltr:pl-[50px] ltr:pr-[20px] rtl:pr-[50px] rtl:pl-[20px] text-black dark:text-white transition-all hover:text-primary-500"
-                    >
-                      <i className="material-symbols-outlined top-1/2 -translate-y-1/2 !text-[22px] absolute ltr:left-[20px] rtl:right-[20px]">
-                        lock
-                      </i>
-                      Lock Screen
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="logout.html"
-                      className="block relative py-[7px] ltr:pl-[50px] ltr:pr-[20px] rtl:pr-[50px] rtl:pl-[20px] text-black dark:text-white transition-all hover:text-primary-500"
-                    >
-                      <i className="material-symbols-outlined top-1/2 -translate-y-1/2 !text-[22px] absolute ltr:left-[20px] rtl:right-[20px]">
-                        logout
-                      </i>
-                      Logout
-                    </a>
-                  </li>
-                </ul>
-              </div>
+              )}
             </li>
             <li className="relative settings-menu mx-[8px] md:mx-[10px] lg:mx-[12px] ltr:first:ml-0 ltr:last:mr-0 rtl:first:mr-0 rtl:last:ml-0">
               <button
