@@ -1,38 +1,40 @@
-import Dashboard from "@/components/admin/Dashboard";
+import { createBrowserRouter } from "react-router-dom";
+
+import DashboardLayout from "@/layouts/DashboardLayout";
+import Layout from "@/layouts/Layout";
+
 import Login from "@/components/auth/Login";
 import Register from "@/components/auth/Register";
-import DashboardLayout from "@/layouts/DashboardLayout";
-import Layout from "@layouts/Layout";
-import { createBrowserRouter } from "react-router-dom";
+
+import Dashboard from "@/components/admin/Dashboard";
+import ProtectedRoute from "@/routes/ProtectedRoute";
 
 const routes = [
   {
     path: "/",
     element: <Layout />,
     children: [
-      {
-        index: true,
-        element: <Login />,
-      },
-      {
-        path: "/register",
-        element: <Register />,
-      },
+      { index: true, element: <Login /> },
+      { path: "register", element: <Register /> },
     ],
   },
   {
-    path: "/dashboard",
-    element: <DashboardLayout />,
+    element: <ProtectedRoute allowedRoles={["admin", "doctor", "patient"]} />,
     children: [
       {
-        index: true,
-        element: <Dashboard />,
+        path: "/dashboard",
+        element: <DashboardLayout />,
+        children: [
+          { path: "admin", element: <Dashboard /> },
+          // { path: "doctor", element: <DoctorDashboard /> },
+          // { path: "patient", element: <PatientDashboard /> },
+        ],
       },
     ],
   },
   {
     path: "*",
-    // element: <NotFound />,
+    element: <div>404 | Page Not Found</div>,
   },
 ];
 

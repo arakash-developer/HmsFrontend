@@ -1,11 +1,51 @@
+import { useAuth } from "@contexts/AuthContext";
 import Apple from "@public/images/icons/apple.svg";
 import Facebook from "@public/images/icons/facebook2.svg";
 import Google from "@public/images/icons/google.svg";
 import Logo from "@public/images/logo-big.svg";
 import SignIn from "@public/images/sign-in.jpg";
 import whiteLogo from "@public/images/white-logo-big.svg";
+import { useState } from "react";
 import { Link } from "react-router";
+import { useNavigate } from "react-router-dom";
+
+const users = [
+  { username: "admin", password: "admin123", role: "admin" },
+  { username: "doctor", password: "doc123", role: "doctor" },
+  { username: "patient", password: "patient123", role: "patient" },
+];
 const Login = () => {
+  const [form, setForm] = useState({ username: "", password: "" });
+  const [error, setError] = useState("");
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
+ const handleSubmit = (e) => {
+  e.preventDefault();
+  const foundUser = users.find(
+    (u) => u.username === form.username && u.password === form.password
+  );
+
+  if (!foundUser) {
+    setError("Invalid username or password");
+    return;
+  }
+
+  const tokenPayload = {
+    username: foundUser.username,
+    role: foundUser.role,
+    exp: Math.floor(Date.now() / 1000) + 3600, // 1 hour expiry
+  };
+
+  const fakeToken = [
+    "header",
+    btoa(JSON.stringify(tokenPayload)),
+    "signature"
+  ].join('.');
+
+  login(fakeToken);
+  navigate(`/dashboard/${foundUser.role}`);
+};
   return (
     <>
       {/* <!-- Light/Dark Mode Button --> */}
@@ -78,6 +118,9 @@ const Login = () => {
                 </label>
                 <input
                   type="text"
+                  onChange={(e) =>
+                    setForm({ ...form, username: e.target.value })
+                  }
                   className="h-[55px] rounded-md text-black dark:text-white border border-gray-200 dark:border-[#172036] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:border-primary-500"
                   placeholder="example@trezo.com"
                 />
@@ -89,6 +132,9 @@ const Login = () => {
                 <div className="relative">
                   <input
                     type="password"
+                    onChange={(e) =>
+                      setForm({ ...form, password: e.target.value })
+                    }
                     className="h-[55px] rounded-md text-black dark:text-white border border-gray-200 dark:border-[#172036] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:border-primary-500"
                     id="password"
                     placeholder="Type password"
@@ -108,15 +154,15 @@ const Login = () => {
               >
                 Forgot Password?
               </a>
-              <Link
-                to={"/dashboard"}
+              <button
+                onClick={handleSubmit}
                 className="md:text-md block w-full text-center transition-all rounded-md font-medium mt-[20px] md:mt-[25px] py-[12px] px-[25px] text-white bg-primary-500 hover:bg-primary-400"
               >
                 <span className="flex items-center justify-center gap-[5px]">
                   <i className="material-symbols-outlined">login</i>
                   Sign In
                 </span>
-              </Link>
+              </button>
               <p className="mt-[15px] md:mt-[20px]">
                 Don’t have an account.{" "}
                 <Link
