@@ -6,10 +6,12 @@ const Header = () => {
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
   const [isConnectedOpen, setIsConnectedOpen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const profileRef = useRef(null);
   const languageRef = useRef(null);
   const connectedRef = useRef(null);
   const notificationsRef = useRef(null);
+  const settingsRef = useRef(null);
 
   const toggleProfile = () => {
     setIsProfileOpen(!isProfileOpen);
@@ -25,6 +27,10 @@ const Header = () => {
 
   const toggleNotifications = () => {
     setIsNotificationsOpen(!isNotificationsOpen);
+  };
+
+  const toggleSettings = () => {
+    setIsSettingsOpen(!isSettingsOpen);
   };
 
   useEffect(() => {
@@ -46,6 +52,9 @@ const Header = () => {
         !notificationsRef.current.contains(event.target)
       ) {
         setIsNotificationsOpen(false);
+      }
+      if (settingsRef.current && !settingsRef.current.contains(event.target)) {
+        setIsSettingsOpen(false);
       }
     };
 
@@ -591,28 +600,33 @@ const Header = () => {
                 </div>
               )}
             </li>
-            <li className="relative settings-menu mx-[8px] md:mx-[10px] lg:mx-[12px] ltr:first:ml-0 ltr:last:mr-0 rtl:first:mr-0 rtl:last:ml-0">
+            <li
+              className="relative settings-menu mx-[8px] md:mx-[10px] lg:mx-[12px] ltr:first:ml-0 ltr:last:mr-0 rtl:first:mr-0 rtl:last:ml-0"
+              ref={settingsRef}
+            >
               <button
                 type="button"
-                className="leading-none inline-block transition-all relative top-[2px] hover:text-primary-500"
-                id="dropdownToggleBtn"
+                className="settings-menu-button leading-none inline-block transition-all relative top-[2px] hover:text-primary-500"
+                onClick={toggleSettings}
               >
                 <i className="material-symbols-outlined !text-[22px] md:!text-[24px]">
                   settings
                 </i>
               </button>
-              <div className="settings-menu-dropdown bg-white dark:bg-[#0c1427] transition-all shadow-3xl dark:shadow-none p-[20px] absolute mt-[17px] md:mt-[20px] w-[195px] z-[1] top-full ltr:right-0 rtl:left-0 rounded-md">
-                <button
-                  type="button"
-                  className="rtl-mode-toggle flex items-center text-black dark:text-white font-medium"
-                  id="rtl-mode-toggle"
-                >
-                  RTL Mode:
-                  <span className="inline-block relative rounded-full w-[35px] h-[20px] bg-gray-50 dark:bg-[#0a0e19] ltr:ml-[10px] rtl:mr-[10px]">
-                    <span className="inline-block transition-all absolute h-[12px] w-[12px] bg-black dark:bg-white rounded-full top-1/2 -translate-y-1/2"></span>
-                  </span>
-                </button>
-              </div>
+              {isSettingsOpen && (
+                <div className="settings-dropdown bg-white dark:bg-[#0c1427] transition-all shadow-3xl dark:shadow-none p-[20px] absolute mt-[17px] md:mt-[20px] w-[195px] z-[1] top-full ltr:right-0 rtl:left-0 rounded-md">
+                  <button
+                    type="button"
+                    className="rtl-mode-toggle flex items-center text-black dark:text-white font-medium"
+                    id="rtl-mode-toggle"
+                  >
+                    RTL Mode:
+                    <span className="inline-block relative rounded-full w-[35px] h-[20px] bg-gray-50 dark:bg-[#0a0e19] ltr:ml-[10px] rtl:mr-[10px]">
+                      <span className="inline-block transition-all absolute h-[12px] w-[12px] bg-black dark:bg-white rounded-full top-1/2 -translate-y-1/2"></span>
+                    </span>
+                  </button>
+                </div>
+              )}
             </li>
           </ul>
         </div>
