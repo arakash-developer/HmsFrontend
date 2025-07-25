@@ -7,6 +7,9 @@ const Header = () => {
   const [isConnectedOpen, setIsConnectedOpen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(
+    localStorage.getItem("darkMode") === "true"
+  );
   const profileRef = useRef(null);
   const languageRef = useRef(null);
   const connectedRef = useRef(null);
@@ -36,6 +39,17 @@ const Header = () => {
   const handleLogout = () => {
     localStorage.removeItem("token"); // Remove token from localStorage
     window.location.href = "/"; // Redirect to login page
+  };
+
+  useEffect(() => {
+    // Apply dark mode class to html element
+    document.documentElement.classList.toggle("dark", isDarkMode);
+    // Store preference
+    localStorage.setItem("darkMode", isDarkMode);
+  }, [isDarkMode]);
+
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
   };
 
   useEffect(() => {
@@ -266,10 +280,10 @@ const Header = () => {
               <button
                 type="button"
                 className="light-dark-toggle leading-none inline-block transition-all relative top-[2px] text-[#fe7a36]"
-                id="light-dark-toggle"
+                onClick={toggleDarkMode}
               >
                 <i className="material-symbols-outlined !text-[20px] md:!text-[22px]">
-                  light_mode
+                  {isDarkMode ? "dark_mode" : "light_mode"}
                 </i>
               </button>
             </li>
