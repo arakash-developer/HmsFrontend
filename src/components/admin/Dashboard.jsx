@@ -1,6 +1,8 @@
-import React from 'react'
+import CrmRevenueGrothChart from "@/libs/CrmRevenueGrothChart"
+
 
 const Dashboard = () => {
+   
   return (
     <>
     
@@ -20,6 +22,7 @@ const Dashboard = () => {
                         </h5>
                         <div class="absolute -top-[28px] ltr:-right-[9px] rtl:-left-[9px] max-w-[120px]">
                             <div id="crmRevenueGrowthChart"></div>
+                            <CrmRevenueGrothChart />
                         </div>
                         <div class="mt-[25px] md:mt-[34px] flex items-center justify-between">
                             <span class="inline-block text-sm text-success-700 py-[1px] px-[8.3px] border border-success-300 bg-success-100 dark:bg-[#15203c] dark:border-[#172036] rounded-xl">
