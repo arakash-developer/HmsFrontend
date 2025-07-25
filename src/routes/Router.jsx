@@ -1,6 +1,7 @@
 import Dashboard from "@/components/admin/Dashboard";
 import Login from "@/components/auth/Login";
 import Register from "@/components/auth/Register";
+import DashboardLayout from "@/layouts/DashboardLayout";
 import Layout from "@layouts/Layout";
 import { createBrowserRouter } from "react-router-dom";
 
@@ -17,11 +18,16 @@ const routes = [
         path: "/register",
         element: <Register />,
       },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: <DashboardLayout />,
+    children: [
       {
-        path:"/dashboard",
+        index: true,
         element: <Dashboard />,
-
-      }
+      },
     ],
   },
   {
