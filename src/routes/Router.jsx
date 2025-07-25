@@ -30,7 +30,7 @@ const routes = [
     element: <ProtectedRoute allowedRoles={["admin"]} />,
     children: [
       {
-        path: "/dashboard",
+        path: "/",
         element: <DashboardLayout />,
         children: [
           { path: "admin", element: <AdminDashboard /> },
@@ -44,7 +44,7 @@ const routes = [
     element: <ProtectedRoute allowedRoles={["superadmin"]} />,
     children: [
       {
-        path: "/dashboard",
+        path: "/",
         element: <DashboardLayout />,
         children: [{ path: "superadmin", element: <SuperAdminDashboard /> }],
       },

@@ -7,8 +7,8 @@ const PublicRoute = () => {
 
   if (loading) return <div>Loading...</div>;
 
-  if (user?.role === "admin") return <Navigate to="/dashboard/admin" />;
-  if (user?.role === "superadmin") return <Navigate to="/dashboard/superadmin" />;
+  if (user?.role === "admin") return <Navigate to="/admin" />;
+  if (user?.role === "superadmin") return <Navigate to="/superadmin" />;
 
   return <Outlet />;
 };

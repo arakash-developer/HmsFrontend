@@ -45,7 +45,7 @@ const Login = () => {
   ].join('.');
 
   login(fakeToken);
-  navigate(`/dashboard/${foundUser.role}`);
+  navigate(`/${foundUser.role}`);
 };
   return (
     <>
