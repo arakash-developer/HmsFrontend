@@ -1,9 +1,10 @@
-import SignIn from "@public/images/sign-in.jpg"
-import Logo from "@public/images/logo-big.svg"
-import whiteLogo from "@public/images/white-logo-big.svg"
-import Google from "@public/images/icons/google.svg"
-import Apple from "@public/images/icons/apple.svg"
-import Facebook from "@public/images/icons/facebook2.svg"
+import Apple from "@public/images/icons/apple.svg";
+import Facebook from "@public/images/icons/facebook2.svg";
+import Google from "@public/images/icons/google.svg";
+import Logo from "@public/images/logo-big.svg";
+import SignIn from "@public/images/sign-in.jpg";
+import whiteLogo from "@public/images/white-logo-big.svg";
+import { Link } from "react-router";
 const Login = () => {
   return (
     <>
@@ -31,11 +32,7 @@ const Login = () => {
               />
             </div>
             <div className="xl:ltr:pl-[90px] xl:rtl:pr-[90px] 2xl:ltr:pl-[120px] 2xl:rtl:pr-[120px] order-1 lg:order-2">
-              <img
-                src={Logo}
-                alt="logo"
-                className="inline-block dark:hidden"
-              />
+              <img src={Logo} alt="logo" className="inline-block dark:hidden" />
               <img
                 src={whiteLogo}
                 alt="logo"
@@ -55,11 +52,7 @@ const Login = () => {
                     type="button"
                     className="block text-center w-full rounded-md transition-all py-[8px] md:py-[10.5px] px-[15px] md:px-[25px] text-black dark:text-white border border-[#D6DAE1] bg-white dark:bg-[#0a0e19] dark:border-[#172036] shadow-sm hover:border-primary-500"
                   >
-                    <img
-                      src={Google}
-                      className="inline-block"
-                      alt="google"
-                    />
+                    <img src={Google} className="inline-block" alt="google" />
                   </button>
                 </div>
                 <div className="grow">
@@ -67,11 +60,7 @@ const Login = () => {
                     type="button"
                     className="block text-center w-full rounded-md transition-all py-[8px] md:py-[10.5px] px-[15px] md:px-[25px] text-black dark:text-white border border-[#D6DAE1] bg-white dark:bg-[#0a0e19] dark:border-[#172036] shadow-sm hover:border-primary-500"
                   >
-                    <img
-                      src={Facebook}
-                      className="inline-block"
-                      alt="google"
-                    />
+                    <img src={Facebook} className="inline-block" alt="google" />
                   </button>
                 </div>
                 <div className="grow">
@@ -79,11 +68,7 @@ const Login = () => {
                     type="button"
                     className="block text-center w-full rounded-md transition-all py-[8px] md:py-[10.5px] px-[15px] md:px-[25px] text-black dark:text-white border border-[#D6DAE1] bg-white dark:bg-[#0a0e19] dark:border-[#172036] shadow-sm hover:border-primary-500"
                   >
-                    <img
-                      src={Apple}
-                      className="inline-block"
-                      alt="google"
-                    />
+                    <img src={Apple} className="inline-block" alt="google" />
                   </button>
                 </div>
               </div>
@@ -123,23 +108,23 @@ const Login = () => {
               >
                 Forgot Password?
               </a>
-              <button
-                type="submit"
+              <Link
+                to={"/dashboard"}
                 className="md:text-md block w-full text-center transition-all rounded-md font-medium mt-[20px] md:mt-[25px] py-[12px] px-[25px] text-white bg-primary-500 hover:bg-primary-400"
               >
                 <span className="flex items-center justify-center gap-[5px]">
                   <i className="material-symbols-outlined">login</i>
                   Sign In
                 </span>
-              </button>
+              </Link>
               <p className="mt-[15px] md:mt-[20px]">
                 Don’t have an account.{" "}
-                <a
-                  href="sign-up.html"
+                <Link
+                  to={"/register"}
                   className="text-primary-500 transition-all font-semibold hover:underline"
                 >
                   Sign Up
-                </a>
+                </Link>
               </p>
             </div>
           </div>
