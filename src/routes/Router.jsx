@@ -1,3 +1,4 @@
+import Dashboard from "@/components/admin/Dashboard";
 import Login from "@/components/auth/Login";
 import Register from "@/components/auth/Register";
 import Layout from "@layouts/Layout";
@@ -16,6 +17,11 @@ const routes = [
         path: "/register",
         element: <Register />,
       },
+      {
+        path:"/dashboard",
+        element: <Dashboard />,
+
+      }
     ],
   },
   {
