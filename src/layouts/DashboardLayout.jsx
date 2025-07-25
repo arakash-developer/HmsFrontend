@@ -11,7 +11,7 @@ export default function DashboardLayout() {
                 <a href="index.html" className="transition-none relative flex items-center">
                     <img src={Logo} alt="logo-icon" />
                     <span className="font-bold text-black dark:text-white relative ltr:ml-[8px] rtl:mr-[8px] top-px text-xl">
-                        Trezo
+                        4HMI
                     </span>
                 </a>
                 <button type="button" className="burger-menu inline-block absolute z-[3] top-[24px] ltr:right-[25px] rtl:left-[25px] transition-all hover:text-primary-500" id="hide-sidebar-toggle2">
