@@ -33,6 +33,11 @@ const Header = () => {
     setIsSettingsOpen(!isSettingsOpen);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("token"); // Remove token from localStorage
+    window.location.href = "/"; // Redirect to login page
+  };
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (profileRef.current && !profileRef.current.contains(event.target)) {
@@ -585,16 +590,16 @@ const Header = () => {
                         Lock Screen
                       </a>
                     </li>
-                    <li>
-                      <a
-                        href="logout.html"
-                        className="block relative py-[7px] ltr:pl-[50px] ltr:pr-[20px] rtl:pr-[50px] rtl:pl-[20px] text-black dark:text-white transition-all hover:text-primary-500"
+                    <li className="logout-button">
+                      <div
+                        onClick={handleLogout}
+                        className="block relative py-[7px] cursor-pointer ltr:pl-[50px] ltr:pr-[20px] rtl:pr-[50px] rtl:pl-[20px] text-black dark:text-white transition-all hover:text-primary-500"
                       >
                         <i className="material-symbols-outlined top-1/2 -translate-y-1/2 !text-[22px] absolute ltr:left-[20px] rtl:right-[20px]">
                           logout
                         </i>
                         Logout
-                      </a>
+                      </div>
                     </li>
                   </ul>
                 </div>
