@@ -10,6 +10,7 @@ const Header = () => {
   const [isDarkMode, setIsDarkMode] = useState(
     localStorage.getItem("darkMode") === "true"
   );
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const profileRef = useRef(null);
   const languageRef = useRef(null);
   const connectedRef = useRef(null);
@@ -39,6 +40,20 @@ const Header = () => {
   const handleLogout = () => {
     localStorage.removeItem("token"); // Remove token from localStorage
     window.location.href = "/"; // Redirect to login page
+  };
+
+  const toggleFullScreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch((e) => {
+        console.log(`Error attempting to enable fullscreen: ${e.message}`);
+      });
+      setIsFullscreen(true);
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+        setIsFullscreen(false);
+      }
+    }
   };
 
   useEffect(() => {
@@ -389,14 +404,11 @@ const Header = () => {
             <li className="relative mx-[8px] md:mx-[10px] lg:mx-[12px] ltr:first:ml-0 ltr:last:mr-0 rtl:first:mr-0 rtl:last:ml-0">
               <button
                 type="button"
-                className="leading-none inline-block transition-all relative top-[2px] hover:text-primary-500"
-                id="fullscreenBtn"
+                className="fullscreen-btn leading-none inline-block transition-all relative top-[2px] hover:text-primary-500"
+                onClick={toggleFullScreen}
               >
-                <i
-                  className="material-symbols-outlined !text-[22px] md:!text-[24px]"
-                  id="fullscreenIcon"
-                >
-                  fullscreen
+                <i className="material-symbols-outlined !text-[22px] md:!text-[24px]">
+                  {isFullscreen ? "fullscreen_exit" : "fullscreen"}
                 </i>
               </button>
             </li>
