@@ -1,4 +1,5 @@
 import CrmBalanceOverviewChart from "@/libs/CrmBalanceOverviewChart"
+import CrmLeadsBySourceChart from "@/libs/CrmLeadsBySourceChart"
 import CrmRevenueGrothChart from "@/libs/CrmRevenueGrothChart"
 
 
@@ -231,7 +232,7 @@ const AdminDashboard = () => {
                         </div>
                         <div class="trezo-card-content">
                             <div class="-mt-[10px]">
-                                <div id="crmLeadsBySourceChart"></div>
+                                <CrmLeadsBySourceChart />
                             </div>
                             <ul class="mt-[17px] grid grid-cols-3 gap-[25px]">
                                 <li>
