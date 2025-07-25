@@ -5,7 +5,7 @@ import Google from "@public/images/icons/google.svg";
 import Logo from "@public/images/logo-big.svg";
 import SignIn from "@public/images/sign-in.webp";
 import whiteLogo from "@public/images/white-logo-big.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { useNavigate } from "react-router-dom";
 
@@ -22,42 +22,55 @@ const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
 
- const handleSubmit = (e) => {
-  e.preventDefault();
-  const foundUser = users.find(
-    (u) => u.username === form.username && u.password === form.password
+  const [isDarkMode, setIsDarkMode] = useState(
+    localStorage.getItem("darkMode") === "true"
   );
 
-  if (!foundUser) {
-    setError("Invalid username or password");
-    return;
-  }
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", isDarkMode);
+    localStorage.setItem("darkMode", isDarkMode);
+  }, [isDarkMode]);
 
-  const tokenPayload = {
-    username: foundUser.username,
-    role: foundUser.role,
-    exp: Math.floor(Date.now() / 1000) + 3600, // 1 hour expiry
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
   };
 
-  const fakeToken = [
-    "header",
-    btoa(JSON.stringify(tokenPayload)),
-    "signature"
-  ].join('.');
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const foundUser = users.find(
+      (u) => u.username === form.username && u.password === form.password
+    );
 
-  login(fakeToken);
-  navigate(`/${foundUser.role}`);
-};
+    if (!foundUser) {
+      setError("Invalid username or password");
+      return;
+    }
+
+    const tokenPayload = {
+      username: foundUser.username,
+      role: foundUser.role,
+      exp: Math.floor(Date.now() / 1000) + 3600, // 1 hour expiry
+    };
+
+    const fakeToken = [
+      "header",
+      btoa(JSON.stringify(tokenPayload)),
+      "signature",
+    ].join(".");
+
+    login(fakeToken);
+    navigate(`/${foundUser.role}`);
+  };
   return (
     <>
       {/* <!-- Light/Dark Mode Button --> */}
       <button
         type="button"
         className="light-dark-toggle leading-none inline-block transition-all text-[#fe7a36] absolute top-[20px] md:top-[25px] ltr:right-[20px] rtl:left-[20px] ltr:md:right-[25px] rtl:md:left-[25px]"
-        id="light-dark-toggle"
+        onClick={toggleDarkMode}
       >
         <i className="material-symbols-outlined !text-[20px] md:!text-[22px]">
-          light_mode
+          {isDarkMode ? "dark_mode" : "light_mode"}
         </i>
       </button>
       {/* <!-- End Light/Dark Mode Button --> */}
