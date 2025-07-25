@@ -5,9 +5,11 @@ const Header = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
   const [isConnectedOpen, setIsConnectedOpen] = useState(false);
+  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const profileRef = useRef(null);
   const languageRef = useRef(null);
   const connectedRef = useRef(null);
+  const notificationsRef = useRef(null);
 
   const toggleProfile = () => {
     setIsProfileOpen(!isProfileOpen);
@@ -19,6 +21,10 @@ const Header = () => {
 
   const toggleConnected = () => {
     setIsConnectedOpen(!isConnectedOpen);
+  };
+
+  const toggleNotifications = () => {
+    setIsNotificationsOpen(!isNotificationsOpen);
   };
 
   useEffect(() => {
@@ -34,6 +40,12 @@ const Header = () => {
         !connectedRef.current.contains(event.target)
       ) {
         setIsConnectedOpen(false);
+      }
+      if (
+        notificationsRef.current &&
+        !notificationsRef.current.contains(event.target)
+      ) {
+        setIsNotificationsOpen(false);
       }
     };
 
@@ -360,89 +372,94 @@ const Header = () => {
                 </i>
               </button>
             </li>
-            <li className="relative notifications-menu mx-[8px] md:mx-[10px] lg:mx-[12px] ltr:first:ml-0 ltr:last:mr-0 rtl:first:mr-0 rtl:last:ml-0">
+            <li
+              className="relative notifications-menu mx-[8px] md:mx-[10px] lg:mx-[12px] ltr:first:ml-0 ltr:last:mr-0 rtl:first:mr-0 rtl:last:ml-0"
+              ref={notificationsRef}
+            >
               <button
                 type="button"
-                className="leading-none inline-block transition-all relative top-[2px] hover:text-primary-500"
-                id="dropdownToggleBtn"
+                className="leading-none inline-block transition-all relative top-[2px] hover:text-primary-500 notifications-btn"
+                onClick={toggleNotifications}
               >
                 <i className="material-symbols-outlined !text-[22px] md:!text-[24px]">
                   notifications
                 </i>
                 <span className="top-[3px] ltr:right-[4px] rtl:left-[4px] w-[6px] h-[6px] rounded-full absolute bg-orange-500"></span>
               </button>
-              <div className="notifications-menu-dropdown bg-white dark:bg-[#0c1427] transition-all shadow-3xl dark:shadow-none py-[17px] absolute mt-[17px] md:mt-[20px] w-[290px] md:w-[350px] z-[1] top-full ltr:-right-[120px] ltr:md:right-0 rtl:-left-[120px] rtl:md:left-0 rounded-md">
-                <div className="flex items-center justify-between px-[20px] pb-[17px]">
-                  <span className="font-semibold text-black dark:text-white text-[15px]">
-                    Notifications
-                    <span className="text-gray-500 dark:text-gray-400 font-normal text-base">
-                      (03)
+              {isNotificationsOpen && (
+                <div className="notifications-dropdown bg-white dark:bg-[#0c1427] transition-all shadow-3xl dark:shadow-none py-[17px] absolute mt-[17px] md:mt-[20px] w-[290px] md:w-[350px] z-[1] top-full ltr:-right-[120px] ltr:md:right-0 rtl:-left-[120px] rtl:md:left-0 rounded-md">
+                  <div className="flex items-center justify-between px-[20px] pb-[17px]">
+                    <span className="font-semibold text-black dark:text-white text-[15px]">
+                      Notifications
+                      <span className="text-gray-500 dark:text-gray-400 font-normal text-base">
+                        (03)
+                      </span>
                     </span>
-                  </span>
-                  <a href="javascript:void(0);" className="text-primary-500">
-                    Clear All
-                  </a>
+                    <a href="javascript:void(0);" className="text-primary-500">
+                      Clear All
+                    </a>
+                  </div>
+                  <ul className="mb-[18px]">
+                    <li className="relative border-b border-gray-100 dark:border-[#172036] border-dashed py-[17px] ltr:pl-[75px] ltr:pr-[20px] rtl:pr-[75px] rtl:pl-[20px] first:border-t first:border-gray-100 dark:first:border-[#172036]">
+                      <div className="rounded-full flex items-center justify-center absolute text-center transition-all top-1/2 -translate-y-1/2 ltr:left-[20px] rtl:right-[20px] w-[44px] h-[44px] text-primary-500 bg-[#4936f50d]">
+                        <i className="material-symbols-outlined !text-[22px]">
+                          sms
+                        </i>
+                      </div>
+                      <span className="block mb-[3px] text-black dark:text-white">
+                        You have requested to{" "}
+                        <strong className="font-semibold">withdrawal</strong>
+                      </span>
+                      <span className="block">2 hrs ago</span>
+                      <a
+                        href="notifications.html"
+                        className="block left-0 top-0 right-0 bottom-0 z-[1] absolute"
+                      ></a>
+                    </li>
+                    <li className="relative border-b border-gray-100 dark:border-[#172036] border-dashed py-[17px] ltr:pl-[75px] ltr:pr-[20px] rtl:pr-[75px] rtl:pl-[20px] first:border-t first:border-gray-100 dark:first:border-[#172036]">
+                      <div className="rounded-full flex items-center justify-center absolute text-center transition-all top-1/2 -translate-y-1/2 ltr:left-[20px] rtl:right-[20px] w-[44px] h-[44px] text-[#39b2de] bg-[#4936f50d]">
+                        <i className="material-symbols-outlined !text-[22px]">
+                          person
+                        </i>
+                      </div>
+                      <span className="block mb-[3px] text-black dark:text-white">
+                        <strong className="font-semibold">A new user</strong>{" "}
+                        added in Trezo
+                      </span>
+                      <span className="block">3 hrs ago</span>
+                      <a
+                        href="notifications.html"
+                        className="block left-0 top-0 right-0 bottom-0 z-[1] absolute"
+                      ></a>
+                      <span className="inline-block rounded-full bg-primary-500 absolute w-[6px] h-[6px] right-[20px] top-1/2 -translate-y-1/2"></span>
+                    </li>
+                    <li className="relative border-b border-gray-100 dark:border-[#172036] border-dashed py-[17px] ltr:pl-[75px] ltr:pr-[20px] rtl:pr-[75px] rtl:pl-[20px] first:border-t first:border-gray-100 dark:first:border-[#172036]">
+                      <div className="rounded-full flex items-center justify-center absolute text-center transition-all top-1/2 -translate-y-1/2 ltr:left-[20px] rtl:right-[20px] w-[44px] h-[44px] text-[#00b69b] bg-[#4936f50d]">
+                        <i className="material-symbols-outlined !text-[22px]">
+                          mark_email_unread
+                        </i>
+                      </div>
+                      <span className="block mb-[3px] text-black dark:text-white">
+                        You have requested to{" "}
+                        <strong className="font-semibold">withdrawal</strong>
+                      </span>
+                      <span className="block">1 day ago</span>
+                      <a
+                        href="notifications.html"
+                        className="block left-0 top-0 right-0 bottom-0 z-[1] absolute"
+                      ></a>
+                    </li>
+                  </ul>
+                  <div className="text-center">
+                    <a
+                      href="notifications.html"
+                      className="inline-block font-medium relative text-primary-500 transition-all hover:underline"
+                    >
+                      See All Notifications
+                    </a>
+                  </div>
                 </div>
-                <ul className="mb-[18px]">
-                  <li className="relative border-b border-gray-100 dark:border-[#172036] border-dashed py-[17px] ltr:pl-[75px] ltr:pr-[20px] rtl:pr-[75px] rtl:pl-[20px] first:border-t first:border-gray-100 dark:first:border-[#172036]">
-                    <div className="rounded-full flex items-center justify-center absolute text-center transition-all top-1/2 -translate-y-1/2 ltr:left-[20px] rtl:right-[20px] w-[44px] h-[44px] text-primary-500 bg-[#4936f50d]">
-                      <i className="material-symbols-outlined !text-[22px]">
-                        sms
-                      </i>
-                    </div>
-                    <span className="block mb-[3px] text-black dark:text-white">
-                      You have requested to{" "}
-                      <strong className="font-semibold">withdrawal</strong>
-                    </span>
-                    <span className="block">2 hrs ago</span>
-                    <a
-                      href="notifications.html"
-                      className="block left-0 top-0 right-0 bottom-0 z-[1] absolute"
-                    ></a>
-                  </li>
-                  <li className="relative border-b border-gray-100 dark:border-[#172036] border-dashed py-[17px] ltr:pl-[75px] ltr:pr-[20px] rtl:pr-[75px] rtl:pl-[20px] first:border-t first:border-gray-100 dark:first:border-[#172036]">
-                    <div className="rounded-full flex items-center justify-center absolute text-center transition-all top-1/2 -translate-y-1/2 ltr:left-[20px] rtl:right-[20px] w-[44px] h-[44px] text-[#39b2de] bg-[#4936f50d]">
-                      <i className="material-symbols-outlined !text-[22px]">
-                        person
-                      </i>
-                    </div>
-                    <span className="block mb-[3px] text-black dark:text-white">
-                      <strong className="font-semibold">A new user</strong>{" "}
-                      added in Trezo
-                    </span>
-                    <span className="block">3 hrs ago</span>
-                    <a
-                      href="notifications.html"
-                      className="block left-0 top-0 right-0 bottom-0 z-[1] absolute"
-                    ></a>
-                    <span className="inline-block rounded-full bg-primary-500 absolute w-[6px] h-[6px] right-[20px] top-1/2 -translate-y-1/2"></span>
-                  </li>
-                  <li className="relative border-b border-gray-100 dark:border-[#172036] border-dashed py-[17px] ltr:pl-[75px] ltr:pr-[20px] rtl:pr-[75px] rtl:pl-[20px] first:border-t first:border-gray-100 dark:first:border-[#172036]">
-                    <div className="rounded-full flex items-center justify-center absolute text-center transition-all top-1/2 -translate-y-1/2 ltr:left-[20px] rtl:right-[20px] w-[44px] h-[44px] text-[#00b69b] bg-[#4936f50d]">
-                      <i className="material-symbols-outlined !text-[22px]">
-                        mark_email_unread
-                      </i>
-                    </div>
-                    <span className="block mb-[3px] text-black dark:text-white">
-                      You have requested to{" "}
-                      <strong className="font-semibold">withdrawal</strong>
-                    </span>
-                    <span className="block">1 day ago</span>
-                    <a
-                      href="notifications.html"
-                      className="block left-0 top-0 right-0 bottom-0 z-[1] absolute"
-                    ></a>
-                  </li>
-                </ul>
-                <div className="text-center">
-                  <a
-                    href="notifications.html"
-                    className="inline-block font-medium relative text-primary-500 transition-all hover:underline"
-                  >
-                    See All Notifications
-                  </a>
-                </div>
-              </div>
+              )}
             </li>
             <li
               className="relative profile-menu mx-[8px] md:mx-[10px] lg:mx-[12px] ltr:first:ml-0 ltr:last:mr-0 rtl:first:mr-0 rtl:last:ml-0"
