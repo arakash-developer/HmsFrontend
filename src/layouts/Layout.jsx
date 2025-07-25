@@ -37,7 +37,7 @@ export default function Layout() {
                                 30
                             </span>
                         </button>
-                        {/* <div className="accordion-collapse block">
+                        <div className="accordion-collapse block">
                             <div className="pt-[4px]">
                                 <ul className="sidebar-sub-menu" id="dashboardItemsList">
                                     <li className="sidemenu-item mb-[4px] last:mb-0">
@@ -245,7 +245,7 @@ export default function Layout() {
                                     </span>
                                 </button>
                             </div>
-                        </div> */}
+                        </div>
                     </div>
                     <div className="accordion-item rounded-md text-black dark:text-white mb-[5px] whitespace-nowrap">
                         <button className="accordion-button toggle flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]" type="button">
