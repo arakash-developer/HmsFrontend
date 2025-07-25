@@ -10,14 +10,20 @@ const SuperAdminDashboard = lazy(() =>
 );
 
 import ProtectedRoute from "@/routes/ProtectedRoute";
+import PublicRoute from "@/routes/PublicRoute";
 
 const routes = [
   {
-    path: "/",
-    element: <Layout />,
+    element: <PublicRoute />,
     children: [
-      { index: true, element: <Login /> },
-      { path: "register", element: <Register /> },
+      {
+        path: "/",
+        element: <Layout />,
+        children: [
+          { index: true, element: <Login /> },
+          { path: "register", element: <Register /> },
+        ],
+      },
     ],
   },
   {
