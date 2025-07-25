@@ -25,6 +25,7 @@ const Login = () => {
   const [isDarkMode, setIsDarkMode] = useState(
     localStorage.getItem("darkMode") === "true"
   );
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", isDarkMode);
@@ -33,6 +34,10 @@ const Login = () => {
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   const handleSubmit = (e) => {
@@ -147,7 +152,7 @@ const Login = () => {
                 </label>
                 <div className="relative">
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     onChange={(e) =>
                       setForm({ ...form, password: e.target.value })
                     }
@@ -157,10 +162,12 @@ const Login = () => {
                   />
                   <button
                     className="absolute text-lg ltr:right-[20px] rtl:left-[20px] bottom-[12px] transition-all hover:text-primary-500"
-                    id="toggleButton"
+                    onClick={togglePasswordVisibility}
                     type="button"
                   >
-                    <i className="ri-eye-off-line"></i>
+                    <i
+                      className={`ri-eye${showPassword ? "" : "-off"}-line`}
+                    ></i>
                   </button>
                 </div>
               </div>
