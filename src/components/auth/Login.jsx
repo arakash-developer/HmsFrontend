@@ -10,6 +10,7 @@ import { Link } from "react-router";
 import { useNavigate } from "react-router-dom";
 
 const users = [
+  { username: "akash", password: "akash123", role: "superadmin" },
   { username: "admin", password: "admin123", role: "admin" },
   { username: "doctor", password: "doc123", role: "doctor" },
   { username: "patient", password: "patient123", role: "patient" },

@@ -1,12 +1,14 @@
-import { createBrowserRouter } from "react-router-dom";
-
-import DashboardLayout from "@/layouts/DashboardLayout";
-import Layout from "@/layouts/Layout";
-
 import Login from "@/components/auth/Login";
 import Register from "@/components/auth/Register";
+import DashboardLayout from "@/layouts/DashboardLayout";
+import Layout from "@/layouts/Layout";
+import { lazy } from "react";
+import { createBrowserRouter } from "react-router-dom";
+const AdminDashboard = lazy(() => import("@/components/admin/AdminDashboard"));
+const SuperAdminDashboard = lazy(() =>
+  import("@/components/superadmin/SuperAdminDashboard")
+);
 
-import Dashboard from "@/components/admin/Dashboard";
 import ProtectedRoute from "@/routes/ProtectedRoute";
 
 const routes = [
@@ -19,16 +21,26 @@ const routes = [
     ],
   },
   {
-    element: <ProtectedRoute allowedRoles={["admin", "doctor", "patient"]} />,
+    element: <ProtectedRoute allowedRoles={["admin"]} />,
     children: [
       {
         path: "/dashboard",
         element: <DashboardLayout />,
         children: [
-          { path: "admin", element: <Dashboard /> },
+          { path: "admin", element: <AdminDashboard /> },
           // { path: "doctor", element: <DoctorDashboard /> },
           // { path: "patient", element: <PatientDashboard /> },
         ],
+      },
+    ],
+  },
+  {
+    element: <ProtectedRoute allowedRoles={["superadmin"]} />,
+    children: [
+      {
+        path: "/dashboard",
+        element: <DashboardLayout />,
+        children: [{ path: "superadmin", element: <SuperAdminDashboard /> }],
       },
     ],
   },

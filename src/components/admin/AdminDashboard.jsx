@@ -1,7 +1,7 @@
 import CrmRevenueGrothChart from "@/libs/CrmRevenueGrothChart"
 
 
-const Dashboard = () => {
+const AdminDashboard = () => {
    
   return (
     <>
@@ -1087,4 +1087,4 @@ const Dashboard = () => {
   )
 }
 
-export default Dashboard
+export default AdminDashboard
