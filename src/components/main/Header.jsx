@@ -536,7 +536,11 @@ const Header = () => {
                     </div>
                   </div>
                   <ul>
-                    <li>
+                    <li
+                      className="before:transition-all before:duration-[.5s] relative
+                    before:content-[''] before:absolute before:w-[2px] before:h-0 before:bg-primary-500 before:left-0 before:top-1/2 before:-translate-y-1/2 hover:before:h-full
+                    "
+                    >
                       <a
                         href="my-profile.html"
                         className="block relative py-[7px] ltr:pl-[50px] ltr:pr-[20px] rtl:pr-[50px] rtl:pl-[20px] text-black dark:text-white transition-all hover:text-primary-500"
@@ -547,7 +551,11 @@ const Header = () => {
                         My Profile
                       </a>
                     </li>
-                    <li>
+                    <li
+                      className="before:transition-all before:duration-[.5s] relative
+                    before:content-[''] before:absolute before:w-[2px] before:h-0 before:bg-primary-500 before:left-0 before:top-1/2 before:-translate-y-1/2 hover:before:h-full
+                    "
+                    >
                       <a
                         href="chat.html"
                         className="block relative py-[7px] ltr:pl-[50px] ltr:pr-[20px] rtl:pr-[50px] rtl:pl-[20px] text-black dark:text-white transition-all hover:text-primary-500"
@@ -558,7 +566,11 @@ const Header = () => {
                         Messages
                       </a>
                     </li>
-                    <li>
+                    <li
+                      className="before:transition-all before:duration-[.5s] relative
+                    before:content-[''] before:absolute before:w-[2px] before:h-0 before:bg-primary-500 before:left-0 before:top-1/2 before:-translate-y-1/2 hover:before:h-full
+                    "
+                    >
                       <a
                         href="to-do-list.html"
                         className="block relative py-[7px] ltr:pl-[50px] ltr:pr-[20px] rtl:pr-[50px] rtl:pl-[20px] text-black dark:text-white transition-all hover:text-primary-500"
@@ -569,7 +581,11 @@ const Header = () => {
                         My Task
                       </a>
                     </li>
-                    <li>
+                    <li
+                      className="before:transition-all before:duration-[.5s] relative
+                    before:content-[''] before:absolute before:w-[2px] before:h-0 before:bg-primary-500 before:left-0 before:top-1/2 before:-translate-y-1/2 hover:before:h-full
+                    "
+                    >
                       <a
                         href="checkout.html"
                         className="block relative py-[7px] ltr:pl-[50px] ltr:pr-[20px] rtl:pr-[50px] rtl:pl-[20px] text-black dark:text-white transition-all hover:text-primary-500"
@@ -583,7 +599,11 @@ const Header = () => {
                   </ul>
                   <div className="border-t border-gray-100 dark:border-[#172036] mx-[20px] my-[9px]"></div>
                   <ul>
-                    <li>
+                    <li
+                      className="before:transition-all before:duration-[.5s] relative
+                    before:content-[''] before:absolute before:w-[2px] before:h-0 before:bg-primary-500 before:left-0 before:top-1/2 before:-translate-y-1/2 hover:before:h-full
+                    "
+                    >
                       <a
                         href="settings.html"
                         className="block relative py-[7px] ltr:pl-[50px] ltr:pr-[20px] rtl:pr-[50px] rtl:pl-[20px] text-black dark:text-white transition-all hover:text-primary-500"
@@ -594,7 +614,11 @@ const Header = () => {
                         Settings
                       </a>
                     </li>
-                    <li>
+                    <li
+                      className="before:transition-all before:duration-[.5s] relative
+                    before:content-[''] before:absolute before:w-[2px] before:h-0 before:bg-primary-500 before:left-0 before:top-1/2 before:-translate-y-1/2 hover:before:h-full
+                    "
+                    >
                       <a
                         href="faq.html"
                         className="block relative py-[7px] ltr:pl-[50px] ltr:pr-[20px] rtl:pr-[50px] rtl:pl-[20px] text-black dark:text-white transition-all hover:text-primary-500"
@@ -605,7 +629,11 @@ const Header = () => {
                         Support
                       </a>
                     </li>
-                    <li>
+                    <li
+                      className="before:transition-all before:duration-[.5s] relative
+                    before:content-[''] before:absolute before:w-[2px] before:h-0 before:bg-primary-500 before:left-0 before:top-1/2 before:-translate-y-1/2 hover:before:h-full
+                    "
+                    >
                       <a
                         href="lock-screen.html"
                         className="block relative py-[7px] ltr:pl-[50px] ltr:pr-[20px] rtl:pr-[50px] rtl:pl-[20px] text-black dark:text-white transition-all hover:text-primary-500"
@@ -616,7 +644,11 @@ const Header = () => {
                         Lock Screen
                       </a>
                     </li>
-                    <li className="logout-button">
+                    <li
+                      className=" before:transition-all before:duration-[.5s] relative
+                    before:content-[''] before:absolute before:w-[2px] before:h-0 before:bg-primary-500 before:left-0 before:top-1/2 before:-translate-y-1/2 hover:before:h-full
+                    "
+                    >
                       <div
                         onClick={handleLogout}
                         className="block relative py-[7px] cursor-pointer ltr:pl-[50px] ltr:pr-[20px] rtl:pr-[50px] rtl:pl-[20px] text-black dark:text-white transition-all hover:text-primary-500"
