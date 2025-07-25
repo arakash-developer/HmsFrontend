@@ -1,3 +1,4 @@
+import CrmBalanceOverviewChart from "@/libs/CrmBalanceOverviewChart"
 import CrmRevenueGrothChart from "@/libs/CrmRevenueGrothChart"
 
 
@@ -147,7 +148,7 @@ const AdminDashboard = () => {
                         </div>
                         <div class="trezo-card-content">
                             <div class="-mb-[3px] ltr:-ml-[10px] rtl:-mr-[10px]">
-                                <div id="crmBalanceOverviewChart"></div>
+                                <CrmBalanceOverviewChart />
                             </div>
                             <ul class="text-center">
                                 <li class="inline-block mx-[13px] ltr:first:ml-0 ltr:last:mr-0 rtl:first:mr-0 rtl:last:ml-0">
