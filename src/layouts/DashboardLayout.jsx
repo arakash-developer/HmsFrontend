@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 import Header from "@/components/main/Header";
 import Logo from "@public/images/logo-small.svg";
@@ -12,15 +12,15 @@ export default function DashboardLayout() {
         id="sidebar-area"
       >
         <div className="logo bg-white dark:bg-[#0c1427] border-b border-gray-100 dark:border-[#172036] px-[25px] pt-[19px] pb-[15px] absolute z-[2] right-0 top-0 left-0">
-          <a
-            href="index.html"
+          <Link 
+            to="#"
             className="transition-none relative flex items-center"
           >
             <img src={Logo} alt="logo-icon" />
             {/* <span className="font-bold text-black dark:text-white relative ltr:ml-[8px] rtl:mr-[8px] top-px text-xl">
               4Hmi
             </span> */}
-          </a>
+          </Link>
           <button
             type="button"
             className="burger-menu inline-block absolute z-[3] top-[24px] ltr:right-[25px] rtl:left-[25px] transition-all hover:text-primary-500"
