@@ -11,6 +11,7 @@ const SuperAdminDashboard = lazy(() =>
 
 import ProtectedRoute from "@/routes/ProtectedRoute";
 import PublicRoute from "@/routes/PublicRoute";
+import Typhography from "@/components/admin/Typhography";
 
 const routes = [
   {
@@ -34,7 +35,7 @@ const routes = [
         element: <DashboardLayout />,
         children: [
           { path: "admin", element: <AdminDashboard /> },
-          // { path: "doctor", element: <DoctorDashboard /> },
+          { path: "typography", element: <Typhography /> },
           // { path: "patient", element: <PatientDashboard /> },
         ],
       },
