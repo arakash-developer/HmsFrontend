@@ -128,7 +128,7 @@ const Login = () => {
                     setForm({ ...form, username: e.target.value })
                   }
                   className="h-[45px] rounded-md text-black dark:text-white border border-gray-200 dark:border-[#172036] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:border-primary-500"
-                  placeholder="example@trezo.com"
+                  placeholder=""
                 />
               </div>
               <div className="mb-[8px] relative" id="passwordHideShow">
@@ -143,7 +143,7 @@ const Login = () => {
                     }
                     className="h-[45px] rounded-md text-black dark:text-white border border-gray-200 dark:border-[#172036] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:border-primary-500"
                     id="password"
-                    placeholder="Type password"
+                    placeholder=""
                   />
                   <button
                     className="absolute top-1/2 -translate-y-1/2 text-lg ltr:right-[20px] rtl:left-[20px]  transition-all hover:text-primary-500"
