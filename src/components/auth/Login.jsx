@@ -108,7 +108,7 @@ const Login = () => {
               {/* </div> */}
               <div className="my-[17px] md:my-[25px]">
                 <h1 className="font-semibold text-[22px] md:text-xl lg:text-2xl mb-[5px] md:mb-[7px]">
-                  Welcome back to Trezo!
+                  Welcome back!
                 </h1>
                 <p className="font-medium lg:text-md text-[#445164] dark:text-gray-400">
                   Sign In with social account or enter your details
