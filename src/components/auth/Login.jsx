@@ -127,7 +127,7 @@ const Login = () => {
                   placeholder="example@trezo.com"
                 />
               </div>
-              <div className="mb-[15px] relative" id="passwordHideShow">
+              <div className="mb-[8px] relative" id="passwordHideShow">
                 <label className="mb-[5px] md:mb-[5px] text-base text-black dark:text-white font-medium block">
                   Password
                 </label>
@@ -154,7 +154,7 @@ const Login = () => {
               </div>
               <a
                 href="forgot-password.html"
-                className="inline-block text-primary-500 transition-all font-semibold hover:underline"
+                className="inline-block text-primary-500 transition-all font-regular text-base hover:underline"
               >
                 Forgot Password?
               </a>
@@ -167,7 +167,7 @@ const Login = () => {
                   Sign In
                 </span>
               </button>
-              <p className="mt-[15px] md:mt-[20px]">
+              <p className="mt-[15px] md:mt-[24px]">
                 Don’t have an account.{" "}
                 <Link
                   to={"/register"}
