@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 
 import Header from "@/components/main/Header";
-import Logo from "@public/images/logo-icon.svg";
+import Logo from "@public/images/logo-small.svg";
 import Footer from "@/components/main/Footer";
 export default function DashboardLayout() {
   return (
@@ -17,9 +17,9 @@ export default function DashboardLayout() {
             className="transition-none relative flex items-center"
           >
             <img src={Logo} alt="logo-icon" />
-            <span className="font-bold text-black dark:text-white relative ltr:ml-[8px] rtl:mr-[8px] top-px text-xl">
+            {/* <span className="font-bold text-black dark:text-white relative ltr:ml-[8px] rtl:mr-[8px] top-px text-xl">
               4Hmi
-            </span>
+            </span> */}
           </a>
           <button
             type="button"
