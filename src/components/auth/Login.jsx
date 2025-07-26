@@ -5,6 +5,7 @@ import SignIn from "@public/images/sign-in.webp";
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { useNavigate } from "react-router-dom";
+import { message } from 'antd';  // Import Ant Design's message API
 
 const users = [
   { username: "akash", password: "akash123", role: "superadmin" },
@@ -13,16 +14,20 @@ const users = [
   { username: "patient", password: "patient123", role: "patient" },
   { username: "newaz.blinto@gmail.com", password: "newaz", role: "admin" },
 ];
+
 const Login = () => {
   const [form, setForm] = useState({ username: "", password: "" });
-  const [error, setError] = useState("");
   const { login } = useAuth();
   const navigate = useNavigate();
-
   const [isDarkMode, setIsDarkMode] = useState(
     localStorage.getItem("darkMode") === "true"
   );
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);  // For managing loading state
+  const [buttonDisabled, setButtonDisabled] = useState(false); // For controlling button state
+
+  // Use Ant Design's message API
+  const [messageApi, contextHolder] = message.useMessage();
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", isDarkMode);
@@ -39,33 +44,75 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const foundUser = users.find(
-      (u) => u.username === form.username && u.password === form.password
-    );
 
-    if (!foundUser) {
-      setError("Invalid username or password");
-      return;
-    }
+    // Prevent multiple clicks while loading
+    if (buttonDisabled) return;
 
-    const tokenPayload = {
-      username: foundUser.username,
-      role: foundUser.role,
-      exp: Math.floor(Date.now() / 1000) + 3600, // 1 hour expiry
-    };
+    // Disable the button during the login process
+    setButtonDisabled(true);
+    setLoading(true);
 
-    const fakeToken = [
-      "header",
-      btoa(JSON.stringify(tokenPayload)),
-      "signature",
-    ].join(".");
+    // Show loading message
+    messageApi.open({
+      type: 'loading',
+      content: 'Logging in...',
+      duration: 0,  // Keep loading until the login is complete
+    });
 
-    login(fakeToken);
-    navigate(`/${foundUser.role}`);
+    // Simulate login check and handle success/failure
+    setTimeout(() => {
+      const foundUser = users.find(
+        (u) => u.username === form.username && u.password === form.password
+      );
+
+      if (!foundUser) {
+        // If credentials are wrong, show error message and reset button
+        messageApi.destroy();  // Remove loading message
+        messageApi.open({
+          type: 'error',
+          content: 'Invalid username or password',
+          duration: 2.5,
+        });
+        setButtonDisabled(false);  // Re-enable button
+        setLoading(false);  // Hide loading state
+        return;
+      }
+
+      const tokenPayload = {
+        username: foundUser.username,
+        role: foundUser.role,
+        exp: Math.floor(Date.now() / 1000) + 3600, // 1 hour expiry
+      };
+
+      const fakeToken = [
+        "header",
+        btoa(JSON.stringify(tokenPayload)),
+        "signature",
+      ].join(".");
+
+      login(fakeToken);
+
+      // Show success message
+      messageApi.destroy();  // Remove loading message
+      messageApi.open({
+        type: 'success',
+        content: 'Login successful',
+        duration: 2.5,  // Show the success message for 2.5 seconds
+      });
+
+      // Redirect to the user role page after the success message
+      setTimeout(() => {
+        navigate(`/${foundUser.role}`);
+      }, 2500);  // Wait for success message to finish before redirecting
+
+    }, 1500); // Simulate a delay of 1.5 seconds for the login process
   };
+
   return (
     <>
-      {/* <!-- Light/Dark Mode Button --> */}
+      {contextHolder} {/* Render message context */}
+
+      {/* Light/Dark Mode Button */}
       <button
         type="button"
         className="light-dark-toggle leading-none inline-block transition-all text-[#fe7a36] absolute top-[20px] md:top-[25px] ltr:right-[20px] rtl:left-[20px] ltr:md:right-[25px] rtl:md:left-[25px]"
@@ -75,9 +122,8 @@ const Login = () => {
           {isDarkMode ? "dark_mode" : "light_mode"}
         </i>
       </button>
-      {/* <!-- End Light/Dark Mode Button --> */}
 
-      {/* <!-- Sign In --> */}
+      {/* Sign In Form */}
       <div className="bg-white dark:bg-[#0a0e19] py-[60px] md:py-[80px] lg:py-[135px]">
         <div className="mx-auto px-[12.5px] md:max-w-[720px] lg:max-w-[960px] xl:max-w-[1255px]">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-[25px] items-center">
@@ -90,11 +136,8 @@ const Login = () => {
               />
             </div>
             <div className="xl:ltr:pl-[90px] xl:rtl:pr-[90px] 2xl:ltr:pl-[120px] 2xl:rtl:pr-[120px] order-1 lg:order-2">
-              {/* <div className="flex items-center"> */}
               <img src={Logo} alt="logo" className="inline-block dark:hidden" />
               <img src={Logo} alt="logo" className="hidden dark:inline-block" />
-
-              {/* </div> */}
               <div className="my-[17px] md:my-[32px]">
                 <h1 className="font-semibold text-[22px] md:text-xl lg:text-2xl mb-[5px] md:mb-[7px]">
                   Sign In
@@ -164,7 +207,8 @@ const Login = () => {
               </a>
               <button
                 onClick={handleSubmit}
-                className="md:text-md block w-full text-center transition-all rounded-md font-medium mt-[20px] md:mt-[24px] py-[12px] px-[25px] text-white bg-primary-500 hover:bg-primary-400"
+                disabled={buttonDisabled}  // Disable button during login
+                className={`md:text-md block w-full text-center transition-all rounded-md font-medium mt-[20px] md:mt-[24px] py-[12px] px-[25px] text-white ${buttonDisabled ? 'bg-gray-500 cursor-not-allowed' : 'bg-primary-500'} hover:bg-primary-400`}
               >
                 <span className="flex items-center justify-center gap-[5px]">
                   <i className="material-symbols-outlined">login</i>
@@ -184,7 +228,6 @@ const Login = () => {
           </div>
         </div>
       </div>
-      {/* <!-- End Sign In --> */}
     </>
   );
 };
