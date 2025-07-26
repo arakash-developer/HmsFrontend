@@ -98,12 +98,15 @@ const Login = () => {
         type: 'success',
         content: 'Login successful',
         duration: 2.5,  // Show the success message for 2.5 seconds
+        onClose: () => {
+          // Redirect to the user role page after the success message
+          navigate(`/${foundUser.role}`);
+        },
       });
 
-      // Redirect to the user role page after the success message
-      setTimeout(() => {
-        navigate(`/${foundUser.role}`);
-      }, 2500);  // Wait for success message to finish before redirecting
+      // Re-enable button and stop loading state
+      setButtonDisabled(false);
+      setLoading(false);
 
     }, 1500); // Simulate a delay of 1.5 seconds for the login process
   };
