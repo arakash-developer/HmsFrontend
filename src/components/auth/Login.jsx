@@ -142,7 +142,7 @@ const Login = () => {
                     placeholder="Type password"
                   />
                   <button
-                    className="absolute text-lg ltr:right-[20px] rtl:left-[20px] bottom-[12px] transition-all hover:text-primary-500"
+                    className="absolute top-1/2 -translate-y-1/2 text-lg ltr:right-[20px] rtl:left-[20px]  transition-all hover:text-primary-500"
                     onClick={togglePasswordVisibility}
                     type="button"
                   >
