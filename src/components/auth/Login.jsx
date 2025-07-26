@@ -106,9 +106,9 @@ const Login = () => {
               </div>
               <div className="flex items-center justify-between mb-[20px] md:mb-[23px] gap-[12px]">
                 <div className="grow">
-                  <div className="flex items-center justify-center gap-3 text-center w-full rounded-md transition-all py-[8px] md:py-[12px] px-[15px] md:px-[25px] text-black dark:text-white border border-[#D6DAE1] bg-white dark:bg-[#0a0e19] dark:border-[#172036] shadow-sm hover:border-primary-500 cursor-pointer">
-                    <img src={Google} className="inline-block" alt="google" />
-                    <h3 className="font-medium lg:text-md text-[#1E1E1E] dark:text-gray-400 leading-[24px]">
+                  <div className="text-center w-full rounded-md transition-all py-[8px] md:py-[12px] px-[15px] md:px-[25px] text-black dark:text-white border border-[#D6DAE1] bg-white dark:bg-[#0a0e19] dark:border-[#172036] shadow-sm hover:border-primary-500 cursor-pointer">
+                    {/* <img src={Google} className="inline-block" alt="google" /> */}
+                    <h3 className="font-medium lg:text-md text-[#1E1E1E] dark:text-gray-400">
                       Sign in with Google
                     </h3>
                   </div>
