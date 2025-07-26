@@ -4,7 +4,6 @@ import Facebook from "@public/images/icons/facebook2.svg";
 import Google from "@public/images/icons/google.svg";
 import Logo from "@public/images/logo-big.svg";
 import SignIn from "@public/images/sign-in.webp";
-import whiteLogo from "@public/images/white-logo-big.svg";
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { useNavigate } from "react-router-dom";
@@ -94,24 +93,17 @@ const Login = () => {
             </div>
             <div className="xl:ltr:pl-[90px] xl:rtl:pr-[90px] 2xl:ltr:pl-[120px] 2xl:rtl:pr-[120px] order-1 lg:order-2">
               {/* <div className="flex items-center"> */}
-                <img
-                  src={Logo}
-                  alt="logo"
-                  className="inline-block dark:hidden"
-                />
-                <img
-                  src={Logo}
-                  alt="logo"
-                  className="hidden dark:inline-block"
-                />
-         
+              <img src={Logo} alt="logo" className="inline-block dark:hidden" />
+              <img src={Logo} alt="logo" className="hidden dark:inline-block" />
+
               {/* </div> */}
               <div className="my-[17px] md:my-[25px]">
                 <h1 className="font-semibold text-[22px] md:text-xl lg:text-2xl mb-[5px] md:mb-[7px]">
-                  Welcome back!
+                  Sign In
                 </h1>
-                <p className="font-medium lg:text-md text-[#445164] dark:text-gray-400">
-                  Sign In with social account or enter your details
+                <p className="font-regular lg:text-md text-[#6C757D] dark:text-gray-400">
+                  Sign in to access your dashboard, manage appointments, and
+                  keep everything running smoothly
                 </p>
               </div>
               <div className="flex items-center justify-between mb-[20px] md:mb-[23px] gap-[12px]">
