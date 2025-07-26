@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router'
 
 const Register = () => {
   return (
@@ -71,7 +72,7 @@ const Register = () => {
                             By confirming your email, you agree to our <a href="#" className="font-medium text-black dark:text-white transition-all hover:text-primary-500">Terms of Service</a>  and that you have read and understood our <a href="#" className="font-medium text-black dark:text-white transition-all hover:text-primary-500">Privacy Policy</a>
                         </p>
                         <p className="leading-[1.6]">
-                            Already have an account. <a href="sign-in.html" className="text-primary-500 transition-all font-semibold hover:underline">Sign In</a>
+                            Already have an account. <Link to="/" className="text-primary-500 transition-all font-semibold hover:underline">Sign In</Link>
                         </p>
                     </div>
                 </div>
