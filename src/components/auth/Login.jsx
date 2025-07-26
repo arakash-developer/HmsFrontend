@@ -1,6 +1,4 @@
 import { useAuth } from "@contexts/AuthContext";
-import Apple from "@public/images/icons/apple.svg";
-import Facebook from "@public/images/icons/facebook2.svg";
 import Google from "@public/images/icons/google.svg";
 import Logo from "@public/images/logo-big.svg";
 import SignIn from "@public/images/sign-in.webp";
@@ -101,35 +99,19 @@ const Login = () => {
                 <h1 className="font-semibold text-[22px] md:text-xl lg:text-2xl mb-[5px] md:mb-[7px]">
                   Sign In
                 </h1>
-                <p className="font-regular lg:text-md text-[#6C757D] dark:text-gray-400">
+                <p className="font-regular lg:text-md text-[#6C757D] dark:text-gray-400 leading-[24px]">
                   Sign in to access your dashboard, manage appointments, and
                   keep everything running smoothly
                 </p>
               </div>
               <div className="flex items-center justify-between mb-[20px] md:mb-[23px] gap-[12px]">
                 <div className="grow">
-                  <button
-                    type="button"
-                    className="block text-center w-full rounded-md transition-all py-[8px] md:py-[10.5px] px-[15px] md:px-[25px] text-black dark:text-white border border-[#D6DAE1] bg-white dark:bg-[#0a0e19] dark:border-[#172036] shadow-sm hover:border-primary-500"
-                  >
+                  <div className="flex items-center justify-center gap-3 text-center w-full rounded-md transition-all py-[8px] md:py-[10.5px] px-[15px] md:px-[25px] text-black dark:text-white border border-[#D6DAE1] bg-white dark:bg-[#0a0e19] dark:border-[#172036] shadow-sm hover:border-primary-500">
                     <img src={Google} className="inline-block" alt="google" />
-                  </button>
-                </div>
-                <div className="grow">
-                  <button
-                    type="button"
-                    className="block text-center w-full rounded-md transition-all py-[8px] md:py-[10.5px] px-[15px] md:px-[25px] text-black dark:text-white border border-[#D6DAE1] bg-white dark:bg-[#0a0e19] dark:border-[#172036] shadow-sm hover:border-primary-500"
-                  >
-                    <img src={Facebook} className="inline-block" alt="google" />
-                  </button>
-                </div>
-                <div className="grow">
-                  <button
-                    type="button"
-                    className="block text-center w-full rounded-md transition-all py-[8px] md:py-[10.5px] px-[15px] md:px-[25px] text-black dark:text-white border border-[#D6DAE1] bg-white dark:bg-[#0a0e19] dark:border-[#172036] shadow-sm hover:border-primary-500"
-                  >
-                    <img src={Apple} className="inline-block" alt="google" />
-                  </button>
+                    <h3 className="font-medium lg:text-md text-[#1E1E1E] dark:text-gray-400 leading-[24px]">
+                      Sign in with Google
+                    </h3>
+                  </div>
                 </div>
               </div>
               <div className="mb-[15px] relative">
