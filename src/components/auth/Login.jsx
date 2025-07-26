@@ -93,12 +93,21 @@ const Login = () => {
               />
             </div>
             <div className="xl:ltr:pl-[90px] xl:rtl:pr-[90px] 2xl:ltr:pl-[120px] 2xl:rtl:pr-[120px] order-1 lg:order-2">
-              <img src={Logo} alt="logo" className="inline-block dark:hidden" />
-              <img
-                src={whiteLogo}
-                alt="logo"
-                className="hidden dark:inline-block"
-              />
+              <div className="flex items-center">
+                <img
+                  src={Logo}
+                  alt="logo"
+                  className="inline-block dark:hidden"
+                />
+                <img
+                  src={Logo}
+                  alt="logo"
+                  className="hidden dark:inline-block"
+                />
+                <span className="font-bold text-black dark:text-white relative ltr:ml-[8px] rtl:mr-[8px] top-px text-[32px]">
+                  4Hmi
+                </span>
+              </div>
               <div className="my-[17px] md:my-[25px]">
                 <h1 className="font-semibold text-[22px] md:text-xl lg:text-2xl mb-[5px] md:mb-[7px]">
                   Welcome back to Trezo!

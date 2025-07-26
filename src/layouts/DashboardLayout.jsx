@@ -18,7 +18,7 @@ export default function DashboardLayout() {
           >
             <img src={Logo} alt="logo-icon" />
             <span className="font-bold text-black dark:text-white relative ltr:ml-[8px] rtl:mr-[8px] top-px text-xl">
-              4HMI
+              4Hmi
             </span>
           </a>
           <button
