@@ -95,7 +95,7 @@ const Login = () => {
               <img src={Logo} alt="logo" className="hidden dark:inline-block" />
 
               {/* </div> */}
-              <div className="my-[17px] md:my-[25px]">
+              <div className="my-[17px] md:my-[32px]">
                 <h1 className="font-semibold text-[22px] md:text-xl lg:text-2xl mb-[5px] md:mb-[7px]">
                   Sign In
                 </h1>
@@ -106,7 +106,7 @@ const Login = () => {
               </div>
               <div className="flex items-center justify-between mb-[20px] md:mb-[23px] gap-[12px]">
                 <div className="grow">
-                  <div className="flex items-center justify-center gap-3 text-center w-full rounded-md transition-all py-[8px] md:py-[10.5px] px-[15px] md:px-[25px] text-black dark:text-white border border-[#D6DAE1] bg-white dark:bg-[#0a0e19] dark:border-[#172036] shadow-sm hover:border-primary-500">
+                  <div className="flex items-center justify-center gap-3 text-center w-full rounded-md transition-all py-[8px] md:py-[12px] px-[15px] md:px-[25px] text-black dark:text-white border border-[#D6DAE1] bg-white dark:bg-[#0a0e19] dark:border-[#172036] shadow-sm hover:border-primary-500 cursor-pointer">
                     <img src={Google} className="inline-block" alt="google" />
                     <h3 className="font-medium lg:text-md text-[#1E1E1E] dark:text-gray-400 leading-[24px]">
                       Sign in with Google
@@ -115,20 +115,20 @@ const Login = () => {
                 </div>
               </div>
               <div className="mb-[15px] relative">
-                <label className="mb-[10px] md:mb-[12px] text-black dark:text-white font-medium block">
-                  Email Address
+                <label className="mb-[5px] text-base md:mb-[5px] text-black dark:text-white font-medium block">
+                  Email / Username
                 </label>
                 <input
                   type="text"
                   onChange={(e) =>
                     setForm({ ...form, username: e.target.value })
                   }
-                  className="h-[55px] rounded-md text-black dark:text-white border border-gray-200 dark:border-[#172036] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:border-primary-500"
+                  className="h-[45px] rounded-md text-black dark:text-white border border-gray-200 dark:border-[#172036] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:border-primary-500"
                   placeholder="example@trezo.com"
                 />
               </div>
               <div className="mb-[15px] relative" id="passwordHideShow">
-                <label className="mb-[10px] md:mb-[12px] text-black dark:text-white font-medium block">
+                <label className="mb-[5px] md:mb-[5px] text-base text-black dark:text-white font-medium block">
                   Password
                 </label>
                 <div className="relative">
@@ -137,7 +137,7 @@ const Login = () => {
                     onChange={(e) =>
                       setForm({ ...form, password: e.target.value })
                     }
-                    className="h-[55px] rounded-md text-black dark:text-white border border-gray-200 dark:border-[#172036] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:border-primary-500"
+                    className="h-[45px] rounded-md text-black dark:text-white border border-gray-200 dark:border-[#172036] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:border-primary-500"
                     id="password"
                     placeholder="Type password"
                   />
