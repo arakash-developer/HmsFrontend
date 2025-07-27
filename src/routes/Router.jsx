@@ -1,3 +1,4 @@
+import { lazy } from "react";
 import Login from "@/components/auth/Login";
 import Register from "@/components/auth/Register";
 // Lazy-load layouts
@@ -5,7 +6,6 @@ const AdminDashboardLayout = lazy(() =>
   import("@/layouts/admin/AdminDashboardLayout")
 );
 import Layout from "@/layouts/Layout";
-import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 const AdminDashboard = lazy(() => import("@/components/admin/AdminDashboard"));
 const SuperAdminDashboard = lazy(() =>
@@ -35,10 +35,10 @@ const routes = [
     element: <ProtectedRoute allowedRoles={["admin"]} />,
     children: [
       {
-        path: "/",
+        path: "/admin",
         element: <AdminDashboardLayout />,
         children: [
-          { path: "admin", element: <AdminDashboard /> },
+          { index: true, element: <AdminDashboard /> },
           { path: "typography", element: <Typhography /> },
           // { path: "patient", element: <PatientDashboard /> },
         ],
