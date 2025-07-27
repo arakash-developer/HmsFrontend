@@ -17,6 +17,8 @@ import ProtectedRoute from "@/routes/ProtectedRoute";
 import PublicRoute from "@/routes/PublicRoute";
 import Typhography from "@/components/admin/Typhography";
 import NotFound from "@/components/main/NotFound";
+import AdminPatients from "@/components/admin/AdminPatients";
+import AdminDoctors from "@/components/admin/AdminDoctors";
 
 const routes = [
   {
@@ -41,8 +43,9 @@ const routes = [
         children: [
           { index: true, element: <AdminDashboard /> },
           { path: "typography", element: <Typhography /> },
-          // { path: "patient", element: <PatientDashboard /> },
+          { path: "patients", element: <AdminPatients /> },
           { path: "accounts", element: <AdminAccounts /> },
+          { path: "doctors", element: <AdminDoctors /> },
         ],
       },
     ],

@@ -24,8 +24,8 @@ export default function DashboardLayout() {
       keyvalue: "Top",
     },
     {
-      title: "LMS",
-      link: "/admin/lms",
+      title: "Patients",
+      link: "/admin/patients",
       key: "popular",
       keyvalue: "Popular",
     },
@@ -36,8 +36,8 @@ export default function DashboardLayout() {
       keyvalue: "Hot",
     },
     {
-      title: "Doctor",
-      link: "/admin/doctor",
+      title: "Doctors",
+      link: "/admin/doctors",
     },
   ];
   return (
@@ -95,7 +95,7 @@ export default function DashboardLayout() {
                         className="sidemenu-item mb-[4px] last:mb-0"
                       >
                         <Link
-                          to="/admin/helpdesk"
+                          to={item?.link}
                           className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
                         >
                           {item.title}
