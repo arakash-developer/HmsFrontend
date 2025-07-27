@@ -153,7 +153,7 @@ const toggleSidebar = (e) => {
                       target="_blank"
                     >
                       <img
-                        src="assets/images/icons/figma.svg"
+                        src="/images/icons/figma.svg"
                         className="inline-block"
                         alt="figma"
                       />
@@ -167,7 +167,7 @@ const toggleSidebar = (e) => {
                       target="_blank"
                     >
                       <img
-                        src="assets/images/icons/dribbble.svg"
+                        src="/images/icons/dribbble.svg"
                         className="inline-block"
                         alt="dribbble"
                       />
@@ -181,7 +181,7 @@ const toggleSidebar = (e) => {
                       target="_blank"
                     >
                       <img
-                        src="assets/images/icons/spotify.svg"
+                        src="/images/icons/spotify.svg"
                         className="inline-block"
                         alt="spotify"
                       />
@@ -195,7 +195,7 @@ const toggleSidebar = (e) => {
                       target="_blank"
                     >
                       <img
-                        src="assets/images/icons/gitlab.svg"
+                        src="/images/icons/gitlab.svg"
                         className="inline-block"
                         alt="gitlab"
                       />
@@ -209,7 +209,7 @@ const toggleSidebar = (e) => {
                       target="_blank"
                     >
                       <img
-                        src="assets/images/icons/google-drive.svg"
+                        src="/images/icons/google-drive.svg"
                         className="inline-block"
                         alt="google-drive"
                       />
@@ -223,7 +223,7 @@ const toggleSidebar = (e) => {
                       target="_blank"
                     >
                       <img
-                        src="assets/images/icons/trello.svg"
+                        src="/images/icons/trello.svg"
                         className="inline-block"
                         alt="trello"
                       />
@@ -237,7 +237,7 @@ const toggleSidebar = (e) => {
                       target="_blank"
                     >
                       <img
-                        src="assets/images/icons/slack.svg"
+                        src="/images/icons/slack.svg"
                         className="inline-block"
                         alt="slack"
                       />
@@ -251,7 +251,7 @@ const toggleSidebar = (e) => {
                       target="_blank"
                     >
                       <img
-                        src="assets/images/icons/pinterest.svg"
+                        src="/images/icons/pinterest.svg"
                         className="inline-block"
                         alt="pinterest"
                       />
@@ -265,7 +265,7 @@ const toggleSidebar = (e) => {
                       target="_blank"
                     >
                       <img
-                        src="assets/images/icons/facebook.svg"
+                        src="/images/icons/facebook.svg"
                         className="inline-block"
                         alt="facebook"
                       />
@@ -279,7 +279,7 @@ const toggleSidebar = (e) => {
                       target="_blank"
                     >
                       <img
-                        src="assets/images/icons/linkedin.svg"
+                        src="/images/icons/linkedin.svg"
                         className="inline-block"
                         alt="linkedIn"
                       />
@@ -330,7 +330,7 @@ const toggleSidebar = (e) => {
                     >
                       <div className="flex items-center">
                         <img
-                          src="assets/images/flags/usa.svg"
+                          src="/images/flags/usa.svg"
                           className="w-[30px] ltr:mr-[10px] rtl:ml-[10px]"
                           alt="usa"
                         />
@@ -345,7 +345,7 @@ const toggleSidebar = (e) => {
                     >
                       <div className="flex items-center">
                         <img
-                          src="assets/images/flags/france.svg"
+                          src="/images/flags/france.svg"
                           className="w-[30px] ltr:mr-[10px] rtl:ml-[10px]"
                           alt="france"
                         />
@@ -360,7 +360,7 @@ const toggleSidebar = (e) => {
                     >
                       <div className="flex items-center">
                         <img
-                          src="assets/images/flags/germany.svg"
+                          src="/images/flags/germany.svg"
                           className="w-[30px] ltr:mr-[10px] rtl:ml-[10px]"
                           alt="germany"
                         />
@@ -375,7 +375,7 @@ const toggleSidebar = (e) => {
                     >
                       <div className="flex items-center">
                         <img
-                          src="assets/images/flags/portugal.svg"
+                          src="/images/flags/portugal.svg"
                           className="w-[30px] ltr:mr-[10px] rtl:ml-[10px]"
                           alt="portugal"
                         />
@@ -390,7 +390,7 @@ const toggleSidebar = (e) => {
                     >
                       <div className="flex items-center">
                         <img
-                          src="assets/images/flags/spain.svg"
+                          src="/images/flags/spain.svg"
                           className="w-[30px] ltr:mr-[10px] rtl:ml-[10px]"
                           alt="spain"
                         />
