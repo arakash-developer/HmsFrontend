@@ -6,6 +6,10 @@ import Logo from "@public/images/logo-small.svg";
 import { useState } from "react";
 export default function DashboardLayout() {
   let [sidecompact, setSidecompact] = useState(false);
+  const handlerSidebarClose = (e) => {
+    e.preventDefault();
+    setSidecompact(!sidecompact);
+  };
   return (
     <>
       {/* <!-- Sidebar --> */}
@@ -26,6 +30,7 @@ export default function DashboardLayout() {
             type="button"
             className="burger-menu inline-block absolute z-[3] top-[24px] ltr:right-[25px] rtl:left-[25px] transition-all hover:text-primary-500"
             id="hide-sidebar-toggle2"
+            onClick={handlerSidebarClose}
           >
             <i className="material-symbols-outlined">close</i>
           </button>
