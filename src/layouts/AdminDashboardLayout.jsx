@@ -1,21 +1,22 @@
 import { Link, Outlet } from "react-router-dom";
 
+import Footer from "@/components/main/Footer";
 import Header from "@/components/main/Header";
 import Logo from "@public/images/logo-small.svg";
-import Footer from "@/components/main/Footer";
+import { useState } from "react";
 export default function DashboardLayout() {
+  let [sidecompact, setSidecompact] = useState(true);
   return (
     <>
       {/* <!-- Sidebar --> */}
       <div
-        className="sidebar-area bg-white dark:bg-[#0c1427] fixed overflow-hidden z-[7] top-0 h-screen transition-all rounded-r-md"
+        className={`sidebar-area bg-white dark:bg-[#0c1427] fixed overflow-hidden z-[7] top-0 h-screen transition-all rounded-r-md ${
+          sidecompact ? "active" : ""
+        }`}
         id="sidebar-area"
       >
         <div className="logo bg-white dark:bg-[#0c1427] border-b border-gray-100 dark:border-[#172036] px-[25px] pt-[19px] pb-[15px] absolute z-[2] right-0 top-0 left-0">
-          <Link 
-            to="#"
-            className="transition-none relative flex items-center"
-          >
+          <Link to="#" className="transition-none relative flex items-center">
             <img src={Logo} alt="logo-icon" />
             {/* <span className="font-bold text-black dark:text-white relative ltr:ml-[8px] rtl:mr-[8px] top-px text-xl">
               4Hmi
@@ -2409,12 +2410,34 @@ export default function DashboardLayout() {
       {/* <!-- End Sidebar --> */}
 
       {/* <!-- Header --> */}
-      <Header />
+      <div
+        className={`header-area bg-white dark:bg-[#0c1427] py-[13px] px-[20px] md:px-[25px] fixed top-0 z-[6] rounded-b-md transition-all ${
+          sidecompact ? "active" : ""
+        }`}
+        id="header-area"
+      >
+        <Header setSidecompact={setSidecompact} sidecompact={sidecompact} />
+      </div>
       {/* <!-- End Header --> */}
-
-      <Outlet />
+      {/* <!-- Main Content --> */}
+      <div
+        className={`main-content transition-all flex flex-col overflow-hidden min-h-screen ${
+          sidecompact ? "active" : ""
+        }`}
+        id="main-content"
+      >
+        <Outlet />
+      </div>
+      {/* <!-- End Main Content --> */}
       {/* <!-- Footer --> */}
-      <Footer />
+      <div
+        className={`main-content transition-all flex flex-col overflow-hidden ${
+          sidecompact ? "active" : ""
+        }`}
+        id="main-content"
+      >
+        <Footer />
+      </div>
       {/* <!-- Footer --> */}
     </>
   );

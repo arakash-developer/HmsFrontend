@@ -4,9 +4,6 @@ const Typhography = () => {
   return (
     <>
 
-        {/* <!-- Main Content --> */}
-        <div class="main-content transition-all flex flex-col overflow-hidden min-h-screen" id="main-content">
-
             {/* <!-- Breadcrumb --> */}
             <div class="mb-[25px] md:flex items-center justify-between">
                 <h5 class="mb-0">
@@ -212,15 +209,8 @@ const Typhography = () => {
             
             <div class="grow"></div>
 
-            {/* <!-- Footer --> */}
-            <footer class="bg-white dark:bg-[#0c1427] rounded-t-md px-[20px] md:px-[25px] py-[15px] md:py-[20px] text-center">
-                <p>
-                    © <span class="text-purple-500">Trezo</span> is Proudly Owned by <a href="https://envytheme.com/" target="_blank" class="text-primary-500 transition-all hover:underline">EnvyTheme</a>
-                </p>
-            </footer>
-            
-        </div>
-        {/* <!-- End Main Content --> */}
+
+  
     </>
   )
 }

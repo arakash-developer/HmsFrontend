@@ -1,6 +1,6 @@
 import Login from "@/components/auth/Login";
 import Register from "@/components/auth/Register";
-import DashboardLayout from "@/layouts/DashboardLayout";
+import DashboardLayout from "@/layouts/AdminDashboardLayout";
 import Layout from "@/layouts/Layout";
 import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";

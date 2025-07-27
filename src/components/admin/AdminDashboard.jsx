@@ -8,8 +8,7 @@ const AdminDashboard = () => {
   return (
     <>
     
-        {/* <!-- Main Content --> */}
-        <div class="main-content transition-all flex flex-col overflow-hidden min-h-screen" id="main-content">
+  
             
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[25px] mb-[25px]">
 
@@ -1083,8 +1082,7 @@ const AdminDashboard = () => {
 
          
             
-        </div>
-        {/* <!-- End Main Content --> */}
+
     </>
   )
 }

@@ -2,10 +2,7 @@ const Footer = () => {
   return (
     <>
       {/* <!-- Footer --> */}
-      <div
-        className="main-content transition-all flex flex-col overflow-hidden"
-        id="main-content"
-      >
+
         <footer className="bg-white dark:bg-[#0c1427] rounded-t-md px-[20px] md:px-[25px] py-[15px] md:py-[20px] text-center">
           <p>
             © <span className="text-purple-500">Trezo</span> is Proudly Owned by{" "}
@@ -18,7 +15,6 @@ const Footer = () => {
             </a>
           </p>
         </footer>
-      </div>
       {/* <!-- Footer --> */}
     </>
   );
