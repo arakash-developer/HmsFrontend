@@ -14,16 +14,14 @@ export default function DashboardLayout() {
     {
       title: "Analytics",
       link: "/admin",
+      key: "new",
+      keyvalue: "New",
     },
     {
       title: "Accounts",
       link: "/admin/accounts",
       key: "top",
       keyvalue: "Top",
-    },
-    {
-      title: "Project Management",
-      link: "/admin/project-management",
     },
     {
       title: "LMS",
@@ -34,108 +32,12 @@ export default function DashboardLayout() {
     {
       title: "HelpDesk",
       link: "/admin/helpdesk",
-    },
-    {
-      title: "Analytics",
-      link: "/admin/analytics",
-      key: "new",
-      keyvalue: "New",
-    },
-    {
-      title: "Crypto",
-      link: "/admin/crypto",
-    },
-    {
-      title: "Sales",
-      link: "/admin/sales",
-    },
-    {
-      title: "Hospital",
-      link: "/admin/hospital",
-    },
-    {
-      title: "HRM",
-      link: "/admin/hrm",
-    },
-    {
-      title: "School",
-      link: "/admin/school",
-    },
-    {
-      title: "Call Center",
-      link: "/admin/call-center",
-    },
-    {
-      title: "Marketing",
-      link: "/admin/marketing",
-    },
-    {
-      title: "NFT",
-      link: "/admin/nft",
-    },
-    {
-      title: "SaaS",
-      link: "/admin/saas",
-    },
-    {
-      title: "Real Estate",
-      link: "/admin/real-estate",
-    },
-    {
-      title: "Shipment",
-      link: "/admin/shipment",
-    },
-    {
-      title: "Finance",
-      link: "/admin/finance",
-    },
-    {
-      title: "POS System",
-      link: "/admin/pos-system",
-    },
-    {
-      title: "Podcast",
-      link: "/admin/podcast",
-    },
-    {
-      title: "Social Media",
-      link: "/admin/social-media",
+      key: "hot",
+      keyvalue: "Hot",
     },
     {
       title: "Doctor",
       link: "/admin/doctor",
-    },
-    {
-      title: "Beauty Salon",
-      link: "/admin/beauty-salon",
-    },
-    {
-      title: "Store Analysis",
-      link: "/admin/store-analysis",
-    },
-    {
-      title: "Restaurant",
-      link: "/admin/restaurant",
-    },
-    {
-      title: "Hotel",
-      link: "/admin/hotel",
-    },
-    {
-      title: "Real Estate Agent",
-      link: "/admin/real-estate-agent",
-    },
-    {
-      title: "Credit Card",
-      link: "/admin/credit-card",
-    },
-    {
-      title: "Crypto Trader",
-      link: "/admin/crypto-trader",
-    },
-    {
-      title: "Crypto Perf.",
-      link: "/admin/crypto-performance",
     },
   ];
   return (
@@ -188,303 +90,43 @@ export default function DashboardLayout() {
                 <div className="pt-[4px]">
                   <ul className="sidebar-sub-menu" id="dashboardItemsList">
                     {dashboardItemsList?.map((item, index) => (
-                      <li key={index} className="sidemenu-item mb-[4px] last:mb-0">
+                      <li
+                        key={index}
+                        className="sidemenu-item mb-[4px] last:mb-0"
+                      >
                         <Link
                           to="/admin/helpdesk"
                           className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
                         >
                           {item.title}
+                          {item?.key === "top" && (
+                            <span className="text-[10px] font-medium py-[1px] px-[8px] ltr:ml-[8px] rtl:mr-[8px] text-purple-500 bg-purple-100 dark:bg-[#ffffff14] inline-block rounded-sm">
+                              {item?.keyvalue}
+                            </span>
+                          )}
+                          {item?.key === "hot" && (
+                            <span className="text-[10px] font-medium py-[1px] px-[8px] ltr:ml-[8px] rtl:mr-[8px] text-orange-500 bg-orange-100 dark:bg-[#ffffff14] inline-block rounded-sm">
+                              {item?.keyvalue}
+                            </span>
+                          )}
+                          {item?.key === "popular" && (
+                            <span className="text-[10px] font-medium py-[1px] px-[8px] ltr:ml-[8px] rtl:mr-[8px] text-success-600 bg-success-100 dark:bg-[#ffffff14] inline-block rounded-sm">
+                              {item?.keyvalue}
+                            </span>
+                          )}
+                          {item?.key === "new" && (
                           <span className="text-[10px] font-medium py-[1px] px-[8px] ltr:ml-[8px] rtl:mr-[8px] text-orange-500 bg-orange-100 dark:bg-[#ffffff14] inline-block rounded-sm">
-                            Hot
-                          </span>
+                            {item?.keyvalue}
+                        </span>
+                          )}
+                          {item?.key === "top" && (
+                                 <span className="text-[10px] font-medium py-[1px] px-[8px] ltr:ml-[8px] rtl:mr-[8px] text-purple-500 bg-purple-100 dark:bg-[#ffffff14] inline-block rounded-sm">
+                              {item?.keyvalue}
+                        </span>
+                          )}
                         </Link>
                       </li>
                     ))}
-                    <li className="sidemenu-item mb-[4px] last:mb-0">
-                      <Link
-                        to="/admin"
-                        className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
-                      >
-                        Analytics
-                      </Link>
-                    </li>
-                    <li className="sidemenu-item mb-[4px] last:mb-0">
-                      <Link
-                        to="/admin/accounts"
-                        className="sidemenu-link active rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
-                      >
-                        Accounts
-                      </Link>
-                    </li>
-                    <li className="sidemenu-item mb-[4px] last:mb-0">
-                      <Link
-                        to="/admin/project-management"
-                        className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
-                      >
-                        Project Management
-                      </Link>
-                    </li>
-                    <li className="sidemenu-item mb-[4px] last:mb-0">
-                      <Link
-                        to="/admin/lms"
-                        className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
-                      >
-                        LMS
-                      </Link>
-                    </li>
-                    <li className="sidemenu-item mb-[4px] last:mb-0">
-                      <Link
-                        to="/admin/helpdesk"
-                        className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
-                      >
-                        HelpDesk
-                        <span className="text-[10px] font-medium py-[1px] px-[8px] ltr:ml-[8px] rtl:mr-[8px] text-orange-500 bg-orange-100 dark:bg-[#ffffff14] inline-block rounded-sm">
-                          Hot
-                        </span>
-                      </Link>
-                    </li>
-                    <li className="sidemenu-item mb-[4px] last:mb-0">
-                      <Link
-                        to="/admin/analytics"
-                        className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
-                      >
-                        Analytics
-                      </Link>
-                    </li>
-                    <li className="sidemenu-item mb-[4px] last:mb-0">
-                      <Link
-                        to="/admin/crypto"
-                        className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
-                      >
-                        Crypto
-                      </Link>
-                    </li>
-                    <li className="sidemenu-item mb-[4px] last:mb-0">
-                      <Link
-                        to="/admin/sales"
-                        className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
-                      >
-                        Sales
-                      </Link>
-                    </li>
-                    <li className="sidemenu-item mb-[4px] last:mb-0">
-                      <Link
-                        to="/admin/hospital"
-                        className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
-                      >
-                        Hospital
-                      </Link>
-                    </li>
-                    <li className="sidemenu-item itemHidden mb-[4px] last:mb-0">
-                      <Link
-                        to="/admin/hrm"
-                        className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
-                      >
-                        HRM
-                      </Link>
-                    </li>
-                    <li className="sidemenu-item itemHidden mb-[4px] last:mb-0">
-                      <Link
-                        to="/admin/school"
-                        className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
-                      >
-                        School
-                      </Link>
-                    </li>
-                    <li className="sidemenu-item itemHidden mb-[4px] last:mb-0">
-                      <Link
-                        to="/admin/call-center"
-                        className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
-                      >
-                        Call Center
-                        <span className="text-[10px] font-medium py-[1px] px-[8px] ltr:ml-[8px] rtl:mr-[8px] text-success-600 bg-success-100 dark:bg-[#ffffff14] inline-block rounded-sm">
-                          Popular
-                        </span>
-                      </Link>
-                    </li>
-                    <li className="sidemenu-item itemHidden mb-[4px] last:mb-0">
-                      <Link
-                        to="/admin/marketing"
-                        className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
-                      >
-                        Marketing
-                      </Link>
-                    </li>
-                    <li className="sidemenu-item itemHidden mb-[4px] last:mb-0">
-                      <Link
-                        to="/admin/nft"
-                        className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
-                      >
-                        NFT
-                      </Link>
-                    </li>
-                    <li className="sidemenu-item itemHidden mb-[4px] last:mb-0">
-                      <a
-                        href="saas-index.html"
-                        className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
-                      >
-                        SaaS
-                      </a>
-                    </li>
-                    <li className="sidemenu-item itemHidden mb-[4px] last:mb-0">
-                      <a
-                        href="real-estate-index.html"
-                        className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
-                      >
-                        Real Estate
-                        <span className="text-[10px] font-medium py-[1px] px-[8px] ltr:ml-[8px] rtl:mr-[8px] text-purple-500 bg-purple-100 dark:bg-[#ffffff14] inline-block rounded-sm">
-                          Top
-                        </span>
-                      </a>
-                    </li>
-                    <li className="sidemenu-item itemHidden mb-[4px] last:mb-0">
-                      <a
-                        href="shipment-index.html"
-                        className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
-                      >
-                        Shipment
-                      </a>
-                    </li>
-                    <li className="sidemenu-item itemHidden mb-[4px] last:mb-0">
-                      <a
-                        href="finance-index.html"
-                        className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
-                      >
-                        Finance
-                      </a>
-                    </li>
-                    <li className="sidemenu-item itemHidden mb-[4px] last:mb-0">
-                      <a
-                        href="pos-system-index.html"
-                        className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
-                      >
-                        POS System
-                        <span className="text-[10px] font-medium py-[1px] px-[8px] ltr:ml-[8px] rtl:mr-[8px] text-orange-500 bg-orange-100 dark:bg-[#ffffff14] inline-block rounded-sm">
-                          New
-                        </span>
-                      </a>
-                    </li>
-                    <li className="sidemenu-item itemHidden mb-[4px] last:mb-0">
-                      <a
-                        href="podcast-index.html"
-                        className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
-                      >
-                        Podcast
-                        <span className="text-[10px] font-medium py-[1px] px-[8px] ltr:ml-[8px] rtl:mr-[8px] text-orange-500 bg-orange-100 dark:bg-[#ffffff14] inline-block rounded-sm">
-                          New
-                        </span>
-                      </a>
-                    </li>
-                    <li className="sidemenu-item itemHidden mb-[4px] last:mb-0">
-                      <a
-                        href="social-media-index.html"
-                        className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
-                      >
-                        Social Media
-                        <span className="text-[10px] font-medium py-[1px] px-[8px] ltr:ml-[8px] rtl:mr-[8px] text-orange-500 bg-orange-100 dark:bg-[#ffffff14] inline-block rounded-sm">
-                          New
-                        </span>
-                      </a>
-                    </li>
-                    <li className="sidemenu-item itemHidden mb-[4px] last:mb-0">
-                      <a
-                        href="doctor-index.html"
-                        className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
-                      >
-                        Doctor
-                        <span className="text-[10px] font-medium py-[1px] px-[8px] ltr:ml-[8px] rtl:mr-[8px] text-orange-500 bg-orange-100 dark:bg-[#ffffff14] inline-block rounded-sm">
-                          New
-                        </span>
-                      </a>
-                    </li>
-                    <li className="sidemenu-item itemHidden mb-[4px] last:mb-0">
-                      <a
-                        href="beauty-salon-index.html"
-                        className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
-                      >
-                        Beauty Salon
-                        <span className="text-[10px] font-medium py-[1px] px-[8px] ltr:ml-[8px] rtl:mr-[8px] text-orange-500 bg-orange-100 dark:bg-[#ffffff14] inline-block rounded-sm">
-                          New
-                        </span>
-                      </a>
-                    </li>
-                    <li className="sidemenu-item itemHidden mb-[4px] last:mb-0">
-                      <a
-                        href="store-analysis-index.html"
-                        className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
-                      >
-                        Store Analysis
-                        <span className="text-[10px] font-medium py-[1px] px-[8px] ltr:ml-[8px] rtl:mr-[8px] text-orange-500 bg-orange-100 dark:bg-[#ffffff14] inline-block rounded-sm">
-                          New
-                        </span>
-                      </a>
-                    </li>
-                    <li className="sidemenu-item itemHidden mb-[4px] last:mb-0">
-                      <a
-                        href="restaurant-index.html"
-                        className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
-                      >
-                        Restaurant
-                        <span className="text-[10px] font-medium py-[1px] px-[8px] ltr:ml-[8px] rtl:mr-[8px] text-orange-500 bg-orange-100 dark:bg-[#ffffff14] inline-block rounded-sm">
-                          New
-                        </span>
-                      </a>
-                    </li>
-                    <li className="sidemenu-item itemHidden mb-[4px] last:mb-0">
-                      <a
-                        href="hotel-index.html"
-                        className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
-                      >
-                        Hotel
-                        <span className="text-[10px] font-medium py-[1px] px-[8px] ltr:ml-[8px] rtl:mr-[8px] text-orange-500 bg-orange-100 dark:bg-[#ffffff14] inline-block rounded-sm">
-                          New
-                        </span>
-                      </a>
-                    </li>
-                    <li className="sidemenu-item itemHidden mb-[4px] last:mb-0">
-                      <a
-                        href="real-estate-agent-index.html"
-                        className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
-                      >
-                        Real Estate Agent
-                        <span className="text-[10px] font-medium py-[1px] px-[8px] ltr:ml-[8px] rtl:mr-[8px] text-orange-500 bg-orange-100 dark:bg-[#ffffff14] inline-block rounded-sm">
-                          New
-                        </span>
-                      </a>
-                    </li>
-                    <li className="sidemenu-item itemHidden mb-[4px] last:mb-0">
-                      <a
-                        href="credit-card-index.html"
-                        className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
-                      >
-                        Credit Card
-                        <span className="text-[10px] font-medium py-[1px] px-[8px] ltr:ml-[8px] rtl:mr-[8px] text-orange-500 bg-orange-100 dark:bg-[#ffffff14] inline-block rounded-sm">
-                          New
-                        </span>
-                      </a>
-                    </li>
-                    <li className="sidemenu-item itemHidden mb-[4px] last:mb-0">
-                      <a
-                        href="crypto-trader-index.html"
-                        className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
-                      >
-                        Crypto Trader
-                        <span className="text-[10px] font-medium py-[1px] px-[8px] ltr:ml-[8px] rtl:mr-[8px] text-orange-500 bg-orange-100 dark:bg-[#ffffff14] inline-block rounded-sm">
-                          New
-                        </span>
-                      </a>
-                    </li>
-                    <li className="sidemenu-item itemHidden mb-[4px] last:mb-0">
-                      <a
-                        href="crypto-performance-index.html"
-                        className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
-                      >
-                        Crypto Perf.
-                        <span className="text-[10px] font-medium py-[1px] px-[8px] ltr:ml-[8px] rtl:mr-[8px] text-orange-500 bg-orange-100 dark:bg-[#ffffff14] inline-block rounded-sm">
-                          New
-                        </span>
-                      </a>
-                    </li>
                   </ul>
                   <button
                     id="showMoreToggleButton"
