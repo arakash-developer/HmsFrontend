@@ -13,7 +13,7 @@ export default function DashboardLayout() {
   let dashboardItemsList = [
     {
       title: "Analytics",
-      link: "/admin",
+      link: "/admin/analytics",
       key: "new",
       keyvalue: "New",
     },
