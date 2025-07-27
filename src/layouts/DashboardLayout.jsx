@@ -30,7 +30,7 @@ export default function DashboardLayout() {
           </button>
         </div>
         <div
-          className="pt-[89px] px-[25px] pb-[20px] h-screen overflow-y-scroll"
+          className="pt-[89px] px-[25px] pb-[20px] h-screen overflow-y-scroll custom-scrollbar"
           data-simplebar
         >
           <div className="accordion">
