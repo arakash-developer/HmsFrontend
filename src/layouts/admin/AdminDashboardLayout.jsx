@@ -1,7 +1,7 @@
 import { Link, Outlet } from "react-router-dom";
 
-import Footer from "@/components/main/Footer";
-import Header from "@/components/main/Header";
+import Footer from "@/components/main/admin/Footer";
+import Header from "@/components/main/admin/Header";
 import Logo from "@public/images/logo-small.svg";
 import { useState } from "react";
 export default function DashboardLayout() {
