@@ -30,8 +30,8 @@ export default function DashboardLayout() {
       keyvalue: "Popular",
     },
     {
-      title: "HelpDesk",
-      link: "/admin/helpdesk",
+      title: "Pathology",
+      link: "/admin/pathology",
       key: "hot",
       keyvalue: "Hot",
     },
