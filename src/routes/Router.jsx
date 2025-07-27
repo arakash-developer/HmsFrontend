@@ -12,6 +12,7 @@ const SuperAdminDashboard = lazy(() =>
 import ProtectedRoute from "@/routes/ProtectedRoute";
 import PublicRoute from "@/routes/PublicRoute";
 import Typhography from "@/components/admin/Typhography";
+import NotFound from "@/components/main/NotFound";
 
 const routes = [
   {
@@ -53,7 +54,7 @@ const routes = [
   },
   {
     path: "*",
-    element: <div>404 | Page Not Found</div>,
+    element: <NotFound />,
   },
 ];
 
