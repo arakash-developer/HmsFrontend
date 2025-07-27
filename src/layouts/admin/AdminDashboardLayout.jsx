@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 
 import Footer from "@/components/main/admin/Footer";
 import Header from "@/components/main/admin/Header";
@@ -94,7 +94,7 @@ export default function DashboardLayout() {
                         key={index}
                         className="sidemenu-item mb-[4px] last:mb-0"
                       >
-                        <Link
+                        <NavLink
                           to={item?.link}
                           className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
                         >
@@ -120,7 +120,7 @@ export default function DashboardLayout() {
                             </span>
                           )}
                         
-                        </Link>
+                        </NavLink>
                       </li>
                     ))}
                   </ul>
