@@ -347,7 +347,7 @@ const AdminDashboard = () => {
                                             <td className="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] border-b border-gray-100 dark:border-[#172036] ltr:first:pl-0 ltr:last:pr-0 rtl:first:pr-0 rtl:last:pl-0">
                                                 <div className="flex items-center">
                                                     <div className="w-[44px] h-[44px] ltr:mr-[12px] rtl:ml-[12px]">
-                                                        <img src="assets/images/users/user6.jpg" className="rounded-full inline-block" alt="user-image" />
+                                                        <img src="/images/users/user6.jpg" className="rounded-full inline-block" alt="user-image" />
                                                     </div>
                                                     <div>
                                                         <span className="block font-medium">
@@ -371,7 +371,7 @@ const AdminDashboard = () => {
                                             <td className="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] border-b border-gray-100 dark:border-[#172036] ltr:first:pl-0 ltr:last:pr-0 rtl:first:pr-0 rtl:last:pl-0">
                                                 <div className="flex items-center">
                                                     <div className="w-[44px] h-[44px] ltr:mr-[12px] rtl:ml-[12px]">
-                                                        <img src="assets/images/users/user7.jpg" className="rounded-full inline-block" alt="user-image" />
+                                                        <img src="/images/users/user7.jpg" className="rounded-full inline-block" alt="user-image" />
                                                     </div>
                                                     <div>
                                                         <span className="block font-medium">
@@ -395,7 +395,7 @@ const AdminDashboard = () => {
                                             <td className="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] border-b border-gray-100 dark:border-[#172036] ltr:first:pl-0 ltr:last:pr-0 rtl:first:pr-0 rtl:last:pl-0">
                                                 <div className="flex items-center">
                                                     <div className="w-[44px] h-[44px] ltr:mr-[12px] rtl:ml-[12px]">
-                                                        <img src="assets/images/users/user8.jpg" className="rounded-full inline-block" alt="user-image" />
+                                                        <img src="images/users/user8.jpg" className="rounded-full inline-block" alt="user-image" />
                                                     </div>
                                                     <div>
                                                         <span className="block font-medium">
@@ -419,7 +419,7 @@ const AdminDashboard = () => {
                                             <td className="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] border-b border-gray-100 dark:border-[#172036] ltr:first:pl-0 ltr:last:pr-0 rtl:first:pr-0 rtl:last:pl-0">
                                                 <div className="flex items-center">
                                                     <div className="w-[44px] h-[44px] ltr:mr-[12px] rtl:ml-[12px]">
-                                                        <img src="assets/images/users/user9.jpg" className="rounded-full inline-block" alt="user-image" />
+                                                        <img src="/images/users/user9.jpg" className="rounded-full inline-block" alt="user-image" />
                                                     </div>
                                                     <div>
                                                         <span className="block font-medium">
@@ -443,7 +443,7 @@ const AdminDashboard = () => {
                                             <td className="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] border-b border-gray-100 dark:border-[#172036] ltr:first:pl-0 ltr:last:pr-0 rtl:first:pr-0 rtl:last:pl-0">
                                                 <div className="flex items-center">
                                                     <div className="w-[44px] h-[44px] ltr:mr-[12px] rtl:ml-[12px]">
-                                                        <img src="assets/images/users/user10.jpg" className="rounded-full inline-block" alt="user-image" />
+                                                        <img src="/images/users/user10.jpg" className="rounded-full inline-block" alt="user-image" />
                                                     </div>
                                                     <div>
                                                         <span className="block font-medium">
@@ -582,7 +582,7 @@ const AdminDashboard = () => {
                                             <td className="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[15px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
                                                 <div className="flex items-center">
                                                     <div className="rounded-full w-[40px]">
-                                                        <img src="assets/images/users/user11.jpg" className="inline-block rounded-full" alt="user-image" />
+                                                        <img src="/images/users/user11.jpg" className="inline-block rounded-full" alt="user-image" />
                                                     </div>
                                                     <div className="ltr:ml-[12px] rtl:mr-[12px]">
                                                         <span className="block font-medium">
@@ -631,7 +631,7 @@ const AdminDashboard = () => {
                                             <td className="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[15px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
                                                 <div className="flex items-center">
                                                     <div className="rounded-full w-[40px]">
-                                                        <img src="assets/images/users/user12.jpg" className="inline-block rounded-full" alt="user-image" />
+                                                        <img src="/images/users/user12.jpg" className="inline-block rounded-full" alt="user-image" />
                                                     </div>
                                                     <div className="ltr:ml-[12px] rtl:mr-[12px]">
                                                         <span className="block font-medium">
@@ -680,7 +680,7 @@ const AdminDashboard = () => {
                                             <td className="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[15px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
                                                 <div className="flex items-center">
                                                     <div className="rounded-full w-[40px]">
-                                                        <img src="assets/images/users/user13.jpg" className="inline-block rounded-full" alt="user-image" />
+                                                        <img src="/images/users/user13.jpg" className="inline-block rounded-full" alt="user-image" />
                                                     </div>
                                                     <div className="ltr:ml-[12px] rtl:mr-[12px]">
                                                         <span className="block font-medium">
@@ -729,7 +729,7 @@ const AdminDashboard = () => {
                                             <td className="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[15px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
                                                 <div className="flex items-center">
                                                     <div className="rounded-full w-[40px]">
-                                                        <img src="assets/images/users/user14.jpg" className="inline-block rounded-full" alt="user-image" />
+                                                        <img src="/images/users/user14.jpg" className="inline-block rounded-full" alt="user-image" />
                                                     </div>
                                                     <div className="ltr:ml-[12px] rtl:mr-[12px]">
                                                         <span className="block font-medium">
@@ -778,7 +778,7 @@ const AdminDashboard = () => {
                                             <td className="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[15px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
                                                 <div className="flex items-center">
                                                     <div className="rounded-full w-[40px]">
-                                                        <img src="assets/images/users/user15.jpg" className="inline-block rounded-full" alt="user-image" />
+                                                        <img src="/images/users/user15.jpg" className="inline-block rounded-full" alt="user-image" />
                                                     </div>
                                                     <div className="ltr:ml-[12px] rtl:mr-[12px]">
                                                         <span className="block font-medium">
