@@ -8,6 +8,7 @@ const AdminDashboardLayout = lazy(() =>
 import Layout from "@/layouts/Layout";
 import { createBrowserRouter } from "react-router-dom";
 const AdminDashboard = lazy(() => import("@/components/admin/AdminDashboard"));
+const AdminAccounts = lazy(() => import("@/components/admin/AdminAccounts"));
 const SuperAdminDashboard = lazy(() =>
   import("@/components/superadmin/SuperAdminDashboard")
 );
@@ -41,6 +42,7 @@ const routes = [
           { index: true, element: <AdminDashboard /> },
           { path: "typography", element: <Typhography /> },
           // { path: "patient", element: <PatientDashboard /> },
+          { path: "accounts", element: <AdminAccounts /> },
         ],
       },
     ],

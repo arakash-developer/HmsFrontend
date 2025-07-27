@@ -55,122 +55,122 @@ export default function DashboardLayout() {
                 <div className="pt-[4px]">
                   <ul className="sidebar-sub-menu" id="dashboardItemsList">
                     <li className="sidemenu-item mb-[4px] last:mb-0">
-                      <a
-                        href="index.html"
+                      <Link
+                        to="/admin"
                         className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
                       >
-                        eCommerce
-                      </a>
+                        Analytics
+                      </Link>
                     </li>
                     <li className="sidemenu-item mb-[4px] last:mb-0">
-                      <a
-                        href="crm-index.html"
+                      <Link
+                        to="/admin/accounts"
                         className="sidemenu-link active rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
                       >
-                        CRM
-                      </a>
+                        Accounts
+                      </Link>
                     </li>
                     <li className="sidemenu-item mb-[4px] last:mb-0">
-                      <a
-                        href="project-management-index.html"
+                      <Link
+                        to="/admin/project-management"
                         className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
                       >
                         Project Management
-                      </a>
+                      </Link>
                     </li>
                     <li className="sidemenu-item mb-[4px] last:mb-0">
-                      <a
-                        href="lms-index.html"
+                      <Link
+                        to="/admin/lms"
                         className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
                       >
                         LMS
-                      </a>
+                      </Link>
                     </li>
                     <li className="sidemenu-item mb-[4px] last:mb-0">
-                      <a
-                        href="helpdesk-index.html"
+                      <Link
+                        to="/admin/helpdesk"
                         className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
                       >
                         HelpDesk
                         <span className="text-[10px] font-medium py-[1px] px-[8px] ltr:ml-[8px] rtl:mr-[8px] text-orange-500 bg-orange-100 dark:bg-[#ffffff14] inline-block rounded-sm">
                           Hot
                         </span>
-                      </a>
+                      </Link>
                     </li>
                     <li className="sidemenu-item mb-[4px] last:mb-0">
-                      <a
-                        href="analytics-index.html"
+                      <Link
+                        to="/admin/analytics"
                         className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
                       >
                         Analytics
-                      </a>
+                      </Link>
                     </li>
                     <li className="sidemenu-item mb-[4px] last:mb-0">
-                      <a
-                        href="crypto-index.html"
+                      <Link
+                        to="/admin/crypto"
                         className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
                       >
                         Crypto
-                      </a>
+                      </Link>
                     </li>
                     <li className="sidemenu-item mb-[4px] last:mb-0">
-                      <a
-                        href="sales-index.html"
+                      <Link
+                        to="/admin/sales"
                         className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
                       >
                         Sales
-                      </a>
+                      </Link>
                     </li>
                     <li className="sidemenu-item mb-[4px] last:mb-0">
-                      <a
-                        href="hospital-index.html"
+                      <Link
+                        to="/admin/hospital"
                         className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
                       >
                         Hospital
-                      </a>
+                      </Link>
                     </li>
                     <li className="sidemenu-item itemHidden mb-[4px] last:mb-0">
-                      <a
-                        href="hrm-index.html"
+                      <Link
+                        to="/admin/hrm"
                         className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
                       >
                         HRM
-                      </a>
+                      </Link>
                     </li>
                     <li className="sidemenu-item itemHidden mb-[4px] last:mb-0">
-                      <a
-                        href="school-index.html"
+                      <Link
+                        to="/admin/school"
                         className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
                       >
                         School
-                      </a>
+                      </Link>
                     </li>
                     <li className="sidemenu-item itemHidden mb-[4px] last:mb-0">
-                      <a
-                        href="call-center-index.html"
+                      <Link
+                        to="/admin/call-center"
                         className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
                       >
                         Call Center
                         <span className="text-[10px] font-medium py-[1px] px-[8px] ltr:ml-[8px] rtl:mr-[8px] text-success-600 bg-success-100 dark:bg-[#ffffff14] inline-block rounded-sm">
                           Popular
                         </span>
-                      </a>
+                      </Link>
                     </li>
                     <li className="sidemenu-item itemHidden mb-[4px] last:mb-0">
-                      <a
-                        href="marketing-index.html"
+                      <Link
+                        to="/admin/marketing"
                         className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
                       >
                         Marketing
-                      </a>
+                      </Link>
                     </li>
                     <li className="sidemenu-item itemHidden mb-[4px] last:mb-0">
-                      <a
-                        href="nft-index.html"
+                      <Link
+                        to="/admin/nft"
                         className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
                       >
                         NFT
-                      </a>
+                      </Link>
                     </li>
                     <li className="sidemenu-item itemHidden mb-[4px] last:mb-0">
                       <a

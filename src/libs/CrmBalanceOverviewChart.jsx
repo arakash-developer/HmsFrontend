@@ -1,3 +1,4 @@
+import BlockSuspense from "@/components/suspense/BlockSuspense";
 import { lazy, Suspense } from "react";
 
 const Chart = lazy(() => import("react-apexcharts"));
@@ -120,7 +121,7 @@ const CrmBalanceOverviewChart = () => {
 
   return (
     <>
-      <Suspense fallback={<div>Loading chart...</div>}>
+      <Suspense fallback={<BlockSuspense />}>
         {Chart && (
           <Chart options={options} series={series} type="area" height={350} />
         )}
