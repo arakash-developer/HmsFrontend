@@ -10,7 +10,7 @@ export default function DashboardLayout() {
     e.preventDefault();
     setSidecompact(!sidecompact);
   };
-  let dashboardItemsList =[
+  let dashboardItemsList = [
     {
       title: "Analytics",
       link: "/admin",
@@ -19,7 +19,7 @@ export default function DashboardLayout() {
       title: "Accounts",
       link: "/admin/accounts",
       key: "top",
-      keyvalue: "Top"
+      keyvalue: "Top",
     },
     {
       title: "Project Management",
@@ -29,7 +29,7 @@ export default function DashboardLayout() {
       title: "LMS",
       link: "/admin/lms",
       key: "popular",
-      keyvalue: "Popular"
+      keyvalue: "Popular",
     },
     {
       title: "HelpDesk",
@@ -39,7 +39,7 @@ export default function DashboardLayout() {
       title: "Analytics",
       link: "/admin/analytics",
       key: "new",
-      keyvalue: "New"
+      keyvalue: "New",
     },
     {
       title: "Crypto",
@@ -135,9 +135,9 @@ export default function DashboardLayout() {
     },
     {
       title: "Crypto Perf.",
-      link: "/admin/crypto-performance"
-    }
-  ]
+      link: "/admin/crypto-performance",
+    },
+  ];
   return (
     <>
       {/* <!-- Sidebar --> */}
@@ -187,6 +187,19 @@ export default function DashboardLayout() {
               <div className="accordion-collapse block">
                 <div className="pt-[4px]">
                   <ul className="sidebar-sub-menu" id="dashboardItemsList">
+                    {dashboardItemsList?.map((item, index) => (
+                      <li key={index} className="sidemenu-item mb-[4px] last:mb-0">
+                        <Link
+                          to="/admin/helpdesk"
+                          className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
+                        >
+                          {item.title}
+                          <span className="text-[10px] font-medium py-[1px] px-[8px] ltr:ml-[8px] rtl:mr-[8px] text-orange-500 bg-orange-100 dark:bg-[#ffffff14] inline-block rounded-sm">
+                            Hot
+                          </span>
+                        </Link>
+                      </li>
+                    ))}
                     <li className="sidemenu-item mb-[4px] last:mb-0">
                       <Link
                         to="/admin"
