@@ -1,6 +1,15 @@
-.trezo-card.trezo_bg_head{
-    background: linear-gradient(272deg, #1F64F1 31.27%, #123A8B 98.4%);
+.trezo-card.trezo_bg_head {
+  background: linear-gradient(272deg, #1f64f1 31.27%, #123a8b 98.4%);
 }
-.trezo-card.trezo_bg_second{
-    background: linear-gradient(90deg, #4936F5 0%, #4737D6 100%);
+.trezo-card.trezo_bg_second {
+  background: linear-gradient(90deg, #4936f5 0%, #4737d6 100%);
+}
+.trezo-card.trezo_bg_finance {
+  background: linear-gradient(120deg, #343a46 0%, #23272e 99.29%);
+}
+.trezo-card-content .trezo_bg_finance {
+  background-image: url(/images/wallet/card1.jpg);
+}
+.trezo_bg_finance_two {
+  background-image: url(/images/wallet/card2.jpg);
 }
