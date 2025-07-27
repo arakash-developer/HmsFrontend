@@ -10,6 +10,134 @@ export default function DashboardLayout() {
     e.preventDefault();
     setSidecompact(!sidecompact);
   };
+  let dashboardItemsList =[
+    {
+      title: "Analytics",
+      link: "/admin",
+    },
+    {
+      title: "Accounts",
+      link: "/admin/accounts",
+      key: "top",
+      keyvalue: "Top"
+    },
+    {
+      title: "Project Management",
+      link: "/admin/project-management",
+    },
+    {
+      title: "LMS",
+      link: "/admin/lms",
+      key: "popular",
+      keyvalue: "Popular"
+    },
+    {
+      title: "HelpDesk",
+      link: "/admin/helpdesk",
+    },
+    {
+      title: "Analytics",
+      link: "/admin/analytics",
+      key: "new",
+      keyvalue: "New"
+    },
+    {
+      title: "Crypto",
+      link: "/admin/crypto",
+    },
+    {
+      title: "Sales",
+      link: "/admin/sales",
+    },
+    {
+      title: "Hospital",
+      link: "/admin/hospital",
+    },
+    {
+      title: "HRM",
+      link: "/admin/hrm",
+    },
+    {
+      title: "School",
+      link: "/admin/school",
+    },
+    {
+      title: "Call Center",
+      link: "/admin/call-center",
+    },
+    {
+      title: "Marketing",
+      link: "/admin/marketing",
+    },
+    {
+      title: "NFT",
+      link: "/admin/nft",
+    },
+    {
+      title: "SaaS",
+      link: "/admin/saas",
+    },
+    {
+      title: "Real Estate",
+      link: "/admin/real-estate",
+    },
+    {
+      title: "Shipment",
+      link: "/admin/shipment",
+    },
+    {
+      title: "Finance",
+      link: "/admin/finance",
+    },
+    {
+      title: "POS System",
+      link: "/admin/pos-system",
+    },
+    {
+      title: "Podcast",
+      link: "/admin/podcast",
+    },
+    {
+      title: "Social Media",
+      link: "/admin/social-media",
+    },
+    {
+      title: "Doctor",
+      link: "/admin/doctor",
+    },
+    {
+      title: "Beauty Salon",
+      link: "/admin/beauty-salon",
+    },
+    {
+      title: "Store Analysis",
+      link: "/admin/store-analysis",
+    },
+    {
+      title: "Restaurant",
+      link: "/admin/restaurant",
+    },
+    {
+      title: "Hotel",
+      link: "/admin/hotel",
+    },
+    {
+      title: "Real Estate Agent",
+      link: "/admin/real-estate-agent",
+    },
+    {
+      title: "Credit Card",
+      link: "/admin/credit-card",
+    },
+    {
+      title: "Crypto Trader",
+      link: "/admin/crypto-trader",
+    },
+    {
+      title: "Crypto Perf.",
+      link: "/admin/crypto-performance"
+    }
+  ]
   return (
     <>
       {/* <!-- Sidebar --> */}
