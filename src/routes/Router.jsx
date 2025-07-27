@@ -1,6 +1,9 @@
 import Login from "@/components/auth/Login";
 import Register from "@/components/auth/Register";
-import DashboardLayout from "@/layouts/admin/AdminDashboardLayout";
+// Lazy-load layouts
+const AdminDashboardLayout = lazy(() =>
+  import("@/layouts/admin/AdminDashboardLayout")
+);
 import Layout from "@/layouts/Layout";
 import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
@@ -33,7 +36,7 @@ const routes = [
     children: [
       {
         path: "/",
-        element: <DashboardLayout />,
+        element: <AdminDashboardLayout />,
         children: [
           { path: "admin", element: <AdminDashboard /> },
           { path: "typography", element: <Typhography /> },
@@ -47,7 +50,7 @@ const routes = [
     children: [
       {
         path: "/",
-        element: <DashboardLayout />,
+        element: <AdminDashboardLayout />,
         children: [{ path: "superadmin", element: <SuperAdminDashboard /> }],
       },
     ],
