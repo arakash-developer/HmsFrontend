@@ -42,7 +42,7 @@ const routes = [
         path: "/admin",
         element: <AdminDashboardLayout />,
         children: [
-          { index: true, element: <AdminDashboard /> },
+          { path:"analytics", element: <AdminDashboard /> },
           { path: "typography", element: <Typhography /> },
           { path: "patients", element: <AdminPatients /> },
           { path: "accounts", element: <AdminAccounts /> },
