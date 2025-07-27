@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense } from "react";
+
+const Chart = lazy(() => import("react-apexcharts"));
 const CrmBalanceOverviewChart = () => {
-  const [Chart, setChart] = useState();
-  useEffect(() => {
-    import("react-apexcharts").then((mod) => {
-      setChart(() => mod.default);
-    });
-  }, []);
+  // const [Chart, setChart] = useState();
+  // useEffect(() => {
+  //   import("react-apexcharts").then((mod) => {
+  //     setChart(() => mod.default);
+  //   });
+  // }, []);
 
   const series = [
     {
@@ -118,9 +120,11 @@ const CrmBalanceOverviewChart = () => {
 
   return (
     <>
-      {Chart && (
-        <Chart options={options} series={series} type="area" height={350} />
-      )}
+      <Suspense fallback={<div>Loading chart...</div>}>
+        {Chart && (
+          <Chart options={options} series={series} type="area" height={350} />
+        )}
+      </Suspense>
     </>
   );
 };
