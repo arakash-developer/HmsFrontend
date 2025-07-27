@@ -115,15 +115,11 @@ export default function DashboardLayout() {
                             </span>
                           )}
                           {item?.key === "new" && (
-                          <span className="text-[10px] font-medium py-[1px] px-[8px] ltr:ml-[8px] rtl:mr-[8px] text-orange-500 bg-orange-100 dark:bg-[#ffffff14] inline-block rounded-sm">
-                            {item?.keyvalue}
-                        </span>
-                          )}
-                          {item?.key === "top" && (
-                                 <span className="text-[10px] font-medium py-[1px] px-[8px] ltr:ml-[8px] rtl:mr-[8px] text-purple-500 bg-purple-100 dark:bg-[#ffffff14] inline-block rounded-sm">
+                            <span className="text-[10px] font-medium py-[1px] px-[8px] ltr:ml-[8px] rtl:mr-[8px] text-orange-500 bg-orange-100 dark:bg-[#ffffff14] inline-block rounded-sm">
                               {item?.keyvalue}
-                        </span>
+                            </span>
                           )}
+                        
                         </Link>
                       </li>
                     ))}
