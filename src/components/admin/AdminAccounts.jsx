@@ -815,7 +815,7 @@ const AdminAccounts = () => {
                     alt="card-frame"
                   />
                   <h5
-                    className="text-white font-semibold mt-[12px] mb-[50px]"
+                    className="text-white font-semibold mt-[12px] mb-[50px] !tracking-[4px]"
                     // style="word-spacing: 4px;"
                   >
                     5322 0520 0744 1794
