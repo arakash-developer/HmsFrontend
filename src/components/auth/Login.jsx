@@ -2,10 +2,10 @@ import { useAuth } from "@contexts/AuthContext";
 import Google from "@public/images/icons/google.svg";
 import Logo from "@public/images/logo-big.svg";
 import SignIn from "@public/images/sign-in.webp";
+import { message } from "antd"; // Import Ant Design's message API
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { useNavigate } from "react-router-dom";
-import { message } from 'antd';  // Import Ant Design's message API
 
 const users = [
   { username: "akash", password: "akash123", role: "superadmin" },
@@ -23,7 +23,7 @@ const Login = () => {
     localStorage.getItem("darkMode") === "true"
   );
   const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);  // For managing loading state
+  const [loading, setLoading] = useState(false); // For managing loading state
   const [buttonDisabled, setButtonDisabled] = useState(false); // For controlling button state
 
   // Use Ant Design's message API
@@ -54,9 +54,9 @@ const Login = () => {
 
     // Show loading message
     messageApi.open({
-      type: 'loading',
-      content: 'Logging in...',
-      duration: 0,  // Keep loading until the login is complete
+      type: "loading",
+      content: "Logging in...",
+      duration: 0, // Keep loading until the login is complete
     });
 
     // Simulate login check and handle success/failure
@@ -67,14 +67,14 @@ const Login = () => {
 
       if (!foundUser) {
         // If credentials are wrong, show error message and reset button
-        messageApi.destroy();  // Remove loading message
+        messageApi.destroy(); // Remove loading message
         messageApi.open({
-          type: 'error',
-          content: 'Invalid username or password',
+          type: "error",
+          content: "Invalid username or password",
           duration: 2.5,
         });
-        setButtonDisabled(false);  // Re-enable button
-        setLoading(false);  // Hide loading state
+        setButtonDisabled(false); // Re-enable button
+        setLoading(false); // Hide loading state
         return;
       }
 
@@ -93,11 +93,11 @@ const Login = () => {
       login(fakeToken);
 
       // Show success message
-      messageApi.destroy();  // Remove loading message
+      messageApi.destroy(); // Remove loading message
       messageApi.open({
-        type: 'success',
-        content: 'Login successful',
-        duration: 2.5,  // Show the success message for 2.5 seconds
+        type: "success",
+        content: "Login successful",
+        duration: 2.5, // Show the success message for 2.5 seconds
         onClose: () => {
           // Redirect to the user role page after the success message
           navigate(`/${foundUser.role}`);
@@ -107,14 +107,12 @@ const Login = () => {
       // Re-enable button and stop loading state
       setButtonDisabled(false);
       setLoading(false);
-
     }, 1500); // Simulate a delay of 1.5 seconds for the login process
   };
 
   return (
     <>
       {contextHolder} {/* Render message context */}
-
       {/* Light/Dark Mode Button */}
       <button
         type="button"
@@ -125,7 +123,6 @@ const Login = () => {
           {isDarkMode ? "dark_mode" : "light_mode"}
         </i>
       </button>
-
       {/* Sign In Form */}
       <div className="bg-white dark:bg-[#0a0e19] py-[60px] md:py-[80px] lg:py-[135px]">
         <div className="mx-auto px-[12.5px] md:max-w-[720px] lg:max-w-[960px] xl:max-w-[1255px]">
@@ -210,8 +207,12 @@ const Login = () => {
               </a>
               <button
                 onClick={handleSubmit}
-                disabled={buttonDisabled}  // Disable button during login
-                className={`md:text-md block w-full text-center transition-all rounded-md font-medium mt-[20px] md:mt-[24px] py-[12px] px-[25px] text-white ${buttonDisabled ? 'bg-gray-500 cursor-not-allowed' : 'bg-primary-500'} hover:bg-primary-400`}
+                disabled={buttonDisabled} // Disable button during login
+                className={`md:text-md block w-full text-center transition-all rounded-md font-medium mt-[20px] md:mt-[24px] py-[12px] px-[25px] text-white ${
+                  buttonDisabled
+                    ? "bg-gray-500 cursor-not-allowed"
+                    : "bg-primary-500"
+                } hover:bg-primary-400`}
               >
                 <span className="flex items-center justify-center gap-[5px]">
                   {/* <i className="material-symbols-outlined">login</i> */}
@@ -219,7 +220,7 @@ const Login = () => {
                 </span>
               </button>
               <p className="mt-[15px] md:mt-[24px]">
-                Don’t have an account ?
+                Don’t have an account?{" "}
                 <Link
                   to={"/register"}
                   className="text-primary-500 transition-all font-semibold hover:underline"
