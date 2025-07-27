@@ -10,7 +10,7 @@ const AdminAccounts = () => {
                 <span className="block">Total Income</span>
                 <h5 className="mb-0 mt-[3px] text-[20px]">$531,200</h5>
               </div>
-              <div className="w-[55px] lg:w-[60px] h-[55px] lg:h-[60px] flex items-center justify-center rounded-full text-success-600 bg-success-50 dark:bg-[#0a0e19]">
+              <div className="w-[55px] lg:w-[60px] h-[55px] lg:h-[60px] flex items-center justify-center rounded-full text-success-600 bg-success-50 dark:bg-[#15203c]">
                 <i className="material-symbols-outlined">attach_money</i>
               </div>
             </div>
@@ -29,7 +29,7 @@ const AdminAccounts = () => {
                 <span className="block">Total Expenses</span>
                 <h5 className="mb-0 mt-[3px] text-[20px]">$251,952</h5>
               </div>
-              <div className="w-[55px] lg:w-[60px] h-[55px] lg:h-[60px] flex items-center justify-center rounded-full text-purple-600 bg-purple-50 dark:bg-[#0a0e19]">
+              <div className="w-[55px] lg:w-[60px] h-[55px] lg:h-[60px] flex items-center justify-center rounded-full text-purple-600 bg-purple-50 dark:bg-[#15203c]">
                 <i className="material-symbols-outlined">account_balance_wallet</i>
               </div>
             </div>
@@ -48,7 +48,7 @@ const AdminAccounts = () => {
                 <span className="block">Accounts Receivable</span>
                 <h5 className="mb-0 mt-[3px] text-[20px]">$15,990</h5>
               </div>
-              <div className="w-[55px] lg:w-[60px] h-[55px] lg:h-[60px] flex items-center justify-center rounded-full text-primary-600 bg-primary-50 dark:bg-[#0a0e19]">
+              <div className="w-[55px] lg:w-[60px] h-[55px] lg:h-[60px] flex items-center justify-center rounded-full text-primary-600 bg-primary-50 dark:bg-[#15203c]">
                 <i className="material-symbols-outlined">money_bag</i>
               </div>
             </div>
@@ -67,7 +67,7 @@ const AdminAccounts = () => {
                 <span className="block">Account Payable</span>
                 <h5 className="mb-0 mt-[3px] text-[20px]">$14,580</h5>
               </div>
-              <div className="w-[55px] lg:w-[60px] h-[55px] lg:h-[60px] flex items-center justify-center rounded-full text-secondary-600 bg-secondary-50 dark:bg-[#0a0e19]">
+              <div className="w-[55px] lg:w-[60px] h-[55px] lg:h-[60px] flex items-center justify-center rounded-full text-secondary-600 bg-secondary-50 dark:bg-[#15203c]">
                 <i className="material-symbols-outlined">payments</i>
               </div>
             </div>
