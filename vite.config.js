@@ -1,11 +1,20 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import react from "@vitejs/plugin-react";
 import path from "path";
+import { visualizer } from "rollup-plugin-visualizer";
+import { defineConfig } from "vite";
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
-    resolve: {
+  plugins: [
+    react(),
+    visualizer({
+      open: true, // Opens report in the browser
+      gzipSize: true,
+      brotliSize: true,
+      filename: "bundle-report.html", // Report file name
+    }),
+  ],
+  resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
       "@public": path.resolve(__dirname, "./public"),
@@ -17,4 +26,4 @@ export default defineConfig({
       "@utils": path.resolve(__dirname, "./src/utils"),
     },
   },
-})
+});

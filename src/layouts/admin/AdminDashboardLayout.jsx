@@ -5,7 +5,7 @@ import Header from "@/components/main/admin/Header";
 import Logo from "@public/images/logo-small.svg";
 import { useState } from "react";
 export default function DashboardLayout() {
-  let [sidecompact, setSidecompact] = useState(true);
+  let [sidecompact, setSidecompact] = useState(false);
   return (
     <>
       {/* <!-- Sidebar --> */}
