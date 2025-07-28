@@ -139,7 +139,7 @@ const FinanceNetProfitChart = () => {
   return (
     <>
       {Chart && (
-        <Chart options={options} series={series} type="bar" className="!h-full" />
+        <Chart options={options} series={series} type="bar" className="!h-full !w-full" />
       )}
     </>
   );
