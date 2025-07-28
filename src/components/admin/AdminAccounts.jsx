@@ -1,4 +1,5 @@
 import CashAtEndOfTheMonth from "@/libs/FinanceCashEndOfTheMonthChart";
+import FinanceExpenseBreakdownChart from "@/libs/FinanceExpenseBreakdownChart";
 import FinanceIncomeSourcesChart from "@/libs/FinanceIncomeSourcesChart";
 import FinanceNetProfitChart from "@/libs/FinanceNetProfitChart";
 import FinanceStatisticsChart from "@/libs/FinanceStatisticsChart";
@@ -875,7 +876,8 @@ const AdminAccounts = () => {
             </div>
             <div className="trezo-card-content">
               <div className="-mt-[10px]">
-                <div id="financeExpenseBreakdownChart"></div>
+                {/* <div id="financeExpenseBreakdownChart"></div> */}
+                <FinanceExpenseBreakdownChart />
               </div>
             </div>
           </div>
