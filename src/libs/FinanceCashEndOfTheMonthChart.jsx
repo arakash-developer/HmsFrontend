@@ -24,7 +24,7 @@ const CashAtEndOfTheMonth = () => {
       {
         name: "Cash at End of the Month",
         type: "pie",
-        radius: ["40%", "80%"],
+        radius: ["40%", "100%"],
         center: ["50%", "60%"],
         startAngle: 180,
         endAngle: 360,
