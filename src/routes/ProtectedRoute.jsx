@@ -1,14 +1,15 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '@contexts/AuthContext';
 
-const ProtectedRoute = ({ allowedRoles }) => {
-  const { user, loading } = useAuth();
+const ProtectedRoute = () => {
+  const { user } = useAuth();
 
-  if (loading) return <div>Loading...</div>; // Wait until auth loads
-  if (!user) return <Navigate to="/" />;
-  if (!allowedRoles.includes(user.role)) return <Navigate to="/unauthorized" />;
+  // If there is no valid token (user is null), redirect to the login page
+  if (!user) {
+    return <Navigate to="/login" />;
+  }
 
-  return <Outlet />;
+  return <Outlet />; // If user is valid, show the protected content
 };
 
 export default ProtectedRoute;

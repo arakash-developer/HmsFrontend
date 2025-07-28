@@ -41,73 +41,31 @@ const Login = () => {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Prevent multiple clicks while loading
-    if (buttonDisabled) return;
-
-    // Disable the button during the login process
-    setButtonDisabled(true);
     setLoading(true);
+    message.loading("Logging in...");
 
-    // Show loading message
-    messageApi.open({
-      type: "loading",
-      content: "Logging in...",
-      duration: 0, // Keep loading until the login is complete
-    });
+    // Fake authentication
+    const foundUser = users.find(
+      (user) =>
+        user.username === form.username && user.password === form.password
+    );
 
-    // Simulate login check and handle success/failure
-    setTimeout(() => {
-      const foundUser = users.find(
-        (u) => u.username === form.username && u.password === form.password
-      );
-
-      if (!foundUser) {
-        // If credentials are wrong, show error message and reset button
-        messageApi.destroy(); // Remove loading message
-        messageApi.open({
-          type: "error",
-          content: "Invalid username or password",
-          duration: 2.5,
-        });
-        setButtonDisabled(false); // Re-enable button
-        setLoading(false); // Hide loading state
-        return;
-      }
-
-      const tokenPayload = {
-        username: foundUser.username,
-        role: foundUser.role,
-        exp: Math.floor(Date.now() / 1000) + 3600, // 1 hour expiry
-      };
-
-      const fakeToken = [
-        "header",
-        btoa(JSON.stringify(tokenPayload)),
-        "signature",
-      ].join(".");
-
-      login(fakeToken);
-
-      // Show success message
-      messageApi.destroy(); // Remove loading message
-      messageApi.open({
-        type: "success",
-        content: "Login successful",
-        duration: 2.5, // Show the success message for 2.5 seconds
-        onClose: () => {
-          // Redirect to the user role page after the success message
-          navigate(`/${foundUser.role}`);
-        },
-      });
-
-      // Re-enable button and stop loading state
-      setButtonDisabled(false);
+    if (!foundUser) {
+      message.error("Invalid username or password");
       setLoading(false);
-    }, 1500); // Simulate a delay of 1.5 seconds for the login process
+      return;
+    }
+
+    const token = "fake-token-123"; // This would normally be a JWT
+    login(token, foundUser.role); // Pass the role to login function
+
+    message.success("Login successful");
+    navigate("/admin"); // Redirect after login
+
+    setLoading(false);
   };
 
   return (
