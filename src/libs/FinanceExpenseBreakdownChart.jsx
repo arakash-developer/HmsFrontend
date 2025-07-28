@@ -55,8 +55,11 @@ const FinanceExpenseBreakdownChart = () => {
 
   return (
     <>
-      <div id="expense_breakdown" className="!h-full !w-full">
-      </div>
+      <div
+        id="expense_breakdown"
+        className="!h-full !w-full" // Ensure parent div has set dimensions
+        style={{ height: '400px', width: '100%' }} // Setting an explicit height for the chart container
+      ></div>
     </>
   );
 };
