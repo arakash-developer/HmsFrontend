@@ -3,6 +3,7 @@ import CrmBalanceOverviewChart from "@/libs/CrmBalanceOverviewChart";
 import CrmLeadConversionChart from "@/libs/CrmLeadConversionChart";
 import CrmLeadsBySourceChart from "@/libs/CrmLeadsBySourceChart";
 import CrmRevenueGrothChart from "@/libs/CrmRevenueGrothChart";
+import CrmSalesReportChart from "@/libs/CrmSalesReportChart";
 import CrmTotalOrdersChart from "@/libs/CrmTotalOrdersChart";
 
 const AdminDashboard = () => {
@@ -1075,7 +1076,8 @@ const AdminDashboard = () => {
             </div>
             <div className="trezo-card-content">
               <div className="-mb-[15px] ltr:-ml-[10px] rtl:-mr-[10px]">
-                <div id="crmSalesReportChart"></div>
+                {/* <div id="crmSalesReportChart"></div> */}
+                <CrmSalesReportChart />
               </div>
             </div>
           </div>
