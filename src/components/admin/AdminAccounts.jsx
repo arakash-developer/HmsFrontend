@@ -1,3 +1,6 @@
+import CashAtEndOfTheMonth from "@/libs/FinanceCashEndOfTheMonthChart";
+import FinanceStatisticsChart from "@/libs/FinanceStatisticsChart";
+
 const AdminAccounts = () => {
   return (
     <>
@@ -30,7 +33,9 @@ const AdminAccounts = () => {
                 <h5 className="mb-0 mt-[3px] text-[20px]">$251,952</h5>
               </div>
               <div className="w-[55px] lg:w-[60px] h-[55px] lg:h-[60px] flex items-center justify-center rounded-full text-purple-600 bg-purple-50 dark:bg-[#15203c]">
-                <i className="material-symbols-outlined">account_balance_wallet</i>
+                <i className="material-symbols-outlined">
+                  account_balance_wallet
+                </i>
               </div>
             </div>
             <div className="mt-[15px] md:mt-[20px] flex items-center gap-[10px]">
@@ -132,7 +137,8 @@ const AdminAccounts = () => {
             </div>
             <div className="trezo-card-content">
               <div className="ltr:-ml-[15px] rtl:-mr-[15px] -mt-[20px] -mb-[22px]">
-                <div id="financeStatisticsChart"></div>
+                {/* <div id="financeStatisticsChart"></div> */}
+                <FinanceStatisticsChart />
               </div>
             </div>
           </div>
@@ -147,8 +153,8 @@ const AdminAccounts = () => {
                 </div>
               </div>
               <div className="trezo-card-content">
-                <div className="-mt-[10px] h-[145px]">
-                  <div id="financeCashEndOfTheMonthChart"></div>
+                <div className="h-[180px]">
+                  <CashAtEndOfTheMonth />
                 </div>
               </div>
             </div>
@@ -810,10 +816,7 @@ const AdminAccounts = () => {
                       <i className="ri-visa-fill"></i>
                     </span>
                   </div>
-                  <img
-                    src="/images/icons/card-frame.png"
-                    alt="card-frame"
-                  />
+                  <img src="/images/icons/card-frame.png" alt="card-frame" />
                   <h5
                     className="text-white font-semibold mt-[12px] mb-[50px] !tracking-[4px]"
                     // style="word-spacing: 4px;"
@@ -839,10 +842,7 @@ const AdminAccounts = () => {
                       <i className="ri-mastercard-fill"></i>
                     </span>
                   </div>
-                  <img
-                    src="/images/icons/card-frame.png"
-                    alt="card-frame"
-                  />
+                  <img src="/images/icons/card-frame.png" alt="card-frame" />
                   <h5
                     className="text-white font-semibold mt-[12px] mb-[50px] !tracking-[4px]"
                     // style="word-spacing: 4px;"
