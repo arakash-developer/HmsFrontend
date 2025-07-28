@@ -1,22 +1,18 @@
-"use client";
-
-import React, { useEffect, useRef } from "react";
 import * as echarts from "echarts";
+import { useEffect } from "react";
 
 const FinanceExpenseBreakdownChart = () => {
-  const chartRef = useRef(null);
-  const chartInstanceRef = useRef(null);
-
   useEffect(() => {
-    if (chartRef.current) {
-      chartInstanceRef.current = echarts.init(chartRef.current);
+    const chartDom = document.getElementById("expense_breakdown");
+    if (chartDom) {
+      const myChart = echarts.init(chartDom);
 
       const option = {
         tooltip: {
           trigger: "item",
         },
         legend: {
-          bottom: 0,
+          bottom: "0",
           left: "center",
           itemWidth: 10,
           itemHeight: 10,
@@ -48,27 +44,19 @@ const FinanceExpenseBreakdownChart = () => {
         ],
       };
 
-      chartInstanceRef.current.setOption(option);
+      myChart.setOption(option);
 
-      const handleResize = () => {
-        chartInstanceRef.current?.resize();
-      };
-      window.addEventListener("resize", handleResize);
-
+      // Cleanup on component unmount
       return () => {
-        window.removeEventListener("resize", handleResize);
-        chartInstanceRef.current?.dispose();
+        myChart.dispose();
       };
     }
   }, []);
 
   return (
-    <div
-      ref={chartRef}
-      className="!w-full !h-full"
-      aria-label="Finance Expense Breakdown Chart"
-      role="img"
-    />
+    <>
+      <div id="expense_breakdown" style={{ width: "100%", height: "342px" }} />
+    </>
   );
 };
 
