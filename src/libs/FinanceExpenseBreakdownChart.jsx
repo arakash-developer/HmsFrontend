@@ -55,7 +55,8 @@ const FinanceExpenseBreakdownChart = () => {
 
   return (
     <>
-      <div id="expense_breakdown" style={{ width: "100%", height: "342px" }} />
+      <div id="expense_breakdown" className="!h-full !w-full">
+      </div>
     </>
   );
 };
