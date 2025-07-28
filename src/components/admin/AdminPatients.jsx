@@ -1,17 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
+import api from '@/axios'; // Import the Axios instance
 
 const AdminPatients = () => {
-  const { isPending, error, data } = useQuery({
+  const { isLoading, error, data } = useQuery({
     queryKey: ["repoData"],
     queryFn: () =>
-      fetch("https://api.github.com/repos/TanStack/query").then((res) =>
-        res.json()
-      ),
+      api.get("/query") // Use Axios instead of fetch
+        .then((res) => res.data), // Access the data directly from the Axios response
   });
 
-  if (isPending) return "Loading...";
+  if (isLoading) return "Loading..."; // Use isLoading (from react-query)
 
-  if (error) return "An error has occurred: " + error.message;
+  if (error) return "An error has occurred: " + error.message; // Display error if exists
+
   return (
     <div>
       <h1>{data.name}</h1>

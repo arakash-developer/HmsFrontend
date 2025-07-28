@@ -1,0 +1,24 @@
+// src/axios.js
+import axios from 'axios';
+
+// Create an Axios instance with base configurations
+const api = axios.create({
+  baseURL: 'https://api.github.com/repos/TanStack', // Replace with your actual API base URL
+  headers: {
+    'Content-Type': 'application/json', // Set default content type
+  },
+});
+
+// Optional: If you want to handle responses and errors globally, you can add interceptors
+api.interceptors.response.use(
+  (response) => {
+    return response; // Handle successful responses
+  },
+  (error) => {
+    // Handle errors globally if necessary (e.g., logging or specific error messages)
+    console.error('API Error:', error);
+    return Promise.reject(error); // Reject the error so it can be handled locally
+  }
+);
+
+export default api;
