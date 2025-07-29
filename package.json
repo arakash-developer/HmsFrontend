@@ -14,7 +14,6 @@
     "@tanstack/react-query-devtools": "^5.83.0",
     "antd": "^5.26.6",
     "axios": "^1.11.0",
-    "buffer": "^6.0.3",
     "dotenv": "^17.2.1",
     "echarts": "^5.6.0",
     "jsonwebtoken": "^9.0.2",
