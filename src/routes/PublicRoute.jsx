@@ -3,12 +3,12 @@ import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "@contexts/AuthContext";
 
 const PublicRoute = () => {
-  const { user, loading } = useAuth();
+  const { temptoken, loading } = useAuth();
 
   if (loading) return <div>Loading...</div>;
 
-  if (user) return <Navigate to="/admin" />;
-  // if (user?.role === "superadmin") return <Navigate to="/superadmin" />;
+  if (temptoken) return <Navigate to="/admin" />;
+  // if (temptoken?.role === "superadmin") return <Navigate to="/superadmin" />;
 
   return <Outlet />;
 };

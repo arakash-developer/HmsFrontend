@@ -2,10 +2,10 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '@contexts/AuthContext';
 
 const ProtectedRoute = () => {
-  const { user } = useAuth();
+  const { temptoken } = useAuth();
 
   // If there is no valid token (user is null), redirect to the login page
-  if (!user) {
+  if (!temptoken) {
     return <Navigate to="/" />;
   }
 
