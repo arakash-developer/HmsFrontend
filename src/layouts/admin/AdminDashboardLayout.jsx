@@ -3,6 +3,7 @@ import { Link, NavLink, Outlet } from "react-router-dom";
 import Footer from "@/components/main/admin/Footer";
 import Header from "@/components/main/admin/Header";
 import Logo from "@public/images/logo-small.svg";
+import Logo2 from "@public/images/logo-small2.svg";
 import { useState } from "react";
 export default function DashboardLayout() {
   let [sidecompact, setSidecompact] = useState(false);
@@ -51,7 +52,8 @@ export default function DashboardLayout() {
       >
         <div className="logo bg-white dark:bg-[#0c1427] border-b border-gray-100 dark:border-[#172036] px-[25px] pt-[19px] pb-[15px] absolute z-[2] right-0 top-0 left-0">
           <Link to="#" className="transition-none relative flex items-center">
-            <img src={Logo} alt="logo-icon" />
+              <img src={Logo} alt="logo" className="inline-block dark:hidden" />
+              <img src={Logo2} alt="logo" className="hidden dark:inline-block" />
             {/* <span className="font-bold text-black dark:text-white relative ltr:ml-[8px] rtl:mr-[8px] top-px text-xl">
               4Hmi
             </span> */}

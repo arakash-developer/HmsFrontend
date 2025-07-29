@@ -1,6 +1,7 @@
 import { useAuth } from "@contexts/AuthContext";
 import Google from "@public/images/icons/google.svg";
 import Logo from "@public/images/logo-big.svg";
+import Logo2 from "@public/images/logo-big2.svg";
 import SignIn from "@public/images/sign-in.webp";
 import { message } from "antd"; // Import Ant Design's message API
 import { useEffect, useState } from "react";
@@ -95,7 +96,7 @@ const Login = () => {
             </div>
             <div className="xl:ltr:pl-[90px] xl:rtl:pr-[90px] 2xl:ltr:pl-[120px] 2xl:rtl:pr-[120px] order-1 lg:order-2">
               <img src={Logo} alt="logo" className="inline-block dark:hidden" />
-              <img src={Logo} alt="logo" className="hidden dark:inline-block" />
+              <img src={Logo2} alt="logo" className="hidden dark:inline-block" />
               <div className="my-[17px] md:my-[32px]">
                 <h1 className="font-semibold text-[22px] md:text-xl lg:text-2xl mb-[5px] md:mb-[7px]">
                   Sign In
