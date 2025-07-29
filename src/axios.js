@@ -1,4 +1,3 @@
-// src/axios.js
 import axios from 'axios';
 
 // Create an Axios instance with base configurations
@@ -7,6 +6,7 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json', // Set default content type
   },
+  withCredentials: true, // Allow cookies to be sent with requests (important for cross-origin requests)
 });
 
 // Optional: If you want to handle responses and errors globally, you can add interceptors
