@@ -3,7 +3,7 @@ name: React App CI/CD
 on:
   push:
     branches:
-      - main
+      - main   # Change if your default branch is different
 
 jobs:
   build-and-deploy:
@@ -14,7 +14,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2. Setup Node.js
+      # 2. Setup Node.js 18+ (fixes crypto.hash error)
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
@@ -37,5 +37,6 @@ jobs:
           protocol: ftp
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./dist   # Change to ./build if using Create React App
-          server-dir: /public_html/
+          local-dir: ./dist       # For Vite build output
+          server-dir: /  # Change if your hosting path is different
+          dangerous-clean-slate: true # Cleans old files before upload
