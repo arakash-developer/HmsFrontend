@@ -8,34 +8,40 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
-      # 1. Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2. Setup Node.js 20 (same as local)
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: '20'
           cache: 'npm'
 
-      # 3. Verify Node.js version
       - name: Check Node.js version
         run: node -v
 
-      # 4. Remove old modules & lock file
-      - name: Clean install
+      - name: Clean and install dependencies
         run: |
           rm -rf node_modules package-lock.json
           npm install
 
-      # 5. Build React app
-      - name: Build React app
+      - name: Build React (Vite)
         run: npm run build
 
-      # 6. Deploy via FTP
+      # Debug: show build output so action fails early if dist is missing
+      - name: Show build output
+        run: |
+          echo "Listing project root:"
+          ls -la
+          echo "Listing dist folder (should exist):"
+          if [ -d "./dist" ]; then
+            ls -la ./dist
+          else
+            echo "ERROR: ./dist does not exist — build likely failed."
+            exit 1
+          fi
+
       - name: FTP Deploy
         uses: SamKirkland/FTP-Deploy-Action@4.3.0
         with:
@@ -44,6 +50,6 @@ jobs:
           protocol: ftp
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./dist
-          server-dir: /public_html/
+          local-dir: ./dist/           # <-- MUST end with a slash
+          server-dir: /
           dangerous-clean-slate: true
