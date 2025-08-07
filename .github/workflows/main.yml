@@ -3,7 +3,7 @@ name: React App CI/CD
 on:
   push:
     branches:
-      - main   # Change if your default branch is different
+      - main
 
 jobs:
   build-and-deploy:
@@ -14,21 +14,26 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2. Setup Node.js 18+ (fixes crypto.hash error)
+      # 2. Force Node.js 18
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: '18'
+          cache: 'npm'
 
-      # 3. Install dependencies
+      # 3. Verify Node.js version
+      - name: Check Node.js version
+        run: node -v
+
+      # 4. Clean install dependencies
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      # 4. Build the app
+      # 5. Build the app
       - name: Build React app
         run: npm run build
 
-      # 5. Deploy via FTP
+      # 6. Deploy via FTP
       - name: FTP Deploy
         uses: SamKirkland/FTP-Deploy-Action@4.3.0
         with:
@@ -37,6 +42,6 @@ jobs:
           protocol: ftp
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./dist       # For Vite build output
-          server-dir: /  # Change if your hosting path is different
-          dangerous-clean-slate: true # Cleans old files before upload
+          local-dir: ./dist       # Vite output
+          server-dir: /public_html/
+          dangerous-clean-slate: true
