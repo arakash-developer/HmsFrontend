@@ -14,22 +14,24 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2. Force Node.js 18
+      # 2. Setup Node.js 20 (same as local)
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: 20
           cache: 'npm'
 
       # 3. Verify Node.js version
       - name: Check Node.js version
         run: node -v
 
-      # 4. Clean install dependencies
-      - name: Install dependencies
-        run: npm ci
+      # 4. Remove old modules & lock file
+      - name: Clean install
+        run: |
+          rm -rf node_modules package-lock.json
+          npm install
 
-      # 5. Build the app
+      # 5. Build React app
       - name: Build React app
         run: npm run build
 
@@ -42,6 +44,6 @@ jobs:
           protocol: ftp
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./dist       # Vite output
+          local-dir: ./dist
           server-dir: /public_html/
           dangerous-clean-slate: true
