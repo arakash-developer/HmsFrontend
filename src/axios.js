@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create an Axios instance with base configurations
 const api = axios.create({
-  baseURL: 'https://hospital-management-system-backend-1-yh7i.onrender.com', // Replace with your actual API base URL
+  baseURL: 'https://hmsapi.arakash.com/', // Replace with your actual API base URL
   // baseURL: 'http://localhost:5000', // Replace with your actual API base URL
   headers: {
     'Content-Type': 'application/json', // Set default content type
