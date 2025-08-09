@@ -9,8 +9,8 @@ const AdminPatients = () => {
       try {
         console.log("Sending login request...");
         const response = await api.post("/api/login", {
-          identifier: "arakash.developer@gmail.com", // Your login identifier (email)
-          password: "akash556600", // Your login password
+          identifier: "arakash100.developer@gmail.com", // Your login identifier (email)
+          password: "akash100", // Your login password
         });
 
         console.log("Login response:", response.data);
