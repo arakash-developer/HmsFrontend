@@ -99,7 +99,7 @@ const Login = () => {
               <img src={Logo2} alt="logo" className="hidden dark:inline-block" />
               <div className="my-[17px] md:my-[32px]">
                 <h1 className="font-semibold text-[22px] md:text-xl lg:text-2xl mb-[5px] md:mb-[7px]">
-                  Sign In
+                  Sign In !
                 </h1>
                 <p className="font-regular lg:text-md text-[#6C757D] dark:text-gray-400 leading-[24px]">
                   Sign in to access your dashboard, manage appointments, and
