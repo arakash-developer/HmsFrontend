@@ -1,4 +1,18 @@
+import { getToken } from "@utils/auth";
+import { useEffect, useState } from "react";
+
 const Connections = () => {
+  const [tokenObject, setTokenObject] = useState(null);
+
+  useEffect(() => {
+    const userToken = getToken();
+    if (userToken) {
+      // Store the actual token object for use in the component
+      setTokenObject(userToken);
+    }
+  }, []);
+  console.log("Hospitals:", tokenObject?.hospitals || "No hospitals data");
+
   return (
     <>
       {/* <!-- Main Content --> */}
@@ -74,113 +88,31 @@ const Connections = () => {
           </ul>
           <h5 class="mb-[22px]">Connected Accounts</h5>
           <ul>
-            <li class="flex items-center justify-between mb-[20px] last:mb-0">
-              <div class="flex items-center gap-[15px]">
-                <img
-                  src="/images/socials/google.svg"
-                  class="w-[40px]"
-                  alt="google"
-                />
-                <div>
-                  <span class="block text-black dark:text-white font-semibold">
-                    Google
-                  </span>
-                  <span class="block mt-[3px]">Calendar and Contacts</span>
+            {tokenObject?.hospitals.map((item) => (
+              <li key={item.id} class="flex items-center justify-between mb-[20px] last:mb-0">
+                <div class="flex items-center gap-[15px]">
+                  <img
+                    src="/images/socials/google.svg"
+                    class="w-[40px]"
+                    alt="google"
+                  />
+                  <div>
+                    <span class="block text-black dark:text-white font-semibold">
+                      {item?.hospital?.name}
+                    </span>
+                    <span class="block mt-[3px]">
+                      {item?.role}
+                    </span>
+                  </div>
                 </div>
-              </div>
-              <button
-                type="button"
-                class="inline-block transition-all text-primary-500 hover:underline"
-              >
-                Click to Connect
-              </button>
-            </li>
-            <li class="flex items-center justify-between mb-[20px] last:mb-0">
-              <div class="flex items-center gap-[15px]">
-                <img
-                  src="/images/socials/slack.svg"
-                  class="w-[40px]"
-                  alt="slack"
-                />
-                <div>
-                  <span class="block text-black dark:text-white font-semibold">
-                    Slack
-                  </span>
-                  <span class="block mt-[3px]">Communications</span>
-                </div>
-              </div>
-              <button
-                type="button"
-                class="inline-block transition-all text-primary-500 hover:underline"
-              >
-                Click to Connect
-              </button>
-            </li>
-            <li class="flex items-center justify-between mb-[20px] last:mb-0">
-              <div class="flex items-center gap-[15px]">
-                <img
-                  src="/images/socials/github.svg"
-                  class="w-[40px]"
-                  alt="github"
-                />
-                <div>
-                  <span class="block text-black dark:text-white font-semibold">
-                    GitHub
-                  </span>
-                  <span class="block mt-[3px]">
-                    Manage your Git repositories
-                  </span>
-                </div>
-              </div>
-              <button
-                type="button"
-                class="inline-block transition-all text-primary-500 hover:underline"
-              >
-                Click to Connect
-              </button>
-            </li>
-            <li class="flex items-center justify-between mb-[20px] last:mb-0">
-              <div class="flex items-center gap-[15px]">
-                <img
-                  src="/images/socials/mailchimp.svg"
-                  class="w-[40px]"
-                  alt="mailchimp"
-                />
-                <div>
-                  <span class="block text-black dark:text-white font-semibold">
-                    Mailchimp
-                  </span>
-                  <span class="block mt-[3px]">Email marketing service</span>
-                </div>
-              </div>
-              <button
-                type="button"
-                class="inline-block transition-all text-primary-500 hover:underline"
-              >
-                Click to Connect
-              </button>
-            </li>
-            <li class="flex items-center justify-between mb-[20px] last:mb-0">
-              <div class="flex items-center gap-[15px]">
-                <img
-                  src="/images/socials/figma.svg"
-                  class="w-[40px]"
-                  alt="figma"
-                />
-                <div>
-                  <span class="block text-black dark:text-white font-semibold">
-                    Figma
-                  </span>
-                  <span class="block mt-[3px]">Design</span>
-                </div>
-              </div>
-              <button
-                type="button"
-                class="inline-block transition-all text-primary-500 hover:underline"
-              >
-                Click to Connect
-              </button>
-            </li>
+                <button
+                  type="button"
+                  class="inline-block transition-all text-primary-500 hover:underline"
+                >
+                  Click to Connect
+                </button>
+              </li>
+            ))}
           </ul>
           <div class="border-t border-gray-100 dark:border-[#172036] my-[20px] md:my-[25px]"></div>
           <h5 class="mb-[22px]">Social Accounts</h5>

@@ -39,9 +39,8 @@ const Login = () => {
     onSuccess: (data) => {
       // Assuming the API returns a token and user data
       if (data.user) {
-        const token = data.user.token || "bearer-token"; // Use token from API
+        const token = data.user;
         login(token);
-        // message.success("Login successful");
       }
     },
     onError: (error) => {
