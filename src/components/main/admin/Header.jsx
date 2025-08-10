@@ -565,7 +565,7 @@ const toggleSidebar = (e) => {
                       <i className="material-symbols-outlined top-1/2 -translate-y-1/2 !text-[22px] absolute ltr:left-[20px] rtl:right-[20px]">
                         flip_camera_android
                       </i>
-                      Switch Account
+                      Switch Org.
                     </Link>
                   </li>
                   <li
