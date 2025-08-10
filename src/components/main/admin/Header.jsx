@@ -558,6 +558,21 @@ const toggleSidebar = (e) => {
                     "
                   >
                     <a
+                      href="my-profile.html"
+                      className="block relative py-[7px] ltr:pl-[50px] ltr:pr-[20px] rtl:pr-[50px] rtl:pl-[20px] text-black dark:text-white transition-all hover:text-primary-500"
+                    >
+                      <i className="material-symbols-outlined top-1/2 -translate-y-1/2 !text-[22px] absolute ltr:left-[20px] rtl:right-[20px]">
+                        flip_camera_android
+                      </i>
+                      Switch Account
+                    </a>
+                  </li>
+                  <li
+                    className="before:transition-all before:duration-[.5s] relative
+                    before:content-[''] before:absolute before:w-[2px] before:h-0 before:bg-primary-500 before:left-0 before:top-1/2 before:-translate-y-1/2 hover:before:h-full
+                    "
+                  >
+                    <a
                       href="chat.html"
                       className="block relative py-[7px] ltr:pl-[50px] ltr:pr-[20px] rtl:pr-[50px] rtl:pl-[20px] text-black dark:text-white transition-all hover:text-primary-500"
                     >
