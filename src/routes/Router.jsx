@@ -20,6 +20,7 @@ import NotFound from "@/components/main/NotFound";
 import AdminPatients from "@/components/admin/AdminPatients";
 import AdminDoctors from "@/components/admin/AdminDoctors";
 import AdminPathology from "@/components/admin/AdminPathology";
+import AdminConnections from "@/components/admin/AdminConnections";
 // import { i } from "react-router/dist/development/index-react-server-client-kY8DvDF3";
 
 const routes = [
@@ -50,6 +51,7 @@ const routes = [
           { path: "accounts", element: <AdminAccounts /> },
           { path: "doctors", element: <AdminDoctors /> },
           { path: "pathology", element: <AdminPathology /> },
+          { path: "connections", element: <AdminConnections /> },
         ],
       },
     ],

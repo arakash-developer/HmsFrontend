@@ -1,5 +1,6 @@
 import Admin from "@public/images/admin.png";
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router";
 
 const Header = ({setSidecompact,sidecompact}) => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -557,15 +558,15 @@ const toggleSidebar = (e) => {
                     before:content-[''] before:absolute before:w-[2px] before:h-0 before:bg-primary-500 before:left-0 before:top-1/2 before:-translate-y-1/2 hover:before:h-full
                     "
                   >
-                    <a
-                      href="my-profile.html"
+                    <Link
+                      to="/admin/connections"
                       className="block relative py-[7px] ltr:pl-[50px] ltr:pr-[20px] rtl:pr-[50px] rtl:pl-[20px] text-black dark:text-white transition-all hover:text-primary-500"
                     >
                       <i className="material-symbols-outlined top-1/2 -translate-y-1/2 !text-[22px] absolute ltr:left-[20px] rtl:right-[20px]">
                         flip_camera_android
                       </i>
                       Switch Account
-                    </a>
+                    </Link>
                   </li>
                   <li
                     className="before:transition-all before:duration-[.5s] relative
