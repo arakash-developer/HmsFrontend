@@ -7,10 +7,24 @@ import Logo2 from "@public/images/logo-small2.svg";
 import { useState } from "react";
 export default function DashboardLayout() {
   let [sidecompact, setSidecompact] = useState(false);
+  // State to track which accordion items are open
+  const [openAccordions, setOpenAccordions] = useState({});
+
+  // Handler for sidebar toggle
   const handlerSidebarClose = (e) => {
     e.preventDefault();
     setSidecompact(!sidecompact);
   };
+
+  // Handler for accordion toggle - React way
+  const toggleAccordion = (e, accordionId) => {
+    e.preventDefault();
+    setOpenAccordions((prev) => ({
+      ...prev,
+      [accordionId]: !prev[accordionId],
+    }));
+  };
+
   let dashboardItemsList = [
     {
       title: "Analytics",
@@ -52,8 +66,8 @@ export default function DashboardLayout() {
       >
         <div className="logo bg-white dark:bg-[#0c1427] border-b border-gray-100 dark:border-[#172036] px-[25px] pt-[19px] pb-[15px] absolute z-[2] right-0 top-0 left-0">
           <Link to="#" className="transition-none relative flex items-center">
-              <img src={Logo} alt="logo" className="inline-block dark:hidden" />
-              <img src={Logo2} alt="logo" className="hidden dark:inline-block" />
+            <img src={Logo} alt="logo" className="inline-block dark:hidden" />
+            <img src={Logo2} alt="logo" className="hidden dark:inline-block" />
             {/* <span className="font-bold text-black dark:text-white relative ltr:ml-[8px] rtl:mr-[8px] top-px text-xl">
               4Hmi
             </span> */}
@@ -77,8 +91,11 @@ export default function DashboardLayout() {
             </span>
             <div className="accordion-item rounded-md text-black dark:text-white mb-[5px] whitespace-nowrap">
               <button
-                className="accordion-button toggle open active flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]"
+                className={`accordion-button toggle ${
+                  openAccordions["dashboard"] ? "active" : ""
+                } flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]`}
                 type="button"
+                onClick={(e) => toggleAccordion(e, "dashboard")}
               >
                 <i className="material-symbols-outlined transition-all text-gray-500 dark:text-gray-400 ltr:mr-[7px] rtl:ml-[7px] !text-[22px] leading-none relative -top-px">
                   dashboard
@@ -88,7 +105,13 @@ export default function DashboardLayout() {
                   30
                 </span>
               </button>
-              <div className="accordion-collapse block">
+              <div
+                className={`accordion-collapse transition-all duration-300 ease-in-out overflow-hidden ${
+                  openAccordions["dashboard"]
+                    ? "max-h-[500px] opacity-100"
+                    : "max-h-0 opacity-0"
+                }`}
+              >
                 <div className="pt-[4px]">
                   <ul className="sidebar-sub-menu" id="dashboardItemsList">
                     {dashboardItemsList?.map((item, index) => (
@@ -121,7 +144,6 @@ export default function DashboardLayout() {
                               {item?.keyvalue}
                             </span>
                           )}
-                        
                         </NavLink>
                       </li>
                     ))}
@@ -141,15 +163,24 @@ export default function DashboardLayout() {
             </div>
             <div className="accordion-item rounded-md text-black dark:text-white mb-[5px] whitespace-nowrap">
               <button
-                className="accordion-button toggle flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]"
+                className={`accordion-button toggle ${
+                  openAccordions["layout"] ? "active" : ""
+                } flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]`}
                 type="button"
+                onClick={(e) => toggleAccordion(e, "layout")}
               >
                 <i className="material-symbols-outlined transition-all text-gray-500 dark:text-gray-400 ltr:mr-[7px] rtl:ml-[7px] !text-[22px] leading-none relative -top-px">
                   dock_to_right
                 </i>
                 <span className="title leading-none">Layout</span>
               </button>
-              <div className="accordion-collapse hidden">
+              <div
+                className={`accordion-collapse transition-all duration-300 ease-in-out overflow-hidden ${
+                  openAccordions["layout"]
+                    ? "max-h-[500px] opacity-100"
+                    : "max-h-0 opacity-0"
+                }`}
+              >
                 <div className="pt-[4px]">
                   <ul className="sidebar-sub-menu">
                     <li className="sidemenu-item mb-[4px] last:mb-0">
@@ -194,15 +225,24 @@ export default function DashboardLayout() {
             </div>
             <div className="accordion-item rounded-md text-black dark:text-white mb-[5px] whitespace-nowrap">
               <button
-                className="accordion-button toggle flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]"
+                className={`accordion-button toggle ${
+                  openAccordions["frontPages"] ? "active" : ""
+                } flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]`}
                 type="button"
+                onClick={(e) => toggleAccordion(e, "frontPages")}
               >
                 <i className="material-symbols-outlined transition-all text-gray-500 dark:text-gray-400 ltr:mr-[7px] rtl:ml-[7px] !text-[22px] leading-none relative -top-px">
                   note_stack
                 </i>
                 <span className="title leading-none">Front Pages</span>
               </button>
-              <div className="accordion-collapse hidden">
+              <div
+                className={`accordion-collapse transition-all duration-300 ease-in-out overflow-hidden ${
+                  openAccordions["frontPages"]
+                    ? "max-h-[500px] opacity-100"
+                    : "max-h-0 opacity-0"
+                }`}
+              >
                 <div className="pt-[4px]">
                   <ul className="sidebar-sub-menu">
                     <li className="sidemenu-item mb-[4px] last:mb-0">
@@ -298,8 +338,11 @@ export default function DashboardLayout() {
             </div>
             <div className="accordion-item rounded-md text-black dark:text-white mb-[5px] whitespace-nowrap">
               <button
-                className="accordion-button toggle flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]"
+                className={`accordion-button toggle ${
+                  openAccordions["email"] ? "active" : ""
+                } flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]`}
                 type="button"
+                onClick={(e) => toggleAccordion(e, "email")}
               >
                 <i className="material-symbols-outlined transition-all text-gray-500 dark:text-gray-400 ltr:mr-[7px] rtl:ml-[7px] !text-[22px] leading-none relative -top-px">
                   mail
@@ -309,7 +352,13 @@ export default function DashboardLayout() {
                   3
                 </span>
               </button>
-              <div className="accordion-collapse hidden">
+              <div
+                className={`accordion-collapse transition-all duration-300 ease-in-out overflow-hidden ${
+                  openAccordions["email"]
+                    ? "max-h-[500px] opacity-100"
+                    : "max-h-0 opacity-0"
+                }`}
+              >
                 <div className="pt-[4px]">
                   <ul className="sidebar-sub-menu">
                     <li className="sidemenu-item mb-[4px] last:mb-0">
@@ -353,8 +402,11 @@ export default function DashboardLayout() {
             </div>
             <div className="accordion-item rounded-md text-black dark:text-white mb-[5px] whitespace-nowrap">
               <button
-                className="accordion-button toggle flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]"
+                className={`accordion-button toggle ${
+                  openAccordions["fileManager"] ? "active" : ""
+                } flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]`}
                 type="button"
+                onClick={(e) => toggleAccordion(e, "fileManager")}
               >
                 <i className="material-symbols-outlined transition-all text-gray-500 dark:text-gray-400 ltr:mr-[7px] rtl:ml-[7px] !text-[22px] leading-none relative -top-px">
                   folder_open
@@ -364,7 +416,13 @@ export default function DashboardLayout() {
                   7
                 </span>
               </button>
-              <div className="accordion-collapse hidden">
+              <div
+                className={`accordion-collapse transition-all duration-300 ease-in-out overflow-hidden ${
+                  openAccordions["fileManager"]
+                    ? "max-h-[500px] opacity-100"
+                    : "max-h-0 opacity-0"
+                }`}
+              >
                 <div className="pt-[4px]">
                   <ul className="sidebar-sub-menu">
                     <li className="sidemenu-item mb-[4px] last:mb-0">
@@ -429,15 +487,24 @@ export default function DashboardLayout() {
             </div>
             <div className="accordion-item rounded-md text-black dark:text-white mb-[5px] whitespace-nowrap">
               <button
-                className="accordion-button toggle flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]"
+                className={`accordion-button toggle ${
+                  openAccordions["ecommerce"] ? "active" : ""
+                } flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]`}
                 type="button"
+                onClick={(e) => toggleAccordion(e, "ecommerce")}
               >
                 <i className="material-symbols-outlined transition-all text-gray-500 dark:text-gray-400 ltr:mr-[7px] rtl:ml-[7px] !text-[22px] leading-none relative -top-px">
                   shopping_cart
                 </i>
                 <span className="title leading-none">eCommerce</span>
               </button>
-              <div className="accordion-collapse hidden">
+              <div
+                className={`accordion-collapse transition-all duration-300 ease-in-out overflow-hidden ${
+                  openAccordions["ecommerce"]
+                    ? "max-h-[500px] opacity-100"
+                    : "max-h-0 opacity-0"
+                }`}
+              >
                 <div className="pt-[4px]">
                   <ul className="sidebar-sub-menu">
                     <li className="sidemenu-item mb-[4px] last:mb-0">
@@ -598,15 +665,24 @@ export default function DashboardLayout() {
             </div>
             <div className="accordion-item rounded-md text-black dark:text-white mb-[5px] whitespace-nowrap">
               <button
-                className="accordion-button toggle flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]"
+                className={`accordion-button toggle ${
+                  openAccordions["crm"] ? "active" : ""
+                } flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]`}
                 type="button"
+                onClick={(e) => toggleAccordion(e, "crm")}
               >
                 <i className="material-symbols-outlined transition-all text-gray-500 dark:text-gray-400 ltr:mr-[7px] rtl:ml-[7px] !text-[22px] leading-none relative -top-px">
                   handshake
                 </i>
                 <span className="title leading-none">CRM</span>
               </button>
-              <div className="accordion-collapse hidden">
+              <div
+                className={`accordion-collapse transition-all duration-300 ease-in-out overflow-hidden ${
+                  openAccordions["crm"]
+                    ? "max-h-[500px] opacity-100"
+                    : "max-h-0 opacity-0"
+                }`}
+              >
                 <div className="pt-[4px]">
                   <ul className="sidebar-sub-menu">
                     <li className="sidemenu-item mb-[4px] last:mb-0">
@@ -647,15 +723,24 @@ export default function DashboardLayout() {
             </div>
             <div className="accordion-item rounded-md text-black dark:text-white mb-[5px] whitespace-nowrap">
               <button
-                className="accordion-button toggle flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]"
+                className={`accordion-button toggle ${
+                  openAccordions["projectManagement"] ? "active" : ""
+                } flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]`}
                 type="button"
+                onClick={(e) => toggleAccordion(e, "projectManagement")}
               >
                 <i className="material-symbols-outlined transition-all text-gray-500 dark:text-gray-400 ltr:mr-[7px] rtl:ml-[7px] !text-[22px] leading-none relative -top-px">
                   description
                 </i>
                 <span className="title leading-none">Project Management</span>
               </button>
-              <div className="accordion-collapse hidden">
+              <div
+                className={`accordion-collapse transition-all duration-300 ease-in-out overflow-hidden ${
+                  openAccordions["projectManagement"]
+                    ? "max-h-[500px] opacity-100"
+                    : "max-h-0 opacity-0"
+                }`}
+              >
                 <div className="pt-[4px]">
                   <ul className="sidebar-sub-menu">
                     <li className="sidemenu-item mb-[4px] last:mb-0">
@@ -720,15 +805,24 @@ export default function DashboardLayout() {
             </div>
             <div className="accordion-item rounded-md text-black dark:text-white mb-[5px] whitespace-nowrap">
               <button
-                className="accordion-button toggle flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]"
+                className={`accordion-button toggle ${
+                  openAccordions["lms"] ? "active" : ""
+                } flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]`}
                 type="button"
+                onClick={(e) => toggleAccordion(e, "lms")}
               >
                 <i className="material-symbols-outlined transition-all text-gray-500 dark:text-gray-400 ltr:mr-[7px] rtl:ml-[7px] !text-[22px] leading-none relative -top-px">
                   auto_stories
                 </i>
                 <span className="title leading-none">LMS</span>
               </button>
-              <div className="accordion-collapse hidden">
+              <div
+                className={`accordion-collapse transition-all duration-300 ease-in-out overflow-hidden ${
+                  openAccordions["lms"]
+                    ? "max-h-[500px] opacity-100"
+                    : "max-h-0 opacity-0"
+                }`}
+              >
                 <div className="pt-[4px]">
                   <ul className="sidebar-sub-menu">
                     <li className="sidemenu-item mb-[4px] last:mb-0">
@@ -785,15 +879,24 @@ export default function DashboardLayout() {
             </div>
             <div className="accordion-item rounded-md text-black dark:text-white mb-[5px] whitespace-nowrap">
               <button
-                className="accordion-button toggle flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]"
+                className={`accordion-button toggle ${
+                  openAccordions["helpdesk"] ? "active" : ""
+                } flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]`}
                 type="button"
+                onClick={(e) => toggleAccordion(e, "helpdesk")}
               >
                 <i className="material-symbols-outlined transition-all text-gray-500 dark:text-gray-400 ltr:mr-[7px] rtl:ml-[7px] !text-[22px] leading-none relative -top-px">
                   support
                 </i>
                 <span className="title leading-none">HelpDesk</span>
               </button>
-              <div className="accordion-collapse hidden">
+              <div
+                className={`accordion-collapse transition-all duration-300 ease-in-out overflow-hidden ${
+                  openAccordions["helpdesk"]
+                    ? "max-h-[500px] opacity-100"
+                    : "max-h-0 opacity-0"
+                }`}
+              >
                 <div className="pt-[4px]">
                   <ul className="sidebar-sub-menu">
                     <li className="sidemenu-item mb-[4px] last:mb-0">
@@ -834,15 +937,24 @@ export default function DashboardLayout() {
             </div>
             <div className="accordion-item rounded-md text-black dark:text-white mb-[5px] whitespace-nowrap">
               <button
-                className="accordion-button toggle flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]"
+                className={`accordion-button toggle ${
+                  openAccordions["nftMarketplace"] ? "active" : ""
+                } flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]`}
                 type="button"
+                onClick={(e) => toggleAccordion(e, "nftMarketplace")}
               >
                 <i className="material-symbols-outlined transition-all text-gray-500 dark:text-gray-400 ltr:mr-[7px] rtl:ml-[7px] !text-[22px] leading-none relative -top-px">
                   store
                 </i>
                 <span className="title leading-none">NFT Marketplace</span>
               </button>
-              <div className="accordion-collapse hidden">
+              <div
+                className={`accordion-collapse transition-all duration-300 ease-in-out overflow-hidden ${
+                  openAccordions["nftMarketplace"]
+                    ? "max-h-[500px] opacity-100"
+                    : "max-h-0 opacity-0"
+                }`}
+              >
                 <div className="pt-[4px]">
                   <ul className="sidebar-sub-menu">
                     <li className="sidemenu-item mb-[4px] last:mb-0">
@@ -915,15 +1027,24 @@ export default function DashboardLayout() {
             </div>
             <div className="accordion-item rounded-md text-black dark:text-white mb-[5px] whitespace-nowrap">
               <button
-                className="accordion-button toggle flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]"
+                className={`accordion-button toggle ${
+                  openAccordions["realEstate"] ? "active" : ""
+                } flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]`}
                 type="button"
+                onClick={(e) => toggleAccordion(e, "realEstate")}
               >
                 <i className="material-symbols-outlined transition-all text-gray-500 dark:text-gray-400 ltr:mr-[7px] rtl:ml-[7px] !text-[22px] leading-none relative -top-px">
                   real_estate_agent
                 </i>
                 <span className="title leading-none">Real Estate</span>
               </button>
-              <div className="accordion-collapse hidden">
+              <div
+                className={`accordion-collapse transition-all duration-300 ease-in-out overflow-hidden ${
+                  openAccordions["realEstate"]
+                    ? "max-h-[500px] opacity-100"
+                    : "max-h-0 opacity-0"
+                }`}
+              >
                 <div className="pt-[4px]">
                   <ul className="sidebar-sub-menu">
                     <li className="sidemenu-item mb-[4px] last:mb-0">
@@ -988,15 +1109,24 @@ export default function DashboardLayout() {
             </div>
             <div className="accordion-item rounded-md text-black dark:text-white mb-[5px] whitespace-nowrap">
               <button
-                className="accordion-button toggle flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]"
+                className={`accordion-button toggle ${
+                  openAccordions["finance"] ? "active" : ""
+                } flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]`}
                 type="button"
+                onClick={(e) => toggleAccordion(e, "finance")}
               >
                 <i className="material-symbols-outlined transition-all text-gray-500 dark:text-gray-400 ltr:mr-[7px] rtl:ml-[7px] !text-[22px] leading-none relative -top-px">
                   calculate
                 </i>
                 <span className="title leading-none">Finance</span>
               </button>
-              <div className="accordion-collapse hidden">
+              <div
+                className={`accordion-collapse transition-all duration-300 ease-in-out overflow-hidden ${
+                  openAccordions["finance"]
+                    ? "max-h-[500px] opacity-100"
+                    : "max-h-0 opacity-0"
+                }`}
+              >
                 <div className="pt-[4px]">
                   <ul className="sidebar-sub-menu">
                     <li className="sidemenu-item mb-[4px] last:mb-0">
@@ -1021,15 +1151,24 @@ export default function DashboardLayout() {
             </div>
             <div className="accordion-item rounded-md text-black dark:text-white mb-[5px] whitespace-nowrap">
               <button
-                className="accordion-button toggle flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]"
+                className={`accordion-button toggle ${
+                  openAccordions["userManagement"] ? "active" : ""
+                } flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]`}
                 type="button"
+                onClick={(e) => toggleAccordion(e, "userManagement")}
               >
                 <i className="material-symbols-outlined transition-all text-gray-500 dark:text-gray-400 ltr:mr-[7px] rtl:ml-[7px] !text-[22px] leading-none relative -top-px">
                   badge
                 </i>
                 <span className="title leading-none">Doctor</span>
               </button>
-              <div className="accordion-collapse hidden">
+              <div
+                className={`accordion-collapse transition-all duration-300 ease-in-out overflow-hidden ${
+                  openAccordions["userManagement"]
+                    ? "max-h-[500px] opacity-100"
+                    : "max-h-0 opacity-0"
+                }`}
+              >
                 <div className="pt-[4px]">
                   <ul className="sidebar-sub-menu">
                     <li className="sidemenu-item mb-[4px] last:mb-0">
@@ -1086,15 +1225,24 @@ export default function DashboardLayout() {
             </div>
             <div className="accordion-item rounded-md text-black dark:text-white mb-[5px] whitespace-nowrap">
               <button
-                className="accordion-button toggle flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]"
+                className={`accordion-button toggle ${
+                  openAccordions["restaurant"] ? "active" : ""
+                } flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]`}
                 type="button"
+                onClick={(e) => toggleAccordion(e, "restaurant")}
               >
                 <i className="material-symbols-outlined transition-all text-gray-500 dark:text-gray-400 ltr:mr-[7px] rtl:ml-[7px] !text-[22px] leading-none relative -top-px">
                   lunch_dining
                 </i>
                 <span className="title leading-none">Restaurant</span>
               </button>
-              <div className="accordion-collapse hidden">
+              <div
+                className={`accordion-collapse transition-all duration-300 ease-in-out overflow-hidden ${
+                  openAccordions["restaurant"]
+                    ? "max-h-[500px] opacity-100"
+                    : "max-h-0 opacity-0"
+                }`}
+              >
                 <div className="pt-[4px]">
                   <ul className="sidebar-sub-menu">
                     <li className="sidemenu-item mb-[4px] last:mb-0">
@@ -1119,15 +1267,24 @@ export default function DashboardLayout() {
             </div>
             <div className="accordion-item rounded-md text-black dark:text-white mb-[5px] whitespace-nowrap">
               <button
-                className="accordion-button toggle flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]"
+                className={`accordion-button toggle ${
+                  openAccordions["hotel"] ? "active" : ""
+                } flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]`}
                 type="button"
+                onClick={(e) => toggleAccordion(e, "hotel")}
               >
                 <i className="material-symbols-outlined transition-all text-gray-500 dark:text-gray-400 ltr:mr-[7px] rtl:ml-[7px] !text-[22px] leading-none relative -top-px">
                   hotel
                 </i>
                 <span className="title leading-none">Hotel</span>
               </button>
-              <div className="accordion-collapse hidden">
+              <div
+                className={`accordion-collapse transition-all duration-300 ease-in-out overflow-hidden ${
+                  openAccordions["hotel"]
+                    ? "max-h-[500px] opacity-100"
+                    : "max-h-0 opacity-0"
+                }`}
+              >
                 <div className="pt-[4px]">
                   <ul className="sidebar-sub-menu">
                     <li className="sidemenu-item mb-[4px] last:mb-0">
@@ -1160,15 +1317,24 @@ export default function DashboardLayout() {
             </div>
             <div className="accordion-item rounded-md text-black dark:text-white mb-[5px] whitespace-nowrap">
               <button
-                className="accordion-button toggle flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]"
+                className={`accordion-button toggle ${
+                  openAccordions["realEstateAgent"] ? "active" : ""
+                } flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]`}
                 type="button"
+                onClick={(e) => toggleAccordion(e, "realEstateAgent")}
               >
                 <i className="material-symbols-outlined transition-all text-gray-500 dark:text-gray-400 ltr:mr-[7px] rtl:ml-[7px] !text-[22px] leading-none relative -top-px">
                   location_away
                 </i>
                 <span className="title leading-none">Real Estate Agent</span>
               </button>
-              <div className="accordion-collapse hidden">
+              <div
+                className={`accordion-collapse transition-all duration-300 ease-in-out overflow-hidden ${
+                  openAccordions["realEstateAgent"]
+                    ? "max-h-[500px] opacity-100"
+                    : "max-h-0 opacity-0"
+                }`}
+              >
                 <div className="pt-[4px]">
                   <ul className="sidebar-sub-menu">
                     <li className="sidemenu-item mb-[4px] last:mb-0">
@@ -1193,15 +1359,24 @@ export default function DashboardLayout() {
             </div>
             <div className="accordion-item rounded-md text-black dark:text-white mb-[5px] whitespace-nowrap">
               <button
-                className="accordion-button toggle flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]"
+                className={`accordion-button toggle ${
+                  openAccordions["cryptoTrader"] ? "active" : ""
+                } flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]`}
                 type="button"
+                onClick={(e) => toggleAccordion(e, "cryptoTrader")}
               >
                 <i className="material-symbols-outlined transition-all text-gray-500 dark:text-gray-400 ltr:mr-[7px] rtl:ml-[7px] !text-[22px] leading-none relative -top-px">
                   paid
                 </i>
                 <span className="title leading-none">Crypto Trader</span>
               </button>
-              <div className="accordion-collapse hidden">
+              <div
+                className={`accordion-collapse transition-all duration-300 ease-in-out overflow-hidden ${
+                  openAccordions["cryptoTrader"]
+                    ? "max-h-[500px] opacity-100"
+                    : "max-h-0 opacity-0"
+                }`}
+              >
                 <div className="pt-[4px]">
                   <ul className="sidebar-sub-menu">
                     <li className="sidemenu-item mb-[4px] last:mb-0">
@@ -1234,15 +1409,24 @@ export default function DashboardLayout() {
             </div>
             <div className="accordion-item rounded-md text-black dark:text-white mb-[5px] whitespace-nowrap">
               <button
-                className="accordion-button toggle flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]"
+                className={`accordion-button toggle ${
+                  openAccordions["events"] ? "active" : ""
+                } flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]`}
                 type="button"
+                onClick={(e) => toggleAccordion(e, "events")}
               >
                 <i className="material-symbols-outlined transition-all text-gray-500 dark:text-gray-400 ltr:mr-[7px] rtl:ml-[7px] !text-[22px] leading-none relative -top-px">
                   local_activity
                 </i>
                 <span className="title leading-none">Events</span>
               </button>
-              <div className="accordion-collapse hidden">
+              <div
+                className={`accordion-collapse transition-all duration-300 ease-in-out overflow-hidden ${
+                  openAccordions["events"]
+                    ? "max-h-[500px] opacity-100"
+                    : "max-h-0 opacity-0"
+                }`}
+              >
                 <div className="pt-[4px]">
                   <ul className="sidebar-sub-menu">
                     <li className="sidemenu-item mb-[4px] last:mb-0">
@@ -1291,15 +1475,24 @@ export default function DashboardLayout() {
             </div>
             <div className="accordion-item rounded-md text-black dark:text-white mb-[5px] whitespace-nowrap">
               <button
-                className="accordion-button toggle flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]"
+                className={`accordion-button toggle ${
+                  openAccordions["social"] ? "active" : ""
+                } flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]`}
                 type="button"
+                onClick={(e) => toggleAccordion(e, "social")}
               >
                 <i className="material-symbols-outlined transition-all text-gray-500 dark:text-gray-400 ltr:mr-[7px] rtl:ml-[7px] !text-[22px] leading-none relative -top-px">
                   share
                 </i>
                 <span className="title leading-none">Social</span>
               </button>
-              <div className="accordion-collapse hidden">
+              <div
+                className={`accordion-collapse transition-all duration-300 ease-in-out overflow-hidden ${
+                  openAccordions["social"]
+                    ? "max-h-[500px] opacity-100"
+                    : "max-h-0 opacity-0"
+                }`}
+              >
                 <div className="pt-[4px]">
                   <ul className="sidebar-sub-menu">
                     <li className="sidemenu-item mb-[4px] last:mb-0">
@@ -1324,15 +1517,24 @@ export default function DashboardLayout() {
             </div>
             <div className="accordion-item rounded-md text-black dark:text-white mb-[5px] whitespace-nowrap">
               <button
-                className="accordion-button toggle flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]"
+                className={`accordion-button toggle ${
+                  openAccordions["invoices"] ? "active" : ""
+                } flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]`}
                 type="button"
+                onClick={(e) => toggleAccordion(e, "invoices")}
               >
                 <i className="material-symbols-outlined transition-all text-gray-500 dark:text-gray-400 ltr:mr-[7px] rtl:ml-[7px] !text-[22px] leading-none relative -top-px">
                   content_paste
                 </i>
                 <span className="title leading-none">Invoices</span>
               </button>
-              <div className="accordion-collapse hidden">
+              <div
+                className={`accordion-collapse transition-all duration-300 ease-in-out overflow-hidden ${
+                  openAccordions["invoices"]
+                    ? "max-h-[500px] opacity-100"
+                    : "max-h-0 opacity-0"
+                }`}
+              >
                 <div className="pt-[4px]">
                   <ul className="sidebar-sub-menu">
                     <li className="sidemenu-item mb-[4px] last:mb-0">
@@ -1373,15 +1575,24 @@ export default function DashboardLayout() {
             </div>
             <div className="accordion-item rounded-md text-black dark:text-white mb-[5px] whitespace-nowrap">
               <button
-                className="accordion-button toggle flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]"
+                className={`accordion-button toggle ${
+                  openAccordions["users"] ? "active" : ""
+                } flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]`}
                 type="button"
+                onClick={(e) => toggleAccordion(e, "users")}
               >
                 <i className="material-symbols-outlined transition-all text-gray-500 dark:text-gray-400 ltr:mr-[7px] rtl:ml-[7px] !text-[22px] leading-none relative -top-px">
                   person
                 </i>
                 <span className="title leading-none">Users</span>
               </button>
-              <div className="accordion-collapse hidden">
+              <div
+                className={`accordion-collapse transition-all duration-300 ease-in-out overflow-hidden ${
+                  openAccordions["users"]
+                    ? "max-h-[500px] opacity-100"
+                    : "max-h-0 opacity-0"
+                }`}
+              >
                 <div className="pt-[4px]">
                   <ul className="sidebar-sub-menu">
                     <li className="sidemenu-item mb-[4px] last:mb-0">
@@ -1414,15 +1625,24 @@ export default function DashboardLayout() {
             </div>
             <div className="accordion-item rounded-md text-black dark:text-white mb-[5px] whitespace-nowrap">
               <button
-                className="accordion-button toggle flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]"
+                className={`accordion-button toggle ${
+                  openAccordions["profile"] ? "active" : ""
+                } flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]`}
                 type="button"
+                onClick={(e) => toggleAccordion(e, "profile")}
               >
                 <i className="material-symbols-outlined transition-all text-gray-500 dark:text-gray-400 ltr:mr-[7px] rtl:ml-[7px] !text-[22px] leading-none relative -top-px">
                   account_box
                 </i>
                 <span className="title leading-none">Profile</span>
               </button>
-              <div className="accordion-collapse hidden">
+              <div
+                className={`accordion-collapse transition-all duration-300 ease-in-out overflow-hidden ${
+                  openAccordions["profile"]
+                    ? "max-h-[500px] opacity-100"
+                    : "max-h-0 opacity-0"
+                }`}
+              >
                 <div className="pt-[4px]">
                   <ul className="sidebar-sub-menu">
                     <li className="sidemenu-item mb-[4px] last:mb-0">
@@ -1469,15 +1689,24 @@ export default function DashboardLayout() {
             </span>
             <div className="accordion-item rounded-md text-black dark:text-white mb-[5px] whitespace-nowrap">
               <button
-                className="accordion-button toggle flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]"
+                className={`accordion-button toggle ${
+                  openAccordions["icons"] ? "active" : ""
+                } flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]`}
                 type="button"
+                onClick={(e) => toggleAccordion(e, "icons")}
               >
                 <i className="material-symbols-outlined transition-all text-gray-500 dark:text-gray-400 ltr:mr-[7px] rtl:ml-[7px] !text-[22px] leading-none relative -top-px">
                   emoji_emotions
                 </i>
                 <span className="title leading-none">Icons</span>
               </button>
-              <div className="accordion-collapse hidden">
+              <div
+                className={`accordion-collapse transition-all duration-300 ease-in-out overflow-hidden ${
+                  openAccordions["icons"]
+                    ? "max-h-[500px] opacity-100"
+                    : "max-h-0 opacity-0"
+                }`}
+              >
                 <div className="pt-[4px]">
                   <ul className="sidebar-sub-menu">
                     <li className="sidemenu-item mb-[4px] last:mb-0">
@@ -1502,15 +1731,24 @@ export default function DashboardLayout() {
             </div>
             <div className="accordion-item rounded-md text-black dark:text-white mb-[5px] whitespace-nowrap">
               <button
-                className="accordion-button toggle flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]"
+                className={`accordion-button toggle ${
+                  openAccordions["uiElements"] ? "active" : ""
+                } flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]`}
                 type="button"
+                onClick={(e) => toggleAccordion(e, "uiElements")}
               >
                 <i className="material-symbols-outlined transition-all text-gray-500 dark:text-gray-400 ltr:mr-[7px] rtl:ml-[7px] !text-[22px] leading-none relative -top-px">
                   qr_code_scanner
                 </i>
                 <span className="title leading-none">UI Elements</span>
               </button>
-              <div className="accordion-collapse hidden">
+              <div
+                className={`accordion-collapse transition-all duration-300 ease-in-out overflow-hidden ${
+                  openAccordions["uiElements"]
+                    ? "max-h-[500px] opacity-100"
+                    : "max-h-0 opacity-0"
+                }`}
+              >
                 <div className="pt-[4px]">
                   <ul className="sidebar-sub-menu">
                     <li className="sidemenu-item mb-[4px] last:mb-0">
@@ -1675,15 +1913,24 @@ export default function DashboardLayout() {
             </div>
             <div className="accordion-item rounded-md text-black dark:text-white mb-[5px] whitespace-nowrap">
               <button
-                className="accordion-button toggle flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]"
+                className={`accordion-button toggle ${
+                  openAccordions["forms"] ? "active" : ""
+                } flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]`}
                 type="button"
+                onClick={(e) => toggleAccordion(e, "forms")}
               >
                 <i className="material-symbols-outlined transition-all text-gray-500 dark:text-gray-400 ltr:mr-[7px] rtl:ml-[7px] !text-[22px] leading-none relative -top-px">
                   forum
                 </i>
                 <span className="title leading-none">Forms</span>
               </button>
-              <div className="accordion-collapse hidden">
+              <div
+                className={`accordion-collapse transition-all duration-300 ease-in-out overflow-hidden ${
+                  openAccordions["forms"]
+                    ? "max-h-[500px] opacity-100"
+                    : "max-h-0 opacity-0"
+                }`}
+              >
                 <div className="pt-[4px]">
                   <ul className="sidebar-sub-menu">
                     <li className="sidemenu-item mb-[4px] last:mb-0">
@@ -1724,15 +1971,24 @@ export default function DashboardLayout() {
             </div>
             <div className="accordion-item rounded-md text-black dark:text-white mb-[5px] whitespace-nowrap">
               <button
-                className="accordion-button toggle flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]"
+                className={`accordion-button toggle ${
+                  openAccordions["charts"] ? "active" : ""
+                } flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]`}
                 type="button"
+                onClick={(e) => toggleAccordion(e, "charts")}
               >
                 <i className="material-symbols-outlined transition-all text-gray-500 dark:text-gray-400 ltr:mr-[7px] rtl:ml-[7px] !text-[22px] leading-none relative -top-px">
                   pie_chart
                 </i>
                 <span className="title leading-none">Charts</span>
               </button>
-              <div className="accordion-collapse hidden">
+              <div
+                className={`accordion-collapse transition-all duration-300 ease-in-out overflow-hidden ${
+                  openAccordions["charts"]
+                    ? "max-h-[500px] opacity-100"
+                    : "max-h-0 opacity-0"
+                }`}
+              >
                 <div className="pt-[4px]">
                   <ul className="sidebar-sub-menu">
                     <li className="sidemenu-item mb-[4px] last:mb-0">
@@ -1813,15 +2069,24 @@ export default function DashboardLayout() {
             </div>
             <div className="accordion-item rounded-md text-black dark:text-white mb-[5px] whitespace-nowrap">
               <button
-                className="accordion-button toggle flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]"
+                className={`accordion-button toggle ${
+                  openAccordions["authentication"] ? "active" : ""
+                } flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]`}
                 type="button"
+                onClick={(e) => toggleAccordion(e, "authentication")}
               >
                 <i className="material-symbols-outlined transition-all text-gray-500 dark:text-gray-400 ltr:mr-[7px] rtl:ml-[7px] !text-[22px] leading-none relative -top-px">
                   lock_open
                 </i>
                 <span className="title leading-none">Authentication</span>
               </button>
-              <div className="accordion-collapse hidden">
+              <div
+                className={`accordion-collapse transition-all duration-300 ease-in-out overflow-hidden ${
+                  openAccordions["authentication"]
+                    ? "max-h-[500px] opacity-100"
+                    : "max-h-0 opacity-0"
+                }`}
+              >
                 <div className="pt-[4px]">
                   <ul className="sidebar-sub-menu">
                     <li className="sidemenu-item mb-[4px] last:mb-0">
@@ -1886,15 +2151,24 @@ export default function DashboardLayout() {
             </div>
             <div className="accordion-item rounded-md text-black dark:text-white mb-[5px] whitespace-nowrap">
               <button
-                className="accordion-button toggle flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]"
+                className={`accordion-button toggle ${
+                  openAccordions["extraPages"] ? "active" : ""
+                } flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]`}
                 type="button"
+                onClick={(e) => toggleAccordion(e, "extraPages")}
               >
                 <i className="material-symbols-outlined transition-all text-gray-500 dark:text-gray-400 ltr:mr-[7px] rtl:ml-[7px] !text-[22px] leading-none relative -top-px">
                   content_copy
                 </i>
                 <span className="title leading-none">Extra Pages</span>
               </button>
-              <div className="accordion-collapse hidden">
+              <div
+                className={`accordion-collapse transition-all duration-300 ease-in-out overflow-hidden ${
+                  openAccordions["extraPages"]
+                    ? "max-h-[500px] opacity-100"
+                    : "max-h-0 opacity-0"
+                }`}
+              >
                 <div className="pt-[4px]">
                   <ul className="sidebar-sub-menu">
                     <li className="sidemenu-item mb-[4px] last:mb-0">
@@ -1967,15 +2241,24 @@ export default function DashboardLayout() {
             </div>
             <div className="accordion-item rounded-md text-black dark:text-white mb-[5px] whitespace-nowrap">
               <button
-                className="accordion-button toggle flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]"
+                className={`accordion-button toggle ${
+                  openAccordions["errors"] ? "active" : ""
+                } flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]`}
                 type="button"
+                onClick={(e) => toggleAccordion(e, "errors")}
               >
                 <i className="material-symbols-outlined transition-all text-gray-500 dark:text-gray-400 ltr:mr-[7px] rtl:ml-[7px] !text-[22px] leading-none relative -top-px">
                   error
                 </i>
                 <span className="title leading-none">Errors</span>
               </button>
-              <div className="accordion-collapse hidden">
+              <div
+                className={`accordion-collapse transition-all duration-300 ease-in-out overflow-hidden ${
+                  openAccordions["errors"]
+                    ? "max-h-[500px] opacity-100"
+                    : "max-h-0 opacity-0"
+                }`}
+              >
                 <div className="pt-[4px]">
                   <ul className="sidebar-sub-menu">
                     <li className="sidemenu-item mb-[4px] last:mb-0">
@@ -2058,15 +2341,24 @@ export default function DashboardLayout() {
             </div>
             <div className="accordion-item rounded-md text-black dark:text-white mb-[5px] whitespace-nowrap">
               <button
-                className="accordion-button toggle flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]"
+                className={`accordion-button toggle ${
+                  openAccordions["settings"] ? "active" : ""
+                } flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]`}
                 type="button"
+                onClick={(e) => toggleAccordion(e, "settings")}
               >
                 <i className="material-symbols-outlined transition-all text-gray-500 dark:text-gray-400 ltr:mr-[7px] rtl:ml-[7px] !text-[22px] leading-none relative -top-px">
                   settings
                 </i>
                 <span className="title leading-none">Settings</span>
               </button>
-              <div className="accordion-collapse hidden">
+              <div
+                className={`accordion-collapse transition-all duration-300 ease-in-out overflow-hidden ${
+                  openAccordions["settings"]
+                    ? "max-h-[500px] opacity-100"
+                    : "max-h-0 opacity-0"
+                }`}
+              >
                 <div className="pt-[4px]">
                   <ul className="sidebar-sub-menu">
                     <li className="sidemenu-item mb-[4px] last:mb-0">
@@ -2115,15 +2407,24 @@ export default function DashboardLayout() {
             </div>
             <div className="accordion-item rounded-md text-black dark:text-white mb-[5px] whitespace-nowrap">
               <button
-                className="accordion-button toggle flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]"
+                className={`accordion-button toggle ${
+                  openAccordions["multiLevelMenu"] ? "active" : ""
+                } flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]`}
                 type="button"
+                onClick={(e) => toggleAccordion(e, "multiLevelMenu")}
               >
                 <i className="material-symbols-outlined transition-all text-gray-500 dark:text-gray-400 ltr:mr-[7px] rtl:ml-[7px] !text-[22px] leading-none relative -top-px">
                   unfold_more
                 </i>
                 <span className="title leading-none">Multi Level Menu</span>
               </button>
-              <div className="accordion-collapse hidden">
+              <div
+                className={`accordion-collapse transition-all duration-300 ease-in-out overflow-hidden ${
+                  openAccordions["multiLevelMenu"]
+                    ? "max-h-[500px] opacity-100"
+                    : "max-h-0 opacity-0"
+                }`}
+              >
                 <div className="pt-[4px]">
                   <ul className="sidebar-sub-menu">
                     <li className="sidemenu-item mb-[4px] last:mb-0">
@@ -2137,14 +2438,23 @@ export default function DashboardLayout() {
                     <li className="sidemenu-item mb-[4px] last:mb-0">
                       <button
                         type="button"
-                        className="sidemenu-link toggle rounded-md flex items-center relative transition-all font-medium text-gray-500 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
+                        className={`sidemenu-link toggle rounded-md flex items-center relative transition-all font-medium text-gray-500 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c] ${
+                          openAccordions["secondLevel"] ? "active" : ""
+                        }`}
+                        onClick={(e) => toggleAccordion(e, "secondLevel")}
                       >
                         Second
                         <span className="rounded-full font-medium inline-block text-center w-[20px] h-[20px] text-[11px] leading-[20px] text-orange-500 bg-orange-50 dark:bg-[#ffffff14] ltr:ml-auto rtl:mr-auto">
                           2
                         </span>
                       </button>
-                      <div className="accordion-collapse hidden">
+                      <div
+                        className={`accordion-collapse transition-all duration-300 ease-in-out overflow-hidden ${
+                          openAccordions["secondLevel"]
+                            ? "max-h-[500px] opacity-100"
+                            : "max-h-0 opacity-0"
+                        }`}
+                      >
                         <div className="pt-[6px] ltr:pl-[20px] rtl:pr-[20px]">
                           <ul className="sidebar-sub-menu">
                             <li className="sidemenu-item mb-[4px] last:mb-0">
