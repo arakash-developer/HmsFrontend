@@ -1,20 +1,14 @@
+import api from "@/axios";
 import { useAuth } from "@contexts/AuthContext";
 import Google from "@public/images/icons/google.svg";
 import Logo from "@public/images/logo-big.svg";
 import Logo2 from "@public/images/logo-big2.svg";
 import SignIn from "@public/images/sign-in.webp";
+import { useMutation } from "@tanstack/react-query";
 import { message } from "antd"; // Import Ant Design's message API
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { useNavigate } from "react-router-dom";
-
-const users = [
-  { username: "akash", password: "akash123", role: "superadmin" },
-  { username: "admin", password: "admin123", role: "admin" },
-  { username: "doctor", password: "doc123", role: "doctor" },
-  { username: "patient", password: "patient123", role: "patient" },
-  { username: "newaz.blinto@gmail.com", password: "newaz", role: "admin" },
-];
 
 const Login = () => {
   const [form, setForm] = useState({ username: "", password: "" });
@@ -24,11 +18,39 @@ const Login = () => {
     localStorage.getItem("darkMode") === "true"
   );
   const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false); // For managing loading state
-  const [buttonDisabled, setButtonDisabled] = useState(false); // For controlling button state
 
   // Use Ant Design's message API
   const [messageApi, contextHolder] = message.useMessage();
+
+  // Define the mutation for the login request
+  const { mutate, isLoading } = useMutation({
+    mutationFn: async (formData) => {
+      try {
+        const response = await api.post("/api/login", {
+          identifier: formData.username, // Email or username
+          password: formData.password,
+        });
+        return response.data;
+      } catch (err) {
+        console.error("Login failed:", err);
+        throw err;
+      }
+    },
+    onSuccess: (data) => {
+      // Assuming the API returns a token and user data
+      if (data.user) {
+        const token = data.user.token || "bearer-token"; // Use token from API
+        login(token);
+        // message.success("Login successful");
+      }
+    },
+    onError: (error) => {
+      console.error("Login error:", error);
+      message.error(
+        error?.response?.data?.message || "Invalid username or password"
+      );
+    },
+  });
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", isDarkMode);
@@ -42,31 +64,18 @@ const Login = () => {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    setLoading(true);
-    message.loading("Logging in...");
-
-    // Fake authentication
-    const foundUser = users.find(
-      (user) =>
-        user.username === form.username && user.password === form.password
-    );
-
-    if (!foundUser) {
-      message.error("Invalid username or password");
-      setLoading(false);
+    // Validate form fields
+    if (!form.username || !form.password) {
+      message.error("Please enter both username/email and password");
       return;
     }
 
-    const token = "fake-token-123"; // This would normally be a JWT
-    login(token, foundUser.role); // Pass the role to login function
-
-    message.success("Login successful");
-    navigate("/admin"); // Redirect after login
-
-    setLoading(false);
+    // Trigger the login mutation
+    mutate(form);
   };
 
   return (
@@ -96,7 +105,11 @@ const Login = () => {
             </div>
             <div className="xl:ltr:pl-[90px] xl:rtl:pr-[90px] 2xl:ltr:pl-[120px] 2xl:rtl:pr-[120px] order-1 lg:order-2">
               <img src={Logo} alt="logo" className="inline-block dark:hidden" />
-              <img src={Logo2} alt="logo" className="hidden dark:inline-block" />
+              <img
+                src={Logo2}
+                alt="logo"
+                className="hidden dark:inline-block"
+              />
               <div className="my-[17px] md:my-[32px]">
                 <h1 className="font-semibold text-[22px] md:text-xl lg:text-2xl mb-[5px] md:mb-[7px]">
                   Sign In
@@ -166,16 +179,15 @@ const Login = () => {
               </a>
               <button
                 onClick={handleSubmit}
-                disabled={buttonDisabled} // Disable button during login
+                disabled={isLoading} // Disable button during login
                 className={`md:text-md block w-full text-center transition-all rounded-md font-medium mt-[20px] md:mt-[24px] py-[12px] px-[25px] text-white ${
-                  buttonDisabled
+                  isLoading
                     ? "bg-gray-500 cursor-not-allowed"
                     : "bg-primary-500"
                 } hover:bg-primary-400`}
               >
                 <span className="flex items-center justify-center gap-[5px]">
-                  {/* <i className="material-symbols-outlined">login</i> */}
-                  Sign In
+                  {isLoading ? "Logging in..." : "Sign In"}
                 </span>
               </button>
               <p className="mt-[15px] md:mt-[24px]">
