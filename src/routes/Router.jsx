@@ -22,6 +22,7 @@ import AdminDoctors from "@/components/admin/AdminDoctors";
 import AdminPathology from "@/components/admin/AdminPathology";
 import AdminConnections from "@/components/admin/AdminConnections";
 import ReceiptionLayout from "@/layouts/receiption/receiptionLayout";
+import Country from "@/components/receiption/Country";
 // import { i } from "react-router/dist/development/index-react-server-client-kY8DvDF3";
 
 const routes = [
@@ -46,7 +47,7 @@ const routes = [
         element: <ReceiptionLayout />,
         children: [
           { index: true, element: <AdminDashboard /> },
-          { path:"analytics", element: <AdminDashboard /> },
+          { path:"add-country", element: <Country /> },
           { path: "typography", element: <Typhography /> },
           { path: "patients", element: <AdminPatients /> },
           { path: "accounts", element: <AdminAccounts /> },

@@ -111,11 +111,11 @@ export default function ReceiptionLayout() {
         },
         {
           title: "Add New Test",
-          link: "/admin/setup/add-test",
+          link: "/receiption/add-test",
         },
         {
           title: "Add New Country",
-          link: "/admin/setup/add-country",
+          link: "/receiption/add-country",
         },
       ],
     },

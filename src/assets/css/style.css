@@ -7410,10 +7410,8 @@ html[dir="rtl"] {
 
 /** Add New Popup */
 
-.add-new-popup {
+.add-new-popups {
   background-color: rgba(0, 0, 0, 0.5);
-  visibility: hidden;
-  opacity: 0
 }
 
 @media (min-width: 768px) {
