@@ -14,6 +14,19 @@ const Country = () => {
     setPopup(false);
   };
 
+  const {
+    data: countries,
+    isLoading: loadingCountries,
+    error: fetchError,
+    refetch,
+  } = useQuery({
+    queryKey: ["countries"], // Unique key for caching
+    queryFn: async () => {
+      const response = await api.get("/api/country"); // Your GET API
+      return response.data; // assuming response.data is an array of countries
+    },
+  });
+
   // Define the mutation for the login request
   const { mutate, isLoading } = useMutation({
     mutationFn: async (formData) => {
@@ -44,20 +57,15 @@ const Country = () => {
   let addcountry = (e) => {
     e.preventDefault();
     // Trigger the login mutation
-    mutate(form);
+    mutate(form, {
+      onSuccess: () => {
+        refetch();
+      },
+    });
     setPopup(false);
+    setForm({ name: "" });
   };
-  const {
-    data: countries,
-    isLoading: loadingCountries,
-    error: fetchError,
-  } = useQuery({
-    queryKey: ["countries"], // Unique key for caching
-    queryFn: async () => {
-      const response = await api.get("/api/country"); // Your GET API
-      return response.data; // assuming response.data is an array of countries
-    },
-  });
+
   return (
     <>
       {/* <!-- Main Content --> */}
