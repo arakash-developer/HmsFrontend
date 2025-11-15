@@ -109,9 +109,8 @@ const Country = () => {
             </form>
           </div>
           <div class="trezo-card-subtitle mt-[15px] sm:mt-0">
-            <button
+            <div
               onClick={addcountryhandler}
-              type="button"
               class="inline-block transition-all rounded-md font-medium px-[13px] py-[6px] text-primary-500 border border-primary-500 hover:bg-primary-500 hover:text-white"
               id="add-new-popup-toggle"
             >
@@ -121,7 +120,7 @@ const Country = () => {
                 </i>
                 Add New Task
               </span>
-            </button>
+            </div>
           </div>
         </div>
         <div class="trezo-card-content -mx-[20px] md:-mx-[25px]">
@@ -167,8 +166,7 @@ const Country = () => {
 
                     <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
                       <div class="flex items-center gap-[9px]">
-                        <button
-                          type="button"
+                        <div
                           class="text-primary-500 leading-none custom-tooltip"
                           id="customTooltip"
                           data-text="View"
@@ -176,17 +174,15 @@ const Country = () => {
                           <i class="material-symbols-outlined !text-md">
                             visibility
                           </i>
-                        </button>
-                        <button
-                          type="button"
+                        </div>
+                        <div
                           class="text-gray-500 dark:text-gray-400 leading-none custom-tooltip"
                           id="customTooltip"
                           data-text="Edit"
                         >
                           <i class="material-symbols-outlined !text-md">edit</i>
-                        </button>
-                        <button
-                          type="button"
+                        </div>
+                        <div
                           class="text-danger-500 leading-none custom-tooltip"
                           id="customTooltip"
                           data-text="Delete"
@@ -194,7 +190,7 @@ const Country = () => {
                           <i class="material-symbols-outlined !text-md">
                             delete
                           </i>
-                        </button>
+                        </div>
                       </div>
                     </td>
                   </tr>
@@ -222,14 +218,13 @@ const Country = () => {
                   <h5 class="mb-0">Add New Country</h5>
                 </div>
                 <div class="trezo-card-subtitle">
-                  <button
-                    type="button"
+                  <div
                     onClick={cancelcountrypopup}
                     class="text-[23px] transition-all leading-none text-black dark:text-white hover:text-primary-500"
                     id="add-new-popup-toggle"
                   >
                     <i class="ri-close-fill"></i>
-                  </button>
+                  </div>
                 </div>
               </div>
               <div class="trezo-card-content">
