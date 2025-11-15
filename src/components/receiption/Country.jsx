@@ -94,8 +94,8 @@ const Country = () => {
       </div>
 
       {/* <!-- To Do List --> */}
-      <div class="trezo-card bg-white dark:bg-[#0c1427] mb-[25px] p-[20px] md:p-[25px] rounded-md">
-        <div class="trezo-card-header mb-[20px] md:mb-[25px] sm:flex items-center justify-between">
+      <div class="trezo-card bg-white dark:bg-[#0c1427] mb-[25px] p-[20px] md:p-[25px] rounded-md ">
+        <div class="trezo-card-header mb-[20px] md:mb-[25px] sm:flex items-center justify-between ">
           <div class="trezo-card-title">
             <form class="relative sm:w-[265px]">
               <label class="leading-none absolute ltr:left-[13px] rtl:right-[13px] text-black dark:text-white mt-px top-1/2 -translate-y-1/2">
@@ -125,7 +125,7 @@ const Country = () => {
           </div>
         </div>
         <div class="trezo-card-content -mx-[20px] md:-mx-[25px]">
-          <div class="table-responsive overflow-x-auto">
+          <div class="table-responsive overflow-x-auto overflow-y-hidden">
             <table class="w-full without-border">
               <thead class="text-black dark:text-white">
                 <tr>
@@ -252,7 +252,7 @@ const Country = () => {
                   </div>
                   <div class="mt-[20px] md:mt-[25px] ltr:text-right rtl:text-left">
                     <div
-                      class="rounded-md inline-block transition-all font-medium ltr:mr-[15px] rtl:ml-[15px] px-[26.5px] py-[10px] bg-danger-500 text-white hover:bg-danger-400"
+                      class="cursor-pointer rounded-md inline-block transition-all font-medium ltr:mr-[15px] rtl:ml-[15px] px-[26.5px] py-[10px] bg-danger-500 text-white hover:bg-danger-400"
                       id="add-new-popup-toggle"
                       onClick={cancelcountrypopup}
                     >
@@ -260,7 +260,7 @@ const Country = () => {
                     </div>
                     <div
                       onClick={addcountry}
-                      class="inline-block bg-primary-500 text-white py-[10px] px-[26.5px] transition-all rounded-md hover:bg-primary-400"
+                      class="cursor-pointer inline-block bg-primary-500 text-white py-[10px] px-[26.5px] transition-all rounded-md hover:bg-primary-400"
                     >
                       <span class="inline-block relative ltr:pl-[25px] rtl:pr-[25px]">
                         <i class="material-symbols-outlined !text-[20px] absolute ltr:left-0 rtl:right-0 top-1/2 -translate-y-1/2">
