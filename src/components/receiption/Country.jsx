@@ -1,7 +1,10 @@
+import api from "@/axios";
+import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 
 const Country = () => {
   let [popup, setPopup] = useState(false);
+  const [form, setForm] = useState({ name: "" });
   let addcountryhandler = (e) => {
     e.preventDefault();
     // alert("Add Country");
@@ -11,12 +14,42 @@ const Country = () => {
     e.preventDefault();
     setPopup(false);
   };
+
+  // Define the mutation for the login request
+  const { mutate, isLoading } = useMutation({
+    mutationFn: async (formData) => {
+      try {
+        const response = await api.post("/api/country", {
+          name: formData.name,
+        });
+        return response.data;
+      } catch (err) {
+        console.error("country added failed:", err);
+        throw err;
+      }
+    },
+    onSuccess: (data) => {
+      if (data.token) {
+        const token = data.token;
+        // login(token);
+      }
+    },
+    onError: (error) => {
+      console.error("Country add error:", error);
+      message.error(
+        error?.response?.data?.message || "Invalid username or password"
+      );
+    },
+  });
+
   let addcountry = (e) => {
     e.preventDefault();
     alert("Country Added");
-
+    // Trigger the login mutation
+    mutate(form);
     setPopup(false);
   };
+
   return (
     <>
       {/* <!-- Main Content --> */}
@@ -186,6 +219,10 @@ const Country = () => {
                       </label>
                       <input
                         type="text"
+                        onChange={(e) =>
+                          setForm({ ...form, name: e.target.value })
+                        }
+                        value={form.name}
                         class="h-[45px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
                         placeholder="Country Name"
                       />
