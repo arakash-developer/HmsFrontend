@@ -1,5 +1,5 @@
 import api from "@/axios";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
 const Country = () => {
@@ -49,7 +49,17 @@ const Country = () => {
     mutate(form);
     setPopup(false);
   };
-
+  const {
+    data: countries,
+    isLoading: loadingCountries,
+    error: fetchError,
+  } = useQuery({
+    queryKey: ["countries"], // Unique key for caching
+    queryFn: async () => {
+      const response = await api.get("/api/country"); // Your GET API
+      return response.data; // assuming response.data is an array of countries
+    },
+  });
   return (
     <>
       {/* <!-- Main Content --> */}
@@ -131,52 +141,58 @@ const Country = () => {
                 </tr>
               </thead>
               <tbody class="text-black dark:text-white">
-                <tr>
-                  <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
-                    <div class="form-check relative top-[2px]">
-                      <input type="checkbox" class="cursor-pointer" />
-                    </div>
-                  </td>
-                  <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
-                    <span class="text-gray-500 dark:text-gray-400">#854</span>
-                  </td>
-                  <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
-                    <span class="block font-medium text-gray-500 dark:text-gray-400">
-                      Bangladesh{" "}
-                    </span>
-                  </td>
+                {countries.map((country, index) => (
+                  <tr key={index}>
+                    <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
+                      <div class="form-check relative top-[2px]">
+                        <input type="checkbox" class="cursor-pointer" />
+                      </div>
+                    </td>
+                    <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
+                      <span class="text-gray-500 dark:text-gray-400">
+                        #{index + 1}
+                      </span>
+                    </td>
+                    <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
+                      <span class="block font-medium text-gray-500 dark:text-gray-400">
+                        {country.name}
+                      </span>
+                    </td>
 
-                  <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
-                    <div class="flex items-center gap-[9px]">
-                      <button
-                        type="button"
-                        class="text-primary-500 leading-none custom-tooltip"
-                        id="customTooltip"
-                        data-text="View"
-                      >
-                        <i class="material-symbols-outlined !text-md">
-                          visibility
-                        </i>
-                      </button>
-                      <button
-                        type="button"
-                        class="text-gray-500 dark:text-gray-400 leading-none custom-tooltip"
-                        id="customTooltip"
-                        data-text="Edit"
-                      >
-                        <i class="material-symbols-outlined !text-md">edit</i>
-                      </button>
-                      <button
-                        type="button"
-                        class="text-danger-500 leading-none custom-tooltip"
-                        id="customTooltip"
-                        data-text="Delete"
-                      >
-                        <i class="material-symbols-outlined !text-md">delete</i>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
+                    <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
+                      <div class="flex items-center gap-[9px]">
+                        <button
+                          type="button"
+                          class="text-primary-500 leading-none custom-tooltip"
+                          id="customTooltip"
+                          data-text="View"
+                        >
+                          <i class="material-symbols-outlined !text-md">
+                            visibility
+                          </i>
+                        </button>
+                        <button
+                          type="button"
+                          class="text-gray-500 dark:text-gray-400 leading-none custom-tooltip"
+                          id="customTooltip"
+                          data-text="Edit"
+                        >
+                          <i class="material-symbols-outlined !text-md">edit</i>
+                        </button>
+                        <button
+                          type="button"
+                          class="text-danger-500 leading-none custom-tooltip"
+                          id="customTooltip"
+                          data-text="Delete"
+                        >
+                          <i class="material-symbols-outlined !text-md">
+                            delete
+                          </i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
