@@ -5,12 +5,10 @@ import { useState } from "react";
 const Country = () => {
   let [popup, setPopup] = useState(false);
   const [form, setForm] = useState({ name: "" });
-  let addcountryhandler = (e) => {
-    e.preventDefault();
+  let addcountryhandler = () => {
     setPopup(true);
   };
-  let cancelcountrypopup = (e) => {
-    e.preventDefault();
+  let cancelcountrypopup = () => {
     setPopup(false);
   };
 
@@ -54,8 +52,7 @@ const Country = () => {
     },
   });
 
-  let addcountry = (e) => {
-    e.preventDefault();
+  let addcountry = () => {
     // Trigger the login mutation
     mutate(form, {
       onSuccess: () => {
