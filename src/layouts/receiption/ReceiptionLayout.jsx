@@ -5,7 +5,7 @@ import Header from "@/components/main/admin/Header";
 import Logo from "@public/images/logo-small.svg";
 import Logo2 from "@public/images/logo-small2.svg";
 import { useState } from "react";
-export default function DashboardLayout() {
+export default function ReceiptionLayout() {
   let [sidecompact, setSidecompact] = useState(false);
   // State to track which accordion items are open
   const [openAccordions, setOpenAccordions] = useState({});

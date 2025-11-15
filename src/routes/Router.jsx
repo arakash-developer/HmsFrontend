@@ -21,6 +21,7 @@ import AdminPatients from "@/components/admin/AdminPatients";
 import AdminDoctors from "@/components/admin/AdminDoctors";
 import AdminPathology from "@/components/admin/AdminPathology";
 import AdminConnections from "@/components/admin/AdminConnections";
+import ReceiptionLayout from "@/layouts/receiption/receiptionLayout";
 // import { i } from "react-router/dist/development/index-react-server-client-kY8DvDF3";
 
 const routes = [
@@ -33,6 +34,25 @@ const routes = [
         children: [
           { index: true, element: <Login /> },
           { path: "register", element: <Register /> },
+        ],
+      },
+    ],
+  },
+  {
+    element: <ProtectedRoute allowedRoles={["receiption"]} />,
+    children: [
+      {
+        path: "/receiption",
+        element: <ReceiptionLayout />,
+        children: [
+          { index: true, element: <AdminDashboard /> },
+          { path:"analytics", element: <AdminDashboard /> },
+          { path: "typography", element: <Typhography /> },
+          { path: "patients", element: <AdminPatients /> },
+          { path: "accounts", element: <AdminAccounts /> },
+          { path: "doctors", element: <AdminDoctors /> },
+          { path: "pathology", element: <AdminPathology /> },
+          { path: "connections", element: <AdminConnections /> },
         ],
       },
     ],
