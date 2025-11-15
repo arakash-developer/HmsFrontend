@@ -251,16 +251,14 @@ const Country = () => {
                     </div>
                   </div>
                   <div class="mt-[20px] md:mt-[25px] ltr:text-right rtl:text-left">
-                    <button
-                      type="button"
+                    <div
                       class="rounded-md inline-block transition-all font-medium ltr:mr-[15px] rtl:ml-[15px] px-[26.5px] py-[10px] bg-danger-500 text-white hover:bg-danger-400"
                       id="add-new-popup-toggle"
                       onClick={cancelcountrypopup}
                     >
                       Cancel
-                    </button>
-                    <button
-                      type="button"
+                    </div>
+                    <div
                       onClick={addcountry}
                       class="inline-block bg-primary-500 text-white py-[10px] px-[26.5px] transition-all rounded-md hover:bg-primary-400"
                     >
@@ -270,7 +268,7 @@ const Country = () => {
                         </i>
                         Create
                       </span>
-                    </button>
+                    </div>
                   </div>
                 </form>
               </div>
