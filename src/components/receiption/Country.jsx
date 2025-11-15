@@ -7,7 +7,6 @@ const Country = () => {
   const [form, setForm] = useState({ name: "" });
   let addcountryhandler = (e) => {
     e.preventDefault();
-    // alert("Add Country");
     setPopup(true);
   };
   let cancelcountrypopup = (e) => {
@@ -44,7 +43,6 @@ const Country = () => {
 
   let addcountry = (e) => {
     e.preventDefault();
-    alert("Country Added");
     // Trigger the login mutation
     mutate(form);
     setPopup(false);
@@ -141,7 +139,7 @@ const Country = () => {
                 </tr>
               </thead>
               <tbody class="text-black dark:text-white">
-                {countries.map((country, index) => (
+                {countries?.map((country, index) => (
                   <tr key={index}>
                     <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
                       <div class="form-check relative top-[2px]">
