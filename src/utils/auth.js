@@ -3,6 +3,7 @@ export const getToken = () => {
   try {
     return token ? JSON.parse(token) : null;
   } catch (e) {
+    console.error("Error parsing token from localStorage", e);
     // If it's not JSON, return the raw token
     return token;
   }

@@ -27,7 +27,7 @@ const Login = () => {
     mutationFn: async (formData) => {
       try {
         const response = await api.post("/api/login", {
-          identifier: formData.username, // Email or username
+          username: formData.username, // Email or username
           password: formData.password,
         });
         return response.data;
@@ -37,9 +37,8 @@ const Login = () => {
       }
     },
     onSuccess: (data) => {
-      // Assuming the API returns a token and user data
-      if (data.user) {
-        const token = data.user;
+      if (data.token) {
+        const token = data.token;
         login(token);
       }
     },

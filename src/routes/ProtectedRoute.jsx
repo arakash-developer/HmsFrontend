@@ -6,7 +6,7 @@ const ProtectedRoute = () => {
 
   // If there is no valid token (user is null), redirect to the login page
   if (!temptoken) {
-    return <Navigate to="/" />;
+    // return <Navigate to="/" />;
   }
 
   return <Outlet />; // If user is valid, show the protected content
