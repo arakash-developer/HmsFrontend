@@ -19,6 +19,7 @@ import AdminPathology from "@/components/admin/AdminPathology";
 import AdminPatients from "@/components/admin/AdminPatients";
 import Typhography from "@/components/admin/Typhography";
 import NotFound from "@/components/main/NotFound";
+import Category from "@/components/receiption/Category";
 import Country from "@/components/receiption/Country";
 import Department from "@/components/receiption/Department";
 import Test from "@/components/receiption/Test";
@@ -52,7 +53,7 @@ const routes = [
           { path: "add-country", element: <Country /> },
           { path: "add-test", element: <Test /> },
           { path: "add-department", element: <Department /> },
-          { path: "accounts", element: <AdminAccounts /> },
+          { path: "add-category", element: <Category /> },
           { path: "doctors", element: <AdminDoctors /> },
           { path: "pathology", element: <AdminPathology /> },
           { path: "connections", element: <AdminConnections /> },
