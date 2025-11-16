@@ -63,17 +63,17 @@ export default function ReceiptionLayout() {
     },
     {
       title: "Patient Registration",
-      link: "/admin/patient-registration",
+      link: "/receiption/patient-registration",
       icon: "person",
     },
     {
       title: "Due Collection",
-      link: "/admin/due-collection",
+      link: "/receiption/due-collection",
       icon: "money",
     },
     {
       title: "Statement",
-      link: "/admin/statement",
+      link: "/receiption/statement",
       icon: "receipt",
     },
   ];

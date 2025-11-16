@@ -22,11 +22,14 @@ import NotFound from "@/components/main/NotFound";
 import Category from "@/components/receiption/Category";
 import Country from "@/components/receiption/Country";
 import Department from "@/components/receiption/Department";
+import Doctor from "@/components/receiption/Doctor";
+import Due from "@/components/receiption/Due";
+import PatientReg from "@/components/receiption/PatientReg";
+import Statement from "@/components/receiption/Statement";
 import Test from "@/components/receiption/Test";
 import ReceiptionLayout from "@/layouts/receiption/receiptionLayout";
 import ProtectedRoute from "@/routes/ProtectedRoute";
 import PublicRoute from "@/routes/PublicRoute";
-import Doctor from "@/components/receiption/Doctor";
 // import { i } from "react-router/dist/development/index-react-server-client-kY8DvDF3";
 
 const routes = [
@@ -56,8 +59,9 @@ const routes = [
           { path: "add-department", element: <Department /> },
           { path: "add-category", element: <Category /> },
           { path: "doctor", element: <Doctor /> },
-          { path: "pathology", element: <AdminPathology /> },
-          { path: "connections", element: <AdminConnections /> },
+          { path: "patient-registration", element: <PatientReg /> },
+          { path: "due-collection", element: <Due /> },
+          { path: "statement", element: <Statement /> },
         ],
       },
     ],
