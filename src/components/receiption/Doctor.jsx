@@ -509,9 +509,9 @@ const Doctor = () => {
                       <select
                         class="h-[40px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500"
                         onChange={(e) => setSelectedcountryId(e.target.value)}
-                        value={selectedcountryId}
+                        value={form?.country}
                       >
-                        <option>Select Country</option>
+                        {/* <option>Select Country</option> */}
                         {countryData?.map((dept) => (
                           <option key={dept._id} value={dept._id}>
                             {dept.name}
