@@ -49,7 +49,16 @@ const Doctor = () => {
     );
 
     setPopup(false);
-    setForm({ name: "" });
+    setForm({
+      doctorname: "",
+      doctortitle: "",
+      qualification: "",
+      speciality: "",
+      country: "",
+      phone: "",
+      mobile: "",
+      email: "",
+    });
   };
 
   const handleDeletepopup = (id) => {
@@ -685,7 +694,6 @@ const Doctor = () => {
           </div>
         </div>
       )}
-      
     </>
   );
 };
