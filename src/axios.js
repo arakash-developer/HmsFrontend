@@ -12,7 +12,7 @@ let token = JSON.parse(temptoken);
 // Request interceptor to attach token
 api.interceptors.request.use(
   (config) => {
-    console.log("Attaching token to request:", token.tok);
+    // console.log("Attaching token to request:", token.tok);
     if (token) {
       config.headers["token"] = token.tok; // must match middleware
     }

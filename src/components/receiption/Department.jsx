@@ -1,12 +1,14 @@
-import api from "@/axios";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import useCrud from "@/hooks/useCrud";
 import { useState } from "react";
 
-const Test = () => {
+const Department = () => {
   let [popup, setPopup] = useState(false);
   let [deletepopup, setDeletePopup] = useState(false);
+  let [editpopup, setEditPopup] = useState(false);
   const [form, setForm] = useState({ name: "" });
   const [deleteId, setDeleteId] = useState(null);
+  const [editId, setEditId] = useState(null);
+  const { data, refetch, create, update, remove } = useCrud("api/department");
 
   let addcountryhandler = () => {
     setPopup(true);
@@ -15,70 +17,17 @@ const Test = () => {
     setPopup(false);
   };
 
-  const {
-    data: countries,
-    isLoading: loadingCountries,
-    error: fetchError,
-    refetch,
-  } = useQuery({
-    queryKey: ["countries"], // Unique key for caching
-    queryFn: async () => {
-      const response = await api.get("/api/country"); // Your GET API
-      return response.data; // assuming response.data is an array of countries
-    },
-  });
-
-  // Define the mutation for the login request
-  const { mutate, isLoading } = useMutation({
-    mutationFn: async (formData) => {
-      try {
-        const response = await api.post("/api/country", {
-          name: formData.name,
-        });
-        return response.data;
-      } catch (err) {
-        console.error("country added failed:", err);
-        throw err;
-      }
-    },
-    onSuccess: (data) => {
-      if (data.token) {
-        const token = data.token;
-        // login(token);
-      }
-    },
-    onError: (error) => {
-      console.error("Country add error:", error);
-      message.error(
-        error?.response?.data?.message || "Invalid username or password"
-      );
-    },
-  });
-
   let addcountry = () => {
-    // Trigger the login mutation
-    mutate(form, {
+    create.mutate(form, {
       onSuccess: () => {
         refetch();
       },
     });
+
     setPopup(false);
     setForm({ name: "" });
   };
 
-  const useDeleteCountry = () => {
-    const queryClient = useQueryClient();
-
-    return useMutation({
-      mutationFn: (id) => api.delete(`/api/country/${id}`),
-
-      onSuccess: () => {
-        // refetch list after delete
-        queryClient.invalidateQueries(["countries"]);
-      },
-    });
-  };
-  const { mutate: deleteCountry } = useDeleteCountry();
   const handleDeletepopup = (id) => {
     setDeletePopup(true);
     setDeleteId(id);
@@ -87,8 +36,28 @@ const Test = () => {
     setDeletePopup(false);
   };
   const handledeletecountry = () => {
-    deleteCountry(deleteId);
+    remove.mutate(deleteId, { onSuccess: () => console.log("Deleted! ✅") });
     setDeletePopup(false);
+  };
+  let handleEditpopup = (info) => {
+    setEditPopup(true);
+    setEditId(info.id);
+    setForm({ name: info.name });
+  };
+  let handleEditpopupclose = () => {
+    setEditPopup(false);
+  };
+  let handleedit = () => {
+    update.mutate(
+      { id: editId, body: form },
+      {
+        onSuccess: () => {
+          refetch();
+        },
+      }
+    );
+    setEditPopup(false);
+    setForm({ name: "" });
   };
   return (
     <>
@@ -170,7 +139,7 @@ const Test = () => {
                 </tr>
               </thead>
               <tbody class="text-black dark:text-white">
-                {countries?.map((country, index) => (
+                {data?.map((department, index) => (
                   <tr key={index}>
                     <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
                       <div class="form-check relative top-[2px]">
@@ -184,7 +153,7 @@ const Test = () => {
                     </td>
                     <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
                       <span class="block font-medium text-gray-500 dark:text-gray-400">
-                        {country.name}
+                        {department.name}
                       </span>
                     </td>
 
@@ -200,9 +169,15 @@ const Test = () => {
                           </i>
                         </div>
                         <div
-                          class="text-gray-500 dark:text-gray-400 leading-none custom-tooltip"
+                          class="cursor-pointer text-gray-500 dark:text-gray-400 leading-none custom-tooltip"
                           id="customTooltip"
                           data-text="Edit"
+                          onClick={() =>
+                            handleEditpopup({
+                              id: department._id,
+                              name: department.name,
+                            })
+                          }
                         >
                           <i class="material-symbols-outlined !text-md">edit</i>
                         </div>
@@ -210,7 +185,7 @@ const Test = () => {
                           class="text-danger-500 leading-none custom-tooltip cursor-pointer"
                           id="customTooltip"
                           data-text="Delete"
-                          onClick={() => handleDeletepopup(country._id)}
+                          onClick={() => handleDeletepopup(department._id)}
                         >
                           <i class="material-symbols-outlined !text-md">
                             delete
@@ -296,6 +271,73 @@ const Test = () => {
           </div>
         </div>
       )}
+
+      {editpopup && (
+        <div
+          class="z-[999] fixed transition-all inset-0 overflow-x-hidden overflow-y-auto lg:py-[20px] backdrop-blur-[0.5px] add-new-popups"
+          id="add-new-popup"
+        >
+          <div class="popup-dialog flex transition-all max-w-[850px] min-h-full items-center mx-auto">
+            <div class="trezo-card w-full bg-gray-50 dark:bg-[#0c1427] p-[20px] md:p-[25px] rounded-md">
+              <div class="trezo-card-header bg-gray-50 dark:bg-[#15203c] mb-[20px] md:mb-[25px] flex items-center justify-between -mx-[20px] md:-mx-[25px] -mt-[20px] md:-mt-[25px] p-[20px] md:p-[25px] rounded-t-md">
+                <div class="trezo-card-title">
+                  <h5 class="mb-0">Edit Department</h5>
+                </div>
+                <div class="trezo-card-subtitle">
+                  <div
+                    onClick={handleEditpopupclose}
+                    class="text-[23px] transition-all leading-none text-black dark:text-white hover:text-primary-500"
+                    id="add-new-popup-toggle"
+                  >
+                    <i class="ri-close-fill"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="trezo-card-content">
+                <form>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-[20px] md:gap-[25px]">
+                    <div class="sm:col-span-2">
+                      <label class="mb-[10px] text-black dark:text-white font-medium block">
+                        Enter Country Name
+                      </label>
+                      <input
+                        type="text"
+                        onChange={(e) =>
+                          setForm({ ...form, name: e.target.value })
+                        }
+                        value={form.name}
+                        class="h-[45px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
+                        placeholder="Country Name"
+                      />
+                    </div>
+                  </div>
+                  <div class="mt-[20px] md:mt-[25px] ltr:text-right rtl:text-left">
+                    <div
+                      class="cursor-pointer rounded-md inline-block transition-all font-medium ltr:mr-[15px] rtl:ml-[15px] px-[26.5px] py-[10px] bg-danger-500 text-white hover:bg-danger-400"
+                      id="add-new-popup-toggle"
+                      onClick={handleEditpopupclose}
+                    >
+                      Cancel
+                    </div>
+                    <div
+                      onClick={handleedit}
+                      class="cursor-pointer inline-block bg-primary-500 text-white py-[10px] px-[26.5px] transition-all rounded-md hover:bg-primary-400"
+                    >
+                      <span class="inline-block relative ltr:pl-[25px] rtl:pr-[25px]">
+                        <i class="material-symbols-outlined !text-[20px] absolute ltr:left-0 rtl:right-0 top-1/2 -translate-y-1/2">
+                          edit
+                        </i>
+                        Update
+                      </span>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {deletepopup && (
         <div
           class="z-[999] fixed transition-all inset-0 overflow-x-hidden overflow-y-auto lg:py-[20px] backdrop-blur-[0.5px] add-new-popups"
@@ -361,4 +403,4 @@ const Test = () => {
   );
 };
 
-export default Test;
+export default Department;

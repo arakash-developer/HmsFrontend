@@ -1,28 +1,30 @@
-import { lazy } from "react";
 import Login from "@/components/auth/Login";
 import Register from "@/components/auth/Register";
+import Layout from "@/layouts/Layout";
+import { lazy } from "react";
+import { createBrowserRouter } from "react-router-dom";
 // Lazy-load layouts
 const AdminDashboardLayout = lazy(() =>
   import("@/layouts/admin/AdminDashboardLayout")
 );
-import Layout from "@/layouts/Layout";
-import { createBrowserRouter } from "react-router-dom";
 const AdminDashboard = lazy(() => import("@/components/admin/AdminDashboard"));
 const AdminAccounts = lazy(() => import("@/components/admin/AdminAccounts"));
 const SuperAdminDashboard = lazy(() =>
   import("@/components/superadmin/SuperAdminDashboard")
 );
 
-import ProtectedRoute from "@/routes/ProtectedRoute";
-import PublicRoute from "@/routes/PublicRoute";
-import Typhography from "@/components/admin/Typhography";
-import NotFound from "@/components/main/NotFound";
-import AdminPatients from "@/components/admin/AdminPatients";
+import AdminConnections from "@/components/admin/AdminConnections";
 import AdminDoctors from "@/components/admin/AdminDoctors";
 import AdminPathology from "@/components/admin/AdminPathology";
-import AdminConnections from "@/components/admin/AdminConnections";
-import ReceiptionLayout from "@/layouts/receiption/receiptionLayout";
+import AdminPatients from "@/components/admin/AdminPatients";
+import Typhography from "@/components/admin/Typhography";
+import NotFound from "@/components/main/NotFound";
 import Country from "@/components/receiption/Country";
+import Department from "@/components/receiption/Department";
+import Test from "@/components/receiption/Test";
+import ReceiptionLayout from "@/layouts/receiption/receiptionLayout";
+import ProtectedRoute from "@/routes/ProtectedRoute";
+import PublicRoute from "@/routes/PublicRoute";
 // import { i } from "react-router/dist/development/index-react-server-client-kY8DvDF3";
 
 const routes = [
@@ -47,9 +49,9 @@ const routes = [
         element: <ReceiptionLayout />,
         children: [
           { index: true, element: <AdminDashboard /> },
-          { path:"add-country", element: <Country /> },
-          { path: "typography", element: <Typhography /> },
-          { path: "patients", element: <AdminPatients /> },
+          { path: "add-country", element: <Country /> },
+          { path: "add-test", element: <Test /> },
+          { path: "add-department", element: <Department /> },
           { path: "accounts", element: <AdminAccounts /> },
           { path: "doctors", element: <AdminDoctors /> },
           { path: "pathology", element: <AdminPathology /> },
@@ -66,7 +68,7 @@ const routes = [
         element: <AdminDashboardLayout />,
         children: [
           { index: true, element: <AdminDashboard /> },
-          { path:"analytics", element: <AdminDashboard /> },
+          { path: "analytics", element: <AdminDashboard /> },
           { path: "typography", element: <Typhography /> },
           { path: "patients", element: <AdminPatients /> },
           { path: "accounts", element: <AdminAccounts /> },

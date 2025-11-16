@@ -103,11 +103,11 @@ export default function ReceiptionLayout() {
         },
         {
           title: "Add New Department",
-          link: "/admin/setup/add-department",
+          link: "/receiption/add-department",
         },
         {
           title: "Add New Category",
-          link: "/admin/setup/add-category",
+          link: "/receiption/add-category",
         },
         {
           title: "Add New Test",
