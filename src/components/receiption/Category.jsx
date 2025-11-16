@@ -10,7 +10,7 @@ const Category = () => {
   });
   const [selectedDeptId, setSelectedDeptId] = useState(""); // state to store selected ID
   const [deleteId, setDeleteId] = useState(null);
-  const [editId, setEditId] = useState(null);
+  const [editInfo, setEditInfo] = useState(null);
   const { data, refetch, create, update, remove } = useCrud("api/category");
   const { data: departmentData } = useCrud("api/department");
 
@@ -53,7 +53,7 @@ const Category = () => {
   };
   let handleEditpopup = (info) => {
     setEditPopup(true);
-    setEditId(info.id);
+    setEditInfo(info);
     setForm({ name: info.name });
   };
   let handleEditpopupclose = () => {
@@ -61,7 +61,13 @@ const Category = () => {
   };
   let handleedit = () => {
     update.mutate(
-      { id: editId, body: form },
+      {
+        id: editInfo.id,
+        body: {
+          name: form.name,
+          department: editInfo.department,
+        },
+      },
       {
         onSuccess: () => {
           refetch();
@@ -196,6 +202,7 @@ const Category = () => {
                             handleEditpopup({
                               id: department._id,
                               name: department.name,
+                              department: department.department.name,
                             })
                           }
                         >
@@ -317,7 +324,7 @@ const Category = () => {
             <div class="trezo-card w-full bg-gray-50 dark:bg-[#0c1427] p-[20px] md:p-[25px] rounded-md">
               <div class="trezo-card-header bg-gray-50 dark:bg-[#15203c] mb-[20px] md:mb-[25px] flex items-center justify-between -mx-[20px] md:-mx-[25px] -mt-[20px] md:-mt-[25px] p-[20px] md:p-[25px] rounded-t-md">
                 <div class="trezo-card-title">
-                  <h5 class="mb-0">Edit Department</h5>
+                  <h5 class="mb-0">Update Department</h5>
                 </div>
                 <div class="trezo-card-subtitle">
                   <div
@@ -333,8 +340,24 @@ const Category = () => {
                 <form>
                   <div class="grid grid-cols-1 sm:grid-cols-2 gap-[20px] md:gap-[25px]">
                     <div class="sm:col-span-2">
+                      <label
+                        class="mb-[10px] text-gray-500 dark:text-gray-500 font-medium block"
+                        disabled
+                      >
+                        Select Without Department
+                      </label>
+                      <select
+                        class="h-[40px] rounded-md text-black dark:text-white border border-gray-500  bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500"
+                        onChange={(e) => setSelectedDeptId(e.target.value)}
+                        value={editInfo?.department}
+                        disabled
+                      >
+                        <option>{editInfo?.department}</option>
+                      </select>
+                    </div>
+                    <div class="sm:col-span-2">
                       <label class="mb-[10px] text-black dark:text-white font-medium block">
-                        Enter Country Name
+                        Enter Category Name
                       </label>
                       <input
                         type="text"
@@ -343,7 +366,7 @@ const Category = () => {
                         }
                         value={form.name}
                         class="h-[45px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
-                        placeholder="Country Name"
+                        placeholder="Category Name"
                       />
                     </div>
                   </div>
