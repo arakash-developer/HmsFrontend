@@ -66,7 +66,18 @@ const Doctor = () => {
   let handleEditpopup = (info) => {
     setEditPopup(true);
     setEditInfo(info);
-    setForm({ name: info.name, carried: info.carried });
+    setSelectedcountryId(info.country); // Set the country ID
+    setQualification(info.qualification); // Set the qualification value
+    setForm({
+      doctorname: info.doctorname,
+      doctortitle: info.doctortitle,
+      mobile: info.mobile,
+      qualification: info.qualification,
+      speciality: info.speciality,
+      country: info.country,
+      phone: info.phone,
+      email: info.email,
+    });
   };
   let handleEditpopupclose = () => {
     setEditPopup(false);
@@ -76,9 +87,14 @@ const Doctor = () => {
       {
         id: editInfo.id,
         body: {
-          name: form.name,
-          carried: form.carried,
-          department: editInfo.department,
+          doctorname: form.doctorname,
+          doctortitle: form.doctortitle,
+          qualification: qualification,
+          speciality: form.speciality,
+          country: selectedcountryId,
+          phone: form.phone,
+          mobile: form.mobile,
+          email: form.email,
         },
       },
       {
@@ -88,7 +104,18 @@ const Doctor = () => {
       }
     );
     setEditPopup(false);
-    setForm({ name: "" });
+    setForm({
+      doctorname: "",
+      doctortitle: "",
+      qualification: "",
+      speciality: "",
+      country: "",
+      phone: "",
+      mobile: "",
+      email: "",
+    });
+    setSelectedcountryId("");
+    setQualification("");
   };
   return (
     <>
@@ -220,10 +247,15 @@ const Doctor = () => {
                           data-text="Edit"
                           onClick={() =>
                             handleEditpopup({
-                              id: department?._id,
-                              name: department?.name,
-                              department: department?.department?.name,
-                              carried: department?.carried,
+                              id: doctor?._id,
+                              doctorname: doctor?.doctorname,
+                              doctortitle: doctor?.doctortitle,
+                              mobile: doctor?.mobile,
+                              qualification: doctor?.qualification,
+                              speciality: doctor?.speciality,
+                              country: doctor?.country,
+                              phone: doctor?.phone,
+                              email: doctor?.email,
                             })
                           }
                         >
@@ -233,7 +265,7 @@ const Doctor = () => {
                           class="text-danger-500 leading-none custom-tooltip cursor-pointer"
                           id="customTooltip"
                           data-text="Delete"
-                          onClick={() => handleDeletepopup(department._id)}
+                          onClick={() => handleDeletepopup(doctor?._id)}
                         >
                           <i class="material-symbols-outlined !text-md">
                             delete
@@ -447,48 +479,121 @@ const Doctor = () => {
               <div class="trezo-card-content">
                 <form>
                   <div class="grid grid-cols-1 sm:grid-cols-2 gap-[20px] md:gap-[25px]">
-                    <div class="sm:col-span-2">
-                      <label
-                        class="mb-[10px] text-gray-500 dark:text-gray-500 font-medium block"
-                        disabled
-                      >
-                        Select Without Department
-                      </label>
-                      <select
-                        class="h-[40px] rounded-md text-black dark:text-white border border-gray-500  bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500"
-                        // onChange={(e) => setSelectedcountryId(e.target.value)}
-                        value={editInfo?.department}
-                        disabled
-                      >
-                        <option>{editInfo?.department}</option>
-                      </select>
-                    </div>
-                    <div class="sm:col-span-2">
-                      <label class="mb-[10px] text-black dark:text-white font-medium block">
-                        Test Category Name
+                    <div class="sm:col-span-1">
+                      <label class="mb-[8px] text-black dark:text-white font-medium block">
+                        Dr. Name
                       </label>
                       <input
                         type="text"
                         onChange={(e) =>
-                          setForm({ ...form, name: e.target.value })
+                          setForm({ ...form, doctorname: e.target.value })
                         }
-                        value={form.name}
+                        value={form.doctorname}
                         class="h-[45px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
-                        placeholder="Test Category"
+                        placeholder="Test Name"
                       />
                     </div>
-                    <div class="sm:col-span-2">
-                      <label class="mb-[10px] text-black dark:text-white font-medium block">
-                        Test Carried Out By
+                    <div class="sm:col-span-1">
+                      <label class="mb-[8px] text-black dark:text-white font-medium block">
+                        Country
+                      </label>
+                      <select
+                        class="h-[40px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500"
+                        onChange={(e) => setSelectedcountryId(e.target.value)}
+                        value={selectedcountryId}
+                      >
+                        <option>Select Country</option>
+                        {countryData?.map((dept) => (
+                          <option key={dept._id} value={dept._id}>
+                            {dept.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div class="sm:col-span-1">
+                      <label class="mb-[8px] text-black dark:text-white font-medium block">
+                        Dr. Title
                       </label>
                       <input
                         type="text"
                         onChange={(e) =>
-                          setForm({ ...form, carried: e.target.value })
+                          setForm({ ...form, doctortitle: e.target.value })
                         }
-                        value={form.carried}
+                        value={form.doctortitle}
                         class="h-[45px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
-                        placeholder={form.carried}
+                        placeholder="Unit Test"
+                      />
+                    </div>
+                    <div class="sm:col-span-1">
+                      <label class="mb-[8px] text-black dark:text-white font-medium block">
+                        Phone
+                      </label>
+                      <input
+                        type="number"
+                        onChange={(e) =>
+                          setForm({ ...form, phone: e.target.value })
+                        }
+                        value={form.phone}
+                        class="h-[45px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
+                        placeholder="Phone"
+                      />
+                    </div>
+                    <div class="sm:col-span-1">
+                      <label class="mb-[8px] text-black dark:text-white font-medium block">
+                        Qualification
+                      </label>
+                      <select
+                        class="h-[40px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500"
+                        onChange={(e) => setQualification(e.target.value)}
+                        value={qualification}
+                      >
+                        <option>Select Qualification</option>
+                        <option>Dr.</option>
+                        <option>Proff.</option>
+                      </select>
+                    </div>
+
+                    <div class="sm:col-span-1">
+                      <label class="mb-[8px] text-black dark:text-white font-medium block">
+                        Mobile
+                      </label>
+                      <input
+                        type="number"
+                        onChange={(e) =>
+                          setForm({ ...form, mobile: e.target.value })
+                        }
+                        value={form.mobile}
+                        class="h-[45px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
+                        placeholder="mobile"
+                      />
+                    </div>
+                    <div class="sm:col-span-1">
+                      <label class="mb-[8px] text-black dark:text-white font-medium block">
+                        Speciality
+                      </label>
+                      <input
+                        type="text"
+                        onChange={(e) =>
+                          setForm({ ...form, speciality: e.target.value })
+                        }
+                        value={form.speciality}
+                        class="h-[45px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
+                        placeholder="speciality"
+                      />
+                    </div>
+                    <div class="sm:col-span-1">
+                      <label class="mb-[8px] text-black dark:text-white font-medium block">
+                        Email
+                      </label>
+                      <input
+                        type="email"
+                        onChange={(e) =>
+                          setForm({ ...form, email: e.target.value })
+                        }
+                        value={form.email}
+                        class="h-[45px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
+                        placeholder="Email"
                       />
                     </div>
                   </div>
@@ -580,99 +685,7 @@ const Doctor = () => {
           </div>
         </div>
       )}
-
-      {/* <!-- demotest --> */}
-      {/* <div class="add-new- z-[999] fixed transition-all inset-0 overflow-x-hidden overflow-y-auto lg:py-[20px]" id="add-new-pop">
-            <div class="popup-dialog flex transition-all max-w-[550px] min-h-full items-center mx-auto">
-                <div class="trezo-card w-full bg-white dark:bg-[#0c1427] p-[20px] md:p-[25px] rounded-md">
-                    <div class="trezo-card-header bg-gray-50 dark:bg-[#15203c] mb-[20px] md:mb-[25px] flex items-center justify-between -mx-[20px] md:-mx-[25px] -mt-[20px] md:-mt-[25px] p-[20px] md:p-[25px] rounded-t-md">
-                        <div class="trezo-card-title">
-                            <h5 class="mb-0">
-                                Add New Task
-                            </h5>
-                        </div>
-                        <div class="trezo-card-subtitle">
-                            <button type="button" class="text-[23px] transition-all leading-none text-black dark:text-white hover:text-primary-500" id="add-new-popup-toggle">
-                                <i class="ri-close-fill"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="trezo-card-content">
-                        <form>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-[20px] md:gap-[25px]">
-                                <div class="sm:col-span-2">
-                                    <label class="mb-[10px] text-black dark:text-white font-medium block">
-                                        Task Name
-                                    </label>
-                                    <input type="text" class="h-[55px] rounded-md text-black dark:text-white border border-gray-200 dark:border-[#172036] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:border-primary-500" placeholder="Task name" />
-                                </div>
-                               
-                                <div>
-                                    <label class="mb-[10px] text-black dark:text-white font-medium block">
-                                        Due Date
-                                    </label>
-                                    <input type="date" class="h-[55px] rounded-md text-black dark:text-white border border-gray-200 dark:border-[#172036] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:border-primary-500" />
-                                </div>
-                                <div>
-                                    <label class="mb-[10px] text-black dark:text-white font-medium block">
-                                        Priority
-                                    </label>
-                                    <select class="h-[55px] rounded-md text-black dark:text-white border border-gray-200 dark:border-[#172036] bg-white dark:bg-[#0c1427] px-[14px] block w-full outline-0 cursor-pointer transition-all focus:border-primary-500">
-                                        <option>
-                                            Select
-                                        </option>
-                                        <option>
-                                            High
-                                        </option>
-                                        <option>
-                                            Medium
-                                        </option>
-                                        <option>
-                                            Low
-                                        </option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="mb-[10px] text-black dark:text-white font-medium block">
-                                        Status
-                                    </label>
-                                    <select class="h-[55px] rounded-md text-black dark:text-white border border-gray-200 dark:border-[#172036] bg-white dark:bg-[#0c1427] px-[14px] block w-full outline-0 cursor-pointer transition-all focus:border-primary-500">
-                                        <option>
-                                            Select
-                                        </option>
-                                        <option>
-                                            In Progress
-                                        </option>
-                                        <option>
-                                            Pending
-                                        </option>
-                                        <option>
-                                            Completed
-                                        </option>
-                                        <option>
-                                            Not Started
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="mt-[20px] md:mt-[25px] ltr:text-right rtl:text-left">
-                                <button type="button" class="rounded-md inline-block transition-all font-medium ltr:mr-[15px] rtl:ml-[15px] px-[26.5px] py-[12px] bg-danger-500 text-white hover:bg-danger-400" id="add-new-popup-toggle">
-                                    Cancel
-                                </button>
-                                <button type="button" class="inline-block bg-primary-500 text-white py-[12px] px-[26.5px] transition-all rounded-md hover:bg-primary-400">
-                                    <span class="inline-block relative ltr:pl-[25px] rtl:pr-[25px]">
-                                        <i class="material-symbols-outlined !text-[20px] absolute ltr:left-0 rtl:right-0 top-1/2 -translate-y-1/2">
-                                            add
-                                        </i>
-                                        Create
-                                    </span>
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div> */}
+      
     </>
   );
 };
