@@ -6,14 +6,20 @@ const Doctor = () => {
   let [deletepopup, setDeletePopup] = useState(false);
   let [editpopup, setEditPopup] = useState(false);
   const [form, setForm] = useState({
-    name: "",
-    carried: "",
+    doctorname: "",
+    doctortitle: "",
+    qualification: "",
+    speciality: "",
+    country: "",
+    phone: "",
+    mobile: "",
+    email: "",
   });
   const [selectedDeptId, setSelectedDeptId] = useState(""); // state to store selected ID
   const [deleteId, setDeleteId] = useState(null);
   const [editInfo, setEditInfo] = useState(null);
-  const { data, refetch, create, update, remove } = useCrud("api/category");
-  const { data: departmentData } = useCrud("api/department");
+  const { data, refetch, create, update, remove } = useCrud("api/doctor");
+  const { data: countryData } = useCrud("api/country");
 
   let addcountryhandler = () => {
     setPopup(true);
@@ -25,9 +31,13 @@ const Doctor = () => {
   let addcountry = () => {
     create.mutate(
       {
-        name: form.name,
-        department: selectedDeptId,
-        carried: form.carried,
+        testname: form.testname,
+        unittest: form.unitest,
+        normalrange: form.normalrange,
+        tablename: "ax",
+        tableidfield: "a",
+        testcharge: form.testcharge,
+        category: "69196c08214c155f0814ecf1",
       },
       {
         onSuccess: () => {
@@ -83,7 +93,7 @@ const Doctor = () => {
       {/* <!-- Main Content --> */}
       {/* <!-- Breadcrumb --> */}
       <div class="mb-[25px] md:flex items-center justify-between">
-        <h5 class="mb-0">Category</h5>
+        <h5 class="mb-0">Test</h5>
         <ol class="breadcrumb mt-[12px] md:mt-0">
           <li class="breadcrumb-item inline-block relative text-sm mx-[11px] ltr:first:ml-0 rtl:first:mr-0 ltr:last:mr-0 rtl:last:ml-0">
             <a
@@ -130,7 +140,7 @@ const Doctor = () => {
                 <i class="material-symbols-outlined !text-[22px] absolute ltr:-left-[4px] rtl:-right-[4px] top-1/2 -translate-y-1/2">
                   add
                 </i>
-                Add New Category
+                Add New Doctor
               </span>
             </div>
           </div>
@@ -146,25 +156,24 @@ const Doctor = () => {
                     </div>
                   </th>
                   <th class="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
-                    ID
+                    SL
                   </th>
                   <th class="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
-                    Test Category Name
+                    Dr. Name
                   </th>
                   <th class="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
-                    Test carried Out By
+                    Dr. Title
                   </th>
                   <th class="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
-                    Under Department
+                    Mobile
                   </th>
-
                   <th class="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
                     Action
                   </th>
                 </tr>
               </thead>
               <tbody class="text-black dark:text-white">
-                {data?.map((department, index) => (
+                {data?.map((doctor, index) => (
                   <tr key={index}>
                     <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
                       <div class="form-check relative top-[2px]">
@@ -173,22 +182,22 @@ const Doctor = () => {
                     </td>
                     <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
                       <span class="text-gray-500 dark:text-gray-400">
-                        #{index + 1}
+                        {index + 1}
                       </span>
                     </td>
                     <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
                       <span class="block font-medium text-gray-500 dark:text-gray-400">
-                        {department?.name}
+                        {doctor?.doctorname}
                       </span>
                     </td>
                     <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
                       <span class="block font-medium text-gray-500 dark:text-gray-400">
-                        {department?.department?.name}
+                        {doctor?.doctortitle}
                       </span>
                     </td>
                     <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
                       <span class="block font-medium text-gray-500 dark:text-gray-400">
-                        {department?.carried}
+                        {doctor?.mobile}
                       </span>
                     </td>
 
@@ -252,7 +261,7 @@ const Doctor = () => {
             <div class="trezo-card w-full bg-gray-50 dark:bg-[#0c1427] p-[20px] md:p-[25px] rounded-md">
               <div class="trezo-card-header bg-gray-50 dark:bg-[#15203c] mb-[20px] md:mb-[25px] flex items-center justify-between -mx-[20px] md:-mx-[25px] -mt-[20px] md:-mt-[25px] p-[20px] md:p-[25px] rounded-t-md">
                 <div class="trezo-card-title">
-                  <h5 class="mb-0">Add New Category</h5>
+                  <h5 class="mb-0">Doctor Entry Form</h5>
                 </div>
                 <div class="trezo-card-subtitle">
                   <div
@@ -267,49 +276,120 @@ const Doctor = () => {
               <div class="trezo-card-content">
                 <form>
                   <div class="grid grid-cols-1 sm:grid-cols-2 gap-[20px] md:gap-[25px]">
-                    <div class="sm:col-span-2">
-                      <label class="mb-[10px] text-black dark:text-white font-medium block">
-                        Select Department
+                    <div class="sm:col-span-1">
+                      <label class="mb-[8px] text-black dark:text-white font-medium block">
+                        Dr. Name
+                      </label>
+                      <input
+                        type="text"
+                        onChange={(e) =>
+                          setForm({ ...form, doctorname: e.target.value })
+                        }
+                        value={form.doctorname}
+                        class="h-[45px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
+                        placeholder="Test Name"
+                      />
+                    </div>
+                    <div class="sm:col-span-1">
+                      <label class="mb-[8px] text-black dark:text-white font-medium block">
+                        Country
                       </label>
                       <select
                         class="h-[40px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500"
                         onChange={(e) => setSelectedDeptId(e.target.value)}
                         value={selectedDeptId}
                       >
-                        <option>Select Department</option>
-                        {departmentData?.map((dept) => (
+                        <option>Select Country</option>
+                        {countryData?.map((dept) => (
                           <option key={dept._id} value={dept._id}>
                             {dept.name}
                           </option>
                         ))}
                       </select>
                     </div>
-                    <div class="sm:col-span-2">
-                      <label class="mb-[10px] text-black dark:text-white font-medium block">
-                        Test Category Name
+
+                    <div class="sm:col-span-1">
+                      <label class="mb-[8px] text-black dark:text-white font-medium block">
+                        Dr. Title
                       </label>
                       <input
                         type="text"
                         onChange={(e) =>
-                          setForm({ ...form, name: e.target.value })
+                          setForm({ ...form, doctortitle: e.target.value })
                         }
-                        value={form.name}
+                        value={form.doctortitle}
                         class="h-[45px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
-                        placeholder="Category Name"
+                        placeholder="Unit Test"
                       />
                     </div>
-                    <div class="sm:col-span-2">
-                      <label class="mb-[10px] text-black dark:text-white font-medium block">
-                        Test carried Out By
+                    <div class="sm:col-span-1">
+                      <label class="mb-[8px] text-black dark:text-white font-medium block">
+                        Phone
+                      </label>
+                      <input
+                        type="number"
+                        onChange={(e) =>
+                          setForm({ ...form, phone: e.target.value })
+                        }
+                        value={form.phone}
+                        class="h-[45px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
+                        placeholder="Phone"
+                      />
+                    </div>
+                    <div class="sm:col-span-1">
+                      <label class="mb-[8px] text-black dark:text-white font-medium block">
+                        Qualification
+                      </label>
+                      <select
+                        class="h-[40px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500"
+                        onChange={(e) => setSelectedDeptId(e.target.value)}
+                      >
+                        <option>Select Qualification</option>
+                        <option>Dr.</option>
+                        <option>Proff.</option>
+                      </select>
+                    </div>
+
+                    <div class="sm:col-span-1">
+                      <label class="mb-[8px] text-black dark:text-white font-medium block">
+                        Mobile
+                      </label>
+                      <input
+                        type="number"
+                        onChange={(e) =>
+                          setForm({ ...form, mobile: e.target.value })
+                        }
+                        value={form.mobile}
+                        class="h-[45px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
+                        placeholder="mobile"
+                      />
+                    </div>
+                    <div class="sm:col-span-1">
+                      <label class="mb-[8px] text-black dark:text-white font-medium block">
+                        Speciality
                       </label>
                       <input
                         type="text"
                         onChange={(e) =>
-                          setForm({ ...form, carried: e.target.value })
+                          setForm({ ...form, speciality: e.target.value })
                         }
-                        value={form.carried}
+                        value={form.speciality}
                         class="h-[45px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
-                        placeholder="Carried Out By"
+                        placeholder="speciality"
+                      />
+                    </div>
+                    <div class="sm:col-span-1">
+                      <label class="mb-[8px] text-black dark:text-white font-medium block">
+                        Email
+                      </label>
+                      <input
+                        type="email"
+                        onChange={(e) =>
+                          setForm({ ...form, email: e.target.value })
+                        }
+                        value={form.email}
+                        class="h-[45px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
+                        placeholder="Email"
                       />
                     </div>
                   </div>
