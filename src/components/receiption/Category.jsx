@@ -5,7 +5,9 @@ const Category = () => {
   let [popup, setPopup] = useState(false);
   let [deletepopup, setDeletePopup] = useState(false);
   let [editpopup, setEditPopup] = useState(false);
-  const [form, setForm] = useState({ name: "" });
+  const [form, setForm] = useState({
+    name: "",
+  });
   const [selectedDeptId, setSelectedDeptId] = useState(""); // state to store selected ID
   const [deleteId, setDeleteId] = useState(null);
   const [editId, setEditId] = useState(null);
@@ -22,11 +24,17 @@ const Category = () => {
   };
 
   let addcountry = () => {
-    create.mutate(form, {
-      onSuccess: () => {
-        refetch();
+    create.mutate(
+      {
+        name: form.name,
+        department: selectedDeptId,
       },
-    });
+      {
+        onSuccess: () => {
+          refetch();
+        },
+      }
+    );
 
     setPopup(false);
     setForm({ name: "" });
@@ -115,7 +123,7 @@ const Category = () => {
                 <i class="material-symbols-outlined !text-[22px] absolute ltr:-left-[4px] rtl:-right-[4px] top-1/2 -translate-y-1/2">
                   add
                 </i>
-                Add New Task
+                Add New Category
               </span>
             </div>
           </div>
