@@ -7,14 +7,13 @@ const Category = () => {
   let [editpopup, setEditPopup] = useState(false);
   const [form, setForm] = useState({
     name: "",
+    carried: "",
   });
   const [selectedDeptId, setSelectedDeptId] = useState(""); // state to store selected ID
   const [deleteId, setDeleteId] = useState(null);
   const [editInfo, setEditInfo] = useState(null);
   const { data, refetch, create, update, remove } = useCrud("api/category");
   const { data: departmentData } = useCrud("api/department");
-
-  console.log(departmentData);
 
   let addcountryhandler = () => {
     setPopup(true);
@@ -28,6 +27,7 @@ const Category = () => {
       {
         name: form.name,
         department: selectedDeptId,
+        carried: form.carried,
       },
       {
         onSuccess: () => {
@@ -54,7 +54,7 @@ const Category = () => {
   let handleEditpopup = (info) => {
     setEditPopup(true);
     setEditInfo(info);
-    setForm({ name: info.name });
+    setForm({ name: info.name , carried: info.carried});
   };
   let handleEditpopupclose = () => {
     setEditPopup(false);
@@ -65,6 +65,7 @@ const Category = () => {
         id: editInfo.id,
         body: {
           name: form.name,
+          carried: form.carried,
           department: editInfo.department,
         },
       },
@@ -148,7 +149,10 @@ const Category = () => {
                     ID
                   </th>
                   <th class="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
-                    Category Name
+                    Test Category Name
+                  </th>
+                  <th class="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
+                    Test carried Out By
                   </th>
                   <th class="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
                     Under Department
@@ -182,6 +186,11 @@ const Category = () => {
                         {department?.department?.name}
                       </span>
                     </td>
+                    <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
+                      <span class="block font-medium text-gray-500 dark:text-gray-400">
+                        {department?.carried}
+                      </span>
+                    </td>
 
                     <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
                       <div class="flex items-center gap-[9px]">
@@ -200,9 +209,10 @@ const Category = () => {
                           data-text="Edit"
                           onClick={() =>
                             handleEditpopup({
-                              id: department._id,
-                              name: department.name,
-                              department: department.department.name,
+                              id: department?._id,
+                              name: department?.name,
+                              department: department?.department?.name,
+                              carried: department?.carried,
                             })
                           }
                         >
@@ -266,6 +276,7 @@ const Category = () => {
                         onChange={(e) => setSelectedDeptId(e.target.value)}
                         value={selectedDeptId}
                       >
+                        <option>Select Department</option>
                         {departmentData?.map((dept) => (
                           <option key={dept._id} value={dept._id}>
                             {dept.name}
@@ -275,7 +286,7 @@ const Category = () => {
                     </div>
                     <div class="sm:col-span-2">
                       <label class="mb-[10px] text-black dark:text-white font-medium block">
-                        Enter Category Name
+                        Test Category Name
                       </label>
                       <input
                         type="text"
@@ -285,6 +296,20 @@ const Category = () => {
                         value={form.name}
                         class="h-[45px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
                         placeholder="Category Name"
+                      />
+                    </div>
+                    <div class="sm:col-span-2">
+                      <label class="mb-[10px] text-black dark:text-white font-medium block">
+                        Test carried Out By
+                      </label>
+                      <input
+                        type="text"
+                        onChange={(e) =>
+                          setForm({ ...form, carried: e.target.value })
+                        }
+                        value={form.carried}
+                        class="h-[45px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
+                        placeholder="Carried Out By"
                       />
                     </div>
                   </div>
@@ -357,7 +382,7 @@ const Category = () => {
                     </div>
                     <div class="sm:col-span-2">
                       <label class="mb-[10px] text-black dark:text-white font-medium block">
-                        Enter Category Name
+                        Test Category Name
                       </label>
                       <input
                         type="text"
@@ -366,7 +391,21 @@ const Category = () => {
                         }
                         value={form.name}
                         class="h-[45px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
-                        placeholder="Category Name"
+                        placeholder="Test Category"
+                      />
+                    </div>
+                    <div class="sm:col-span-2">
+                      <label class="mb-[10px] text-black dark:text-white font-medium block">
+                        Test Carried Out By
+                      </label>
+                      <input
+                        type="text"
+                        onChange={(e) =>
+                          setForm({ ...form, carried: e.target.value })
+                        }
+                        value={form.carried}
+                        class="h-[45px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
+                        placeholder={form.carried}
                       />
                     </div>
                   </div>
