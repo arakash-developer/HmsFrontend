@@ -688,7 +688,7 @@ const PatientReg = () => {
                         </div>
                       </div>
                       <div className="lastcalculation mt-4">
-                        <div class="w-full max-w-md mx-auto bg-blue-600 p-6 rounded text-white space-y-4">
+                        <div class="w-full max-w-md ml-auto rounded text-black dark:text-white font-medium">
                           <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
                             <span class="text-right">Total Charge</span>
                             <span class="text-center w-4">=</span>
@@ -714,8 +714,8 @@ const PatientReg = () => {
                             <span class="text-center w-4">=</span>
                             <input
                               type="number"
-                              class="w-full max-w-[80px] px-2 py-1 bg-yellow-100 text-black border border-gray-400 rounded text-right"
-                              value="0"
+                              class="w-full !w-full px-2 py-1 bg-yellow-100 text-black border border-gray-400 rounded text-right"
+                              placeholder="0"
                             />
                           </div>
 
@@ -727,15 +727,15 @@ const PatientReg = () => {
                             <span class="text-right">0</span>
                           </div>
 
-                          <div class="flex justify-center gap-4 pt-4">
+                          <div class="flex justify-end gap-x-4 pt-4">
+                            <button class="bg-white text-black px-6 py-2 rounded border border-gray-300 hover:bg-gray-100">
+                              Close
+                            </button>
                             <button class="bg-white text-black px-6 py-2 rounded border border-gray-300 hover:bg-gray-100">
                               New
                             </button>
                             <button class="bg-white text-black px-6 py-2 rounded border border-gray-300 hover:bg-gray-100">
                               Save
-                            </button>
-                            <button class="bg-white text-black px-6 py-2 rounded border border-gray-300 hover:bg-gray-100">
-                              Close
                             </button>
                           </div>
                         </div>
