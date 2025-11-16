@@ -131,7 +131,7 @@ const Doctor = () => {
       {/* <!-- Main Content --> */}
       {/* <!-- Breadcrumb --> */}
       <div class="mb-[25px] md:flex items-center justify-between">
-        <h5 class="mb-0">Test</h5>
+        <h5 class="mb-0">Doctor</h5>
         <ol class="breadcrumb mt-[12px] md:mt-0">
           <li class="breadcrumb-item inline-block relative text-sm mx-[11px] ltr:first:ml-0 rtl:first:mr-0 ltr:last:mr-0 rtl:last:ml-0">
             <a
@@ -145,10 +145,10 @@ const Doctor = () => {
             </a>
           </li>
           <li class="breadcrumb-item inline-block relative text-sm mx-[11px] ltr:first:ml-0 rtl:first:mr-0 ltr:last:mr-0 rtl:last:ml-0">
-            Apps
+            Setup
           </li>
           <li class="breadcrumb-item inline-block relative text-sm mx-[11px] ltr:first:ml-0 rtl:first:mr-0 ltr:last:mr-0 rtl:last:ml-0">
-            To Do List
+            Doctor
           </li>
         </ol>
       </div>
@@ -246,7 +246,7 @@ const Doctor = () => {
                           id="customTooltip"
                           data-text="View"
                         >
-                          <i class="material-symbols-outlined !text-md">
+                          <i class="material-symbols-outlined !text-xl">
                             visibility
                           </i>
                         </div>
@@ -268,7 +268,7 @@ const Doctor = () => {
                             })
                           }
                         >
-                          <i class="material-symbols-outlined !text-md">edit</i>
+                          <i class="material-symbols-outlined !text-xl">edit</i>
                         </div>
                         <div
                           class="text-danger-500 leading-none custom-tooltip cursor-pointer"
@@ -276,7 +276,7 @@ const Doctor = () => {
                           data-text="Delete"
                           onClick={() => handleDeletepopup(doctor?._id)}
                         >
-                          <i class="material-symbols-outlined !text-md">
+                          <i class="material-symbols-outlined !text-xl">
                             delete
                           </i>
                         </div>
