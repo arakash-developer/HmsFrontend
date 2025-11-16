@@ -6,9 +6,13 @@ const Category = () => {
   let [deletepopup, setDeletePopup] = useState(false);
   let [editpopup, setEditPopup] = useState(false);
   const [form, setForm] = useState({ name: "" });
+  const [selectedDeptId, setSelectedDeptId] = useState(""); // state to store selected ID
   const [deleteId, setDeleteId] = useState(null);
   const [editId, setEditId] = useState(null);
   const { data, refetch, create, update, remove } = useCrud("api/category");
+  const { data: departmentData } = useCrud("api/department");
+
+  console.log(departmentData);
 
   let addcountryhandler = () => {
     setPopup(true);
@@ -242,14 +246,16 @@ const Category = () => {
                       <label class="mb-[10px] text-black dark:text-white font-medium block">
                         Select Department
                       </label>
-                      <select class="h-[40px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500 inline-block">
-                        <option>Select</option>
-                        <option>Shawn Kennedy</option>
-                        <option>Roberto Cruz</option>
-                        <option>Juli Johnson</option>
-                        <option>Catalina Engles</option>
-                        <option>Louis Nagle</option>
-                        <option>Michael Marquez</option>
+                      <select
+                        class="h-[40px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500"
+                        onChange={(e) => setSelectedDeptId(e.target.value)}
+                        value={selectedDeptId}
+                      >
+                        {departmentData?.map((dept) => (
+                          <option key={dept._id} value={dept._id}>
+                            {dept.name}
+                          </option>
+                        ))}
                       </select>
                     </div>
                     <div class="sm:col-span-2">
