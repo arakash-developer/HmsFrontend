@@ -92,6 +92,7 @@ export default function ReceiptionLayout() {
     {
       title: "Setup",
       link: "/admin/setup",
+      icon: "settings_suggest",
       subItems: [
         {
           title: "Add New Income Head",
@@ -121,6 +122,7 @@ export default function ReceiptionLayout() {
     },
     {
       title: "sales",
+      icon: "sell",
       link: "/admin/sales",
       subItems: [
         {
@@ -148,6 +150,7 @@ export default function ReceiptionLayout() {
     {
       title: "Report",
       link: "/admin/report",
+      icon: "bar_chart",
       subItems: [
         {
           title: "Test1",
@@ -158,6 +161,7 @@ export default function ReceiptionLayout() {
     {
       title: "Help",
       link: "/admin/help",
+      icon: "help_outline",
       subItems: [
         {
           title: "Test1",
@@ -314,7 +318,7 @@ export default function ReceiptionLayout() {
                         onClick={(e) => toggleAccordion(e, accId)}
                       >
                         <i className="material-symbols-outlined transition-all text-gray-500 dark:text-gray-400 ltr:mr-[7px] rtl:ml-[7px] !text-[22px] leading-none relative -top-px">
-                          pie_chart
+                          {sItem.icon || "folder"}
                         </i>
                         <span className="title leading-none">
                           {sItem.title}
