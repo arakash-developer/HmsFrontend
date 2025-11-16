@@ -6,8 +6,13 @@ const Test = () => {
   let [deletepopup, setDeletePopup] = useState(false);
   let [editpopup, setEditPopup] = useState(false);
   const [form, setForm] = useState({
-    name: "",
-    carried: "",
+    testname: "",
+    unitest: "",
+    normalrange: "",
+    tablename: "",
+    tableidfield: "",
+    testcharge: "",
+    category: "",
   });
   const [selectedDeptId, setSelectedDeptId] = useState(""); // state to store selected ID
   const [deleteId, setDeleteId] = useState(null);
@@ -25,9 +30,13 @@ const Test = () => {
   let addcountry = () => {
     create.mutate(
       {
-        name: form.name,
-        department: selectedDeptId,
-        carried: form.carried,
+        testname: form.testname,
+        unittest: form.unitest,
+        normalrange: form.normalrange,
+        tablename: "ax",
+        tableidfield: "a",
+        testcharge: form.testcharge,
+        category: "69196c08214c155f0814ecf1",
       },
       {
         onSuccess: () => {
@@ -298,9 +307,9 @@ const Test = () => {
                       <input
                         type="text"
                         onChange={(e) =>
-                          setForm({ ...form, name: e.target.value })
+                          setForm({ ...form, testname: e.target.value })
                         }
-                        value={form.name}
+                        value={form.testname}
                         class="h-[45px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
                         placeholder="Test Name"
                       />
@@ -312,9 +321,9 @@ const Test = () => {
                       <input
                         type="text"
                         onChange={(e) =>
-                          setForm({ ...form, name: e.target.value })
+                          setForm({ ...form, unitest: e.target.value })
                         }
-                        value={form.name}
+                        value={form.unitest}
                         class="h-[45px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
                         placeholder="Unit Test"
                       />
@@ -326,9 +335,9 @@ const Test = () => {
                       <input
                         type="text"
                         onChange={(e) =>
-                          setForm({ ...form, name: e.target.value })
+                          setForm({ ...form, normalrange: e.target.value })
                         }
-                        value={form.name}
+                        value={form.normalrange}
                         class="h-[45px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
                         placeholder="Normal Range"
                       />
@@ -372,11 +381,11 @@ const Test = () => {
                         Test Charge
                       </label>
                       <input
-                        type="text"
+                        type="number"
                         onChange={(e) =>
-                          setForm({ ...form, name: e.target.value })
+                          setForm({ ...form, testcharge: e.target.value })
                         }
-                        value={form.name}
+                        value={form.testcharge}
                         class="h-[45px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
                         placeholder="Test Charge"
                       />
