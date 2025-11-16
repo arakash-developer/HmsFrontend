@@ -26,6 +26,7 @@ import Test from "@/components/receiption/Test";
 import ReceiptionLayout from "@/layouts/receiption/receiptionLayout";
 import ProtectedRoute from "@/routes/ProtectedRoute";
 import PublicRoute from "@/routes/PublicRoute";
+import Doctor from "@/components/receiption/Doctor";
 // import { i } from "react-router/dist/development/index-react-server-client-kY8DvDF3";
 
 const routes = [
@@ -54,7 +55,7 @@ const routes = [
           { path: "add-test", element: <Test /> },
           { path: "add-department", element: <Department /> },
           { path: "add-category", element: <Category /> },
-          { path: "doctors", element: <AdminDoctors /> },
+          { path: "doctor", element: <Doctor /> },
           { path: "pathology", element: <AdminPathology /> },
           { path: "connections", element: <AdminConnections /> },
         ],

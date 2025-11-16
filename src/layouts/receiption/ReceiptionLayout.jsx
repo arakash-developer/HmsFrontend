@@ -58,7 +58,7 @@ export default function ReceiptionLayout() {
   let receiptionItemsList = [
     {
       title: "Doctors Entry",
-      link: "/admin/doctors-entry",
+      link: "/receiption/doctor",
       icon: "badge",
     },
     {
@@ -125,7 +125,7 @@ export default function ReceiptionLayout() {
       subItems: [
         {
           title: "Add New Doctor",
-          link: "/admin/sales/add-doctor",
+          link: "/receiption/doctor",
         },
         {
           title: "Add New Patient",
