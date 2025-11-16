@@ -215,7 +215,7 @@ const Test = () => {
                           id="customTooltip"
                           data-text="View"
                         >
-                          <i class="material-symbols-outlined !text-md">
+                          <i class="material-symbols-outlined !text-xl">
                             visibility
                           </i>
                         </div>
@@ -232,7 +232,7 @@ const Test = () => {
                             })
                           }
                         >
-                          <i class="material-symbols-outlined !text-md">edit</i>
+                          <i class="material-symbols-outlined !text-xl">edit</i>
                         </div>
                         <div
                           class="text-danger-500 leading-none custom-tooltip cursor-pointer"
@@ -240,7 +240,7 @@ const Test = () => {
                           data-text="Delete"
                           onClick={() => handleDeletepopup(department._id)}
                         >
-                          <i class="material-symbols-outlined !text-md">
+                          <i class="material-symbols-outlined !text-xl">
                             delete
                           </i>
                         </div>
