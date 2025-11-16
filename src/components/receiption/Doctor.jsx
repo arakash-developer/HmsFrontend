@@ -15,7 +15,8 @@ const Doctor = () => {
     mobile: "",
     email: "",
   });
-  const [selectedDeptId, setSelectedDeptId] = useState(""); // state to store selected ID
+  const [selectedcountryId, setSelectedcountryId] = useState(""); // state to store selected ID
+  let [qualification, setQualification] = useState("");
   const [deleteId, setDeleteId] = useState(null);
   const [editInfo, setEditInfo] = useState(null);
   const { data, refetch, create, update, remove } = useCrud("api/doctor");
@@ -31,13 +32,14 @@ const Doctor = () => {
   let addcountry = () => {
     create.mutate(
       {
-        testname: form.testname,
-        unittest: form.unitest,
-        normalrange: form.normalrange,
-        tablename: "ax",
-        tableidfield: "a",
-        testcharge: form.testcharge,
-        category: "69196c08214c155f0814ecf1",
+        doctorname: form.doctorname,
+        doctortitle: form.doctortitle,
+        qualification: qualification,
+        speciality: form.speciality,
+        country: selectedcountryId,
+        phone: form.phone,
+        mobile: form.mobile,
+        email: form.email,
       },
       {
         onSuccess: () => {
@@ -296,8 +298,8 @@ const Doctor = () => {
                       </label>
                       <select
                         class="h-[40px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500"
-                        onChange={(e) => setSelectedDeptId(e.target.value)}
-                        value={selectedDeptId}
+                        onChange={(e) => setSelectedcountryId(e.target.value)}
+                        value={selectedcountryId}
                       >
                         <option>Select Country</option>
                         {countryData?.map((dept) => (
@@ -342,7 +344,8 @@ const Doctor = () => {
                       </label>
                       <select
                         class="h-[40px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500"
-                        onChange={(e) => setSelectedDeptId(e.target.value)}
+                        onChange={(e) => setQualification(e.target.value)}
+                        value={qualification}
                       >
                         <option>Select Qualification</option>
                         <option>Dr.</option>
@@ -453,7 +456,7 @@ const Doctor = () => {
                       </label>
                       <select
                         class="h-[40px] rounded-md text-black dark:text-white border border-gray-500  bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500"
-                        onChange={(e) => setSelectedDeptId(e.target.value)}
+                        // onChange={(e) => setSelectedcountryId(e.target.value)}
                         value={editInfo?.department}
                         disabled
                       >
