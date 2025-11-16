@@ -653,6 +653,93 @@ const PatientReg = () => {
                           </tr>
                         </tbody>
                       </table>
+                      <div className="date and timer mt-3 flex gap-x-2">
+                        <div class="w-full">
+                          <label class="mb-[2px] text-black dark:text-white font-medium block">
+                            Delevery Date :
+                          </label>
+                          <select
+                            class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500"
+                            onChange={(e) =>
+                              setSelectedcountryId(e.target.value)
+                            }
+                            value={selectedcountryId}
+                          >
+                            <option>Select Country</option>
+                            {countryData?.map((dept) => (
+                              <option key={dept._id} value={dept._id}>
+                                {dept.name}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                        <div class="w-full">
+                          <label class="mb-[2px] text-black dark:text-white font-medium block">
+                            Delevery Time :
+                          </label>
+                          <input
+                            type="text"
+                            onChange={(e) =>
+                              setForm({ ...form, speciality: e.target.value })
+                            }
+                            value={form.speciality}
+                            class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
+                          />
+                        </div>
+                      </div>
+                      <div className="lastcalculation mt-4">
+                        <div class="w-full max-w-md mx-auto bg-blue-600 p-6 rounded text-white space-y-4">
+                          <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
+                            <span class="text-right">Total Charge</span>
+                            <span class="text-center w-4">=</span>
+                            <span class="text-right">0</span>
+                          </div>
+
+                          <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
+                            <span class="text-right">Discount</span>
+                            <span class="text-center w-4">=</span>
+                            <span class="text-right">0</span>
+                          </div>
+
+                          <hr class="border-white/40" />
+
+                          <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
+                            <span class="text-right">Discounted Amount</span>
+                            <span class="text-center w-4">=</span>
+                            <span class="text-right">0</span>
+                          </div>
+
+                          <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
+                            <span class="text-right">Paid</span>
+                            <span class="text-center w-4">=</span>
+                            <input
+                              type="number"
+                              class="w-full max-w-[80px] px-2 py-1 bg-yellow-100 text-black border border-gray-400 rounded text-right"
+                              value="0"
+                            />
+                          </div>
+
+                          <hr class="border-white/40" />
+
+                          <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
+                            <span class="text-right">Due Amount</span>
+                            <span class="text-center w-4">=</span>
+                            <span class="text-right">0</span>
+                          </div>
+
+                          <div class="flex justify-center gap-4 pt-4">
+                            <button class="bg-white text-black px-6 py-2 rounded border border-gray-300 hover:bg-gray-100">
+                              New
+                            </button>
+                            <button class="bg-white text-black px-6 py-2 rounded border border-gray-300 hover:bg-gray-100">
+                              Save
+                            </button>
+                            <button class="bg-white text-black px-6 py-2 rounded border border-gray-300 hover:bg-gray-100">
+                              Close
+                            </button>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </form>
