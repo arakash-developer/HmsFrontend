@@ -131,19 +131,19 @@ export default function ReceiptionLayout() {
         },
         {
           title: "Add New Patient",
-          link: "/admin/sales/add-patient",
+          link: "/receiption/patient-registration",
         },
         {
           title: "Due Collection",
-          link: "/admin/sales/due-collection",
+          link: "/receiption/due-collection",
         },
         {
           title: "Search Patient Info",
-          link: "/admin/sales/search-patient-info",
+          link: "/receiption/search-patient-info",
         },
         {
           title: "Refferel Doctor",
-          link: "/admin/sales/refferel-doctor",
+          link: "/receiption/refferel-doctor",
         },
       ],
     },

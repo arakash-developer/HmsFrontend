@@ -24,7 +24,9 @@ import Country from "@/components/receiption/Country";
 import Department from "@/components/receiption/Department";
 import Doctor from "@/components/receiption/Doctor";
 import Due from "@/components/receiption/Due";
+import Patientinfo from "@/components/receiption/Patientinfo";
 import PatientReg from "@/components/receiption/PatientReg";
+import RefferelDoctor from "@/components/receiption/RefferelDoctor";
 import Statement from "@/components/receiption/Statement";
 import Test from "@/components/receiption/Test";
 import ReceiptionLayout from "@/layouts/receiption/receiptionLayout";
@@ -62,6 +64,8 @@ const routes = [
           { path: "patient-registration", element: <PatientReg /> },
           { path: "due-collection", element: <Due /> },
           { path: "statement", element: <Statement /> },
+          { path: "search-patient-info", element: <Patientinfo /> },
+          { path: "refferel-doctor", element: <RefferelDoctor /> },
         ],
       },
     ],
