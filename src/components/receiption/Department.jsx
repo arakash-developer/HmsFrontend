@@ -64,7 +64,7 @@ const Department = () => {
       {/* <!-- Main Content --> */}
       {/* <!-- Breadcrumb --> */}
       <div class="mb-[25px] md:flex items-center justify-between">
-        <h5 class="mb-0">Country</h5>
+        <h5 class="mb-0">Department</h5>
         <ol class="breadcrumb mt-[12px] md:mt-0">
           <li class="breadcrumb-item inline-block relative text-sm mx-[11px] ltr:first:ml-0 rtl:first:mr-0 ltr:last:mr-0 rtl:last:ml-0">
             <a
@@ -111,7 +111,7 @@ const Department = () => {
                 <i class="material-symbols-outlined !text-[22px] absolute ltr:-left-[4px] rtl:-right-[4px] top-1/2 -translate-y-1/2">
                   add
                 </i>
-                Add New Task
+                Add New Department
               </span>
             </div>
           </div>
@@ -130,7 +130,7 @@ const Department = () => {
                     ID
                   </th>
                   <th class="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
-                    Country Name
+                    Department Name
                   </th>
 
                   <th class="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
@@ -232,7 +232,7 @@ const Department = () => {
                   <div class="grid grid-cols-1 sm:grid-cols-2 gap-[20px] md:gap-[25px]">
                     <div class="sm:col-span-2">
                       <label class="mb-[10px] text-black dark:text-white font-medium block">
-                        Enter Country Name
+                        Enter Department Name
                       </label>
                       <input
                         type="text"
@@ -241,7 +241,7 @@ const Department = () => {
                         }
                         value={form.name}
                         class="h-[45px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
-                        placeholder="Country Name"
+                        placeholder="Department Name"
                       />
                     </div>
                   </div>
@@ -281,7 +281,7 @@ const Department = () => {
             <div class="trezo-card w-full bg-gray-50 dark:bg-[#0c1427] p-[20px] md:p-[25px] rounded-md">
               <div class="trezo-card-header bg-gray-50 dark:bg-[#15203c] mb-[20px] md:mb-[25px] flex items-center justify-between -mx-[20px] md:-mx-[25px] -mt-[20px] md:-mt-[25px] p-[20px] md:p-[25px] rounded-t-md">
                 <div class="trezo-card-title">
-                  <h5 class="mb-0">Edit Department</h5>
+                  <h5 class="mb-0">Update Department</h5>
                 </div>
                 <div class="trezo-card-subtitle">
                   <div
@@ -298,7 +298,7 @@ const Department = () => {
                   <div class="grid grid-cols-1 sm:grid-cols-2 gap-[20px] md:gap-[25px]">
                     <div class="sm:col-span-2">
                       <label class="mb-[10px] text-black dark:text-white font-medium block">
-                        Enter Country Name
+                        Enter Department Name
                       </label>
                       <input
                         type="text"
@@ -307,7 +307,7 @@ const Department = () => {
                         }
                         value={form.name}
                         class="h-[45px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
-                        placeholder="Country Name"
+                        placeholder="Department Name"
                       />
                     </div>
                   </div>
