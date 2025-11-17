@@ -1,10 +1,13 @@
 import useCrud from "@/hooks/useCrud";
 import { useState } from "react";
+import Flatpickr from "react-flatpickr";
 
 const PatientReg = () => {
   let [popup, setPopup] = useState(false);
   let [deletepopup, setDeletePopup] = useState(false);
   let [editpopup, setEditPopup] = useState(false);
+  const [date, setDate] = useState(new Date());
+
   const [form, setForm] = useState({
     doctorname: "",
     doctortitle: "",
@@ -331,13 +334,20 @@ const PatientReg = () => {
                       <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0 w-[6%]">
                         Date
                       </label>
-                      <select
-                        class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500"
-                        onChange={(e) => setSelectedcountryId(e.target.value)}
-                        value={selectedcountryId}
-                      >
-                        <option>Select Country</option>
-                      </select>
+                      <div className="relative w-full">
+                        <Flatpickr
+                          value={date}
+                          onChange={(selectedDates) =>
+                            setDate(selectedDates[0])
+                          }
+                          options={{ dateFormat: "d-m-Y" }} // day-month-year
+                          className="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-4 pr-10 w-full outline-none placeholder-gray-500 dark:placeholder-[#fff]"
+                        />
+
+                        <i className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-red-500 pointer-events-none material-symbols-outlined !text-md">
+                          calendar_month
+                        </i>
+                      </div>
                     </div>
 
                     <div class="sm:col-span-1 flex items-center gap-x-4">
@@ -635,15 +645,20 @@ const PatientReg = () => {
                           <label class="mb-[2px] text-black dark:text-white font-medium block">
                             Delevery Date :
                           </label>
-                          <select
-                            class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500"
-                            onChange={(e) =>
-                              setSelectedcountryId(e.target.value)
-                            }
-                            value={selectedcountryId}
-                          >
-                            <option>Select Country</option>
-                          </select>
+                          <div className="relative w-full">
+                            <Flatpickr
+                              value={date}
+                              onChange={(selectedDates) =>
+                                setDate(selectedDates[0])
+                              }
+                              options={{ dateFormat: "d-m-Y" }} // day-month-year
+                              className="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-4 pr-10 w-full outline-none placeholder-gray-500 dark:placeholder-[#fff]"
+                            />
+
+                            <i className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-red-500 pointer-events-none material-symbols-outlined !text-md">
+                              calendar_month
+                            </i>
+                          </div>
                         </div>
                         <div class="w-full">
                           <label class="mb-[2px] text-black dark:text-white font-medium block">

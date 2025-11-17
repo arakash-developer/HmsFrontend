@@ -11,6 +11,7 @@ import "./assets/css/simplebar.css";
 import "./assets/css/style.css";
 import "./assets/css/swiper-bundle.min.css";
 import "./index.css";
+import "flatpickr/dist/flatpickr.min.css"; // default Flatpickr styles
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
