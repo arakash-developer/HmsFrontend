@@ -18,7 +18,7 @@ const Test = () => {
   const [deleteId, setDeleteId] = useState(null);
   const [editInfo, setEditInfo] = useState(null);
   const { data, refetch, create, update, remove } = useCrud("api/test");
-  const { data: departmentData } = useCrud("api/department");
+  const { data: categoryData } = useCrud("api/category");
 
   let addcountryhandler = () => {
     setPopup(true);
@@ -36,7 +36,7 @@ const Test = () => {
         tablename: "ax",
         tableidfield: "a",
         testcharge: form.testcharge,
-        category: "69196c08214c155f0814ecf1",
+        category: selectedDeptId,
       },
       {
         onSuccess: () => {
@@ -293,7 +293,7 @@ const Test = () => {
                         value={selectedDeptId}
                       >
                         <option>Select Test Category</option>
-                        {departmentData?.map((dept) => (
+                        {categoryData?.map((dept) => (
                           <option key={dept._id} value={dept._id}>
                             {dept.name}
                           </option>
@@ -352,11 +352,6 @@ const Test = () => {
                         value={selectedDeptId}
                       >
                         <option>Select Table Name</option>
-                        {departmentData?.map((dept) => (
-                          <option key={dept._id} value={dept._id}>
-                            {dept.name}
-                          </option>
-                        ))}
                       </select>
                     </div>
                     <div class="sm:col-span-1">
@@ -369,11 +364,6 @@ const Test = () => {
                         value={selectedDeptId}
                       >
                         <option>Select Table Id Field</option>
-                        {departmentData?.map((dept) => (
-                          <option key={dept._id} value={dept._id}>
-                            {dept.name}
-                          </option>
-                        ))}
                       </select>
                     </div>
                     <div class="sm:col-span-2">

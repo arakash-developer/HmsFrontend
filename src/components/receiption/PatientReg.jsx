@@ -19,8 +19,16 @@ const PatientReg = () => {
   let [qualification, setQualification] = useState("");
   const [deleteId, setDeleteId] = useState(null);
   const [editInfo, setEditInfo] = useState(null);
-  const { data, refetch, create, update, remove } = useCrud("api/doctor");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedTest, setSelectedTest] = useState("");
+  const { data, refetch, create, update, remove } = useCrud("api/category");
+  const { data: testData } = useCrud("api/test");
   const { data: countryData } = useCrud("api/country");
+
+  // Filter tests based on selected category
+  const filteredTests = testData?.filter(
+    (t) => t.category?._id === selectedCategory
+  );
 
   let addcountryhandler = () => {
     setPopup(true);
@@ -420,11 +428,14 @@ const PatientReg = () => {
                         </label>
                         <select
                           class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500"
-                          onChange={(e) => setSelectedcountryId(e.target.value)}
-                          value={selectedcountryId}
+                          value={selectedCategory}
+                          onChange={(e) => {
+                            setSelectedCategory(e.target.value);
+                            setSelectedTest(""); // reset test when category changes
+                          }}
                         >
                           <option>Select Country</option>
-                          {countryData?.map((dept) => (
+                          {data?.map((dept) => (
                             <option key={dept._id} value={dept._id}>
                               {dept.name}
                             </option>
@@ -433,17 +444,17 @@ const PatientReg = () => {
                       </div>
                       <div class="flex items-center gap-x-4">
                         <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0 w-[18%]">
-                          Test Category
+                          Test Name
                         </label>
                         <select
                           class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500"
-                          onChange={(e) => setSelectedcountryId(e.target.value)}
-                          value={selectedcountryId}
+                          onChange={(e) => setSelectedTest(e.target.value)}
+                          disabled={!selectedCategory}
                         >
                           <option>Select Country</option>
-                          {countryData?.map((dept) => (
+                          {filteredTests?.map((dept) => (
                             <option key={dept._id} value={dept._id}>
-                              {dept.name}
+                              {dept.testname}
                             </option>
                           ))}
                         </select>
