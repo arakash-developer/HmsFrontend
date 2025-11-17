@@ -21,9 +21,9 @@ const PatientReg = () => {
   const [editInfo, setEditInfo] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedTest, setSelectedTest] = useState("");
-  const { data, refetch, create, update, remove } = useCrud("api/category");
+  const { data, refetch, update, remove } = useCrud("api/category");
   const { data: testData } = useCrud("api/test");
-  const { data: countryData } = useCrud("api/country");
+  const { data: doctorData } = useCrud("api/doctor");
 
   // Filter tests based on selected category
   const filteredTests = testData?.filter(
@@ -337,11 +337,6 @@ const PatientReg = () => {
                         value={selectedcountryId}
                       >
                         <option>Select Country</option>
-                        {countryData?.map((dept) => (
-                          <option key={dept._id} value={dept._id}>
-                            {dept.name}
-                          </option>
-                        ))}
                       </select>
                     </div>
 
@@ -380,9 +375,12 @@ const PatientReg = () => {
                         onChange={(e) => setQualification(e.target.value)}
                         value={qualification}
                       >
-                        <option>Select Qualification</option>
-                        <option>Dr.</option>
-                        <option>Proff.</option>
+                        <option>Select Doctor</option>
+                        {doctorData?.map((doc) => (
+                          <option key={doc._id} value={doc._id}>
+                            {doc.doctorname}
+                          </option>
+                        ))}
                       </select>
                     </div>
 
@@ -645,11 +643,6 @@ const PatientReg = () => {
                             value={selectedcountryId}
                           >
                             <option>Select Country</option>
-                            {countryData?.map((dept) => (
-                              <option key={dept._id} value={dept._id}>
-                                {dept.name}
-                              </option>
-                            ))}
                           </select>
                         </div>
                         <div class="w-full">
@@ -775,12 +768,7 @@ const PatientReg = () => {
                         onChange={(e) => setSelectedcountryId(e.target.value)}
                         value={form?.country}
                       >
-                        {/* <option>Select Country</option> */}
-                        {countryData?.map((dept) => (
-                          <option key={dept._id} value={dept._id}>
-                            {dept.name}
-                          </option>
-                        ))}
+                        <option>Select Country</option>
                       </select>
                     </div>
 
