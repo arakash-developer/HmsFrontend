@@ -46,6 +46,7 @@ const PatientReg = () => {
     refetch: patientrefetch,
     create: patientcreate,
     update: patientupdate,
+    isLoading: patientisLoading,
     remove: patientremove,
   } = useCrudPaginated("api/patientregistration", 1, 30);
 
@@ -158,6 +159,7 @@ const PatientReg = () => {
         <PatientTables
           patientData={displayedData}
           page={page}
+          patientisLoading={patientisLoading}
           setPage={setPage}
           limit={limit}
           setLimit={setLimit}
