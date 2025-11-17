@@ -27,6 +27,7 @@ const PatientReg = () => {
   const { data, refetch, update, remove } = useCrud("api/category");
   const { data: testData } = useCrud("api/test");
   const { data: doctorData } = useCrud("api/doctor");
+  const { data: patientData } = useCrud("api/patientregistration");
 
   // Filter tests based on selected category
   const filteredTests = testData?.filter(
@@ -176,19 +177,19 @@ const PatientReg = () => {
                     SL
                   </th>
                   <th class="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
-                    Dr. Name
+                    Name
                   </th>
                   <th class="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
-                    Dr. Title
+                    Phone
                   </th>
                   <th class="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
-                    Qualification
+                    Discount
                   </th>
                   <th class="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
-                    Country
+                    Paid
                   </th>
                   <th class="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
-                    Mobile
+                    Due
                   </th>
                   <th class="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
                     Action
@@ -196,7 +197,7 @@ const PatientReg = () => {
                 </tr>
               </thead>
               <tbody class="text-black dark:text-white">
-                {data?.map((doctor, index) => (
+                {patientData?.map((patient, index) => (
                   <tr key={index}>
                     <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
                       <div class="form-check relative top-[2px]">
@@ -205,32 +206,32 @@ const PatientReg = () => {
                     </td>
                     <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
                       <span class="text-gray-500 dark:text-gray-400">
-                        {index + 1}
+                        {patient?.patientid}
                       </span>
                     </td>
                     <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
                       <span class="block font-medium text-gray-500 dark:text-gray-400">
-                        {doctor?.doctorname}
+                        {patient?.patientname}
                       </span>
                     </td>
                     <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
                       <span class="block font-medium text-gray-500 dark:text-gray-400">
-                        {doctor?.qualification}
+                        {patient?.phone}
                       </span>
                     </td>
                     <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
                       <span class="block font-medium text-gray-500 dark:text-gray-400">
-                        {doctor?.doctortitle}
+                        {patient?.totalDiscount}
                       </span>
                     </td>
                     <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
                       <span class="block font-medium text-gray-500 dark:text-gray-400">
-                        {doctor?.country?.name}
+                        {patient?.totalPaid}
                       </span>
                     </td>
                     <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
                       <span class="block font-medium text-gray-500 dark:text-gray-400">
-                        {doctor?.mobile}
+                        {patient?.totalDue}
                       </span>
                     </td>
 
@@ -245,31 +246,12 @@ const PatientReg = () => {
                             visibility
                           </i>
                         </div>
-                        <div
-                          class="cursor-pointer text-gray-500 dark:text-gray-400 leading-none custom-tooltip"
-                          id="customTooltip"
-                          data-text="Edit"
-                          onClick={() =>
-                            handleEditpopup({
-                              id: doctor?._id,
-                              doctorname: doctor?.doctorname,
-                              doctortitle: doctor?.doctortitle,
-                              mobile: doctor?.mobile,
-                              qualification: doctor?.qualification,
-                              speciality: doctor?.speciality,
-                              country: doctor?.country,
-                              phone: doctor?.phone,
-                              email: doctor?.email,
-                            })
-                          }
-                        >
-                          <i class="material-symbols-outlined !text-xl">edit</i>
-                        </div>
+
                         <div
                           class="text-danger-500 leading-none custom-tooltip cursor-pointer"
                           id="customTooltip"
                           data-text="Delete"
-                          onClick={() => handleDeletepopup(doctor?._id)}
+                          onClick={() => handleDeletepopup(patient?._id)}
                         >
                           <i class="material-symbols-outlined !text-xl">
                             delete
