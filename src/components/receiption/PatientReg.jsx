@@ -1,5 +1,6 @@
 import useCrud from "@/hooks/useCrud";
 import useCrudPaginated from "@/hooks/useCrudPaginated";
+import useSearch from "@/hooks/useSearch";
 import { useState } from "react";
 import Flatpickr from "react-flatpickr";
 
@@ -40,6 +41,13 @@ const PatientReg = () => {
     update: patientupdate,
     remove: patientremove,
   } = useCrudPaginated("api/patientregistration", 1, 10);
+  let patientId = "18059";
+
+  const { data: patientSearch } = useSearch(
+    patientId ? `/api/patientregistration/patientid/${patientId}` : null,
+    300 // debounce in ms
+  );
+  console.log(patientSearch);
 
   // Filter tests based on selected category
   const filteredTests = testData?.filter(
@@ -155,7 +163,7 @@ const PatientReg = () => {
               </label>
               <input
                 type="text"
-                placeholder="Search task here....."
+                placeholder="Search Patient Id here."
                 class="bg-gray-50 border border-gray-50 h-[36px] text-xs rounded-md w-full block text-black pt-[11px] pb-[12px] ltr:pl-[38px] rtl:pr-[38px] ltr:pr-[13px] ltr:md:pr-[16px] rtl:pl-[13px] rtl:md:pl-[16px] placeholder:text-gray-500 outline-0 dark:bg-[#15203c] dark:text-white dark:border-[#15203c] dark:placeholder:text-gray-400"
               />
             </form>
