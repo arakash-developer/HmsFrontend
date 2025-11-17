@@ -1,4 +1,5 @@
 import useCrud from "@/hooks/useCrud";
+import useCrudPaginated from "@/hooks/useCrudPaginated";
 import { useState } from "react";
 import Flatpickr from "react-flatpickr";
 
@@ -27,7 +28,18 @@ const PatientReg = () => {
   const { data, refetch, update, remove } = useCrud("api/category");
   const { data: testData } = useCrud("api/test");
   const { data: doctorData } = useCrud("api/doctor");
-  const { data: patientData } = useCrud("api/patientregistration");
+  // const { data: patientData } = useCrud("api/patientregistration");
+  const {
+    data: patientData,
+    page,
+    setPage,
+    limit,
+    setLimit,
+    refetch: patientrefetch,
+    create: patientcreate,
+    update: patientupdate,
+    remove: patientremove,
+  } = useCrudPaginated("api/patientregistration", 1, 10);
 
   // Filter tests based on selected category
   const filteredTests = testData?.filter(
@@ -174,13 +186,16 @@ const PatientReg = () => {
                     </div>
                   </th>
                   <th class="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
-                    SL
+                    Patient Id
                   </th>
                   <th class="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
                     Name
                   </th>
                   <th class="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
                     Phone
+                  </th>
+                  <th class="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
+                    Total
                   </th>
                   <th class="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
                     Discount
@@ -217,6 +232,11 @@ const PatientReg = () => {
                     <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
                       <span class="block font-medium text-gray-500 dark:text-gray-400">
                         {patient?.phone}
+                      </span>
+                    </td>
+                    <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
+                      <span class="block font-medium text-gray-500 dark:text-gray-400">
+                        {patient?.totalCharge}
                       </span>
                     </td>
                     <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
