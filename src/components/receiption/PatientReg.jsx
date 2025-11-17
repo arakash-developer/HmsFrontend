@@ -29,38 +29,6 @@ const PatientReg = () => {
     setPopup(false);
   };
 
-  let addcountry = () => {
-    create.mutate(
-      {
-        doctorname: form.doctorname,
-        doctortitle: form.doctortitle,
-        qualification: qualification,
-        speciality: form.speciality,
-        country: selectedcountryId,
-        phone: form.phone,
-        mobile: form.mobile,
-        email: form.email,
-      },
-      {
-        onSuccess: () => {
-          refetch();
-        },
-      }
-    );
-
-    setPopup(false);
-    setForm({
-      doctorname: "",
-      doctortitle: "",
-      qualification: "",
-      speciality: "",
-      country: "",
-      phone: "",
-      mobile: "",
-      email: "",
-    });
-  };
-
   const handleDeletepopup = (id) => {
     setDeletePopup(true);
     setDeleteId(id);
@@ -714,7 +682,7 @@ const PatientReg = () => {
                             <span class="text-center w-4">=</span>
                             <input
                               type="number"
-                              class="w-full !w-full px-2 py-1 bg-yellow-100 text-black border border-gray-400 rounded text-right"
+                              class="!w-full px-2 py-1 bg-yellow-100 text-black border border-gray-400 rounded text-right"
                               placeholder="0"
                             />
                           </div>
