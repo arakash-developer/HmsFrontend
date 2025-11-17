@@ -7,11 +7,11 @@ const api = axios.create({
     "Content-Type": "application/json",
   },
 });
-let temptoken = localStorage.getItem("token") || null;
-let token = JSON.parse(temptoken);
 // Request interceptor to attach token
 api.interceptors.request.use(
   (config) => {
+    let temptoken = localStorage.getItem("token") || null;
+    let token = JSON.parse(temptoken);
     // console.log("Attaching token to request:", token.tok);
     if (token) {
       config.headers["token"] = token.tok; // must match middleware

@@ -1,21 +1,66 @@
+import useCrud from "@/hooks/useCrud";
 import Flatpickr from "react-flatpickr";
 const PatientCreatePopup = ({
   cancelcountrypopup,
   form,
+  selectedTest,
   setForm,
-  selectedCategory ,
+  selectedCategory,
   date,
   setDate,
   setSelectedCategory,
+  setTestIds,
+  testIds,
   doctorData,
+  setTestList,
+  testList,
   qualification,
   setQualification,
   setSelectedTest,
   data,
   handleDeletepopup,
   filteredTests,
-  
 }) => {
+  const { data: aaa, create } = useCrud("api/departmentorderprice");
+  console.log("ddd", testIds, aaa?.data?.data);
+
+  const handleTestSelectChange = (e) => {
+    const id = e.target.value;
+    const obj = filteredTests.find((t) => t._id === id);
+
+    // Prevent duplicates
+    if (testList.some((item) => item._id === obj._id)) {
+      alert("Test already added!");
+      return;
+    }
+
+    // Add to testList
+    setTestList((prev) => [...prev, obj]);
+
+    // Create a new updated array for testIds
+    const updatedTestIds = [...testIds, obj._id];
+    setTestIds(updatedTestIds);
+
+    // Send immediately using updated array
+    create.mutate(
+      { testIds: updatedTestIds }, // use updatedTestIds, NOT testIds
+      {
+        onSuccess: (res) => {
+          console.log("Server response:", res);
+          alert("Created successfully!");
+        },
+        onError: (err) => {
+          console.error("Error:", err);
+          alert("Something went wrong!");
+        },
+      }
+    );
+  };
+
+  let handleDeleteProcedure = (id) => {
+    setTestList((prev) => prev.filter((test) => test._id !== id));
+  };
+
   return (
     <>
       <div
@@ -49,11 +94,9 @@ const PatientCreatePopup = ({
                       Patient Id
                     </label>
                     <input
+                      disabled
                       type="text"
-                      onChange={(e) =>
-                        setForm({ ...form, doctorname: e.target.value })
-                      }
-                      value={form.doctorname}
+                      value={102023}
                       class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
                     />
                   </div>
@@ -82,9 +125,9 @@ const PatientCreatePopup = ({
                     <input
                       type="text"
                       onChange={(e) =>
-                        setForm({ ...form, doctortitle: e.target.value })
+                        setForm({ ...form, patientName: e.target.value })
                       }
-                      value={form.doctortitle}
+                      value={form.patientName}
                       class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
                     />
                   </div>
@@ -164,10 +207,10 @@ const PatientCreatePopup = ({
                         value={selectedCategory}
                         onChange={(e) => {
                           setSelectedCategory(e.target.value);
-                          setSelectedTest(""); // reset test when category changes
+                          // setSelectedTest(""); // reset test when category changes
                         }}
                       >
-                        <option>Select Country</option>
+                        <option>Select Test Category</option>
                         {data?.map((dept) => (
                           <option key={dept._id} value={dept._id}>
                             {dept.name}
@@ -181,13 +224,14 @@ const PatientCreatePopup = ({
                       </label>
                       <select
                         class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500"
-                        onChange={(e) => setSelectedTest(e.target.value)}
+                        onChange={handleTestSelectChange}
                         disabled={!selectedCategory}
+                        value={selectedTest}
                       >
-                        <option>Select Country</option>
-                        {filteredTests?.map((dept) => (
-                          <option key={dept._id} value={dept._id}>
-                            {dept.testname}
+                        <option>Select Test</option>
+                        {filteredTests?.map((item) => (
+                          <option key={item._id} value={item._id}>
+                            {item.testname}
                           </option>
                         ))}
                       </select>
@@ -212,7 +256,7 @@ const PatientCreatePopup = ({
                             </tr>
                           </thead>
                           <tbody class="text-black dark:text-white">
-                            {data?.map((doctor, index) => (
+                            {testList?.map((test, index) => (
                               <tr key={index}>
                                 <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[5px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
                                   <span class="text-gray-500 dark:text-gray-400">
@@ -221,12 +265,12 @@ const PatientCreatePopup = ({
                                 </td>
                                 <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[5px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
                                   <span class="block font-medium text-gray-500 dark:text-gray-400">
-                                    {doctor?.doctorname}
+                                    {test?.testname}
                                   </span>
                                 </td>
                                 <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[5px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
                                   <span class="block font-medium text-gray-500 dark:text-gray-400">
-                                    {doctor?.qualification}
+                                    {test?.testcharge}
                                   </span>
                                 </td>
 
@@ -237,7 +281,7 @@ const PatientCreatePopup = ({
                                       id="customTooltip"
                                       data-text="Delete"
                                       onClick={() =>
-                                        handleDeletepopup(doctor?._id)
+                                        handleDeleteProcedure(test?._id)
                                       }
                                     >
                                       <i class="material-symbols-outlined !text-md">

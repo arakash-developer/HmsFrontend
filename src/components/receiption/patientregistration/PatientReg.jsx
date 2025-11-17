@@ -16,14 +16,12 @@ const PatientReg = () => {
   const [date, setDate] = useState(new Date());
 
   const [form, setForm] = useState({
-    doctorname: "",
-    doctortitle: "",
-    qualification: "",
-    speciality: "",
-    country: "",
+    date: "",
+    patientName: "",
+    sex: "",
+    refdoctor: "",
+    age: "",
     phone: "",
-    mobile: "",
-    email: "",
   });
   const [selectedcountryId, setSelectedcountryId] = useState(""); // state to store selected ID
   let [qualification, setQualification] = useState("");
@@ -31,6 +29,8 @@ const PatientReg = () => {
   const [editInfo, setEditInfo] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedTest, setSelectedTest] = useState("");
+  const [testList, setTestList] = useState([]);
+const [testIds, setTestIds] = useState([]);
   const { data, refetch, update, remove } = useCrud("api/category");
   const { data: testData } = useCrud("api/test");
   const { data: doctorData } = useCrud("api/doctor");
@@ -178,12 +178,17 @@ const PatientReg = () => {
           form={form}
           selectedCategory={selectedCategory}
           date={date}
+          setTestIds={setTestIds}
+          testIds={testIds}
           setSelectedCategory={setSelectedCategory}
           setForm={setForm}
           cancelcountrypopup={cancelcountrypopup}
           setDate={setDate}
           doctorData={doctorData}
+          testList={testList}
+          setTestList={setTestList}
           qualification={qualification}
+          selectedTest={selectedTest}
           setQualification={setQualification}
           setSelectedTest={setSelectedTest}
           filteredTests={filteredTests}
