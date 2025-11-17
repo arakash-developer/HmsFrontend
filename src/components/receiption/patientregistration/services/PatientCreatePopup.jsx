@@ -1,0 +1,466 @@
+import Flatpickr from "react-flatpickr";
+const PatientCreatePopup = ({
+  cancelcountrypopup,
+  form,
+  setForm,
+  selectedCategory ,
+  date,
+  setDate,
+  setSelectedCategory,
+  doctorData,
+  qualification,
+  setQualification,
+  setSelectedTest,
+  data,
+  handleDeletepopup,
+  filteredTests,
+  
+}) => {
+  return (
+    <>
+      <div
+        class="z-[999] fixed transition-all inset-0 overflow-x-hidden overflow-y-auto lg:py-[20px] backdrop-blur-[0.5px] add-new-popups"
+        id="add-new-popup"
+      >
+        <div class="popup-dialog flex transition-all max-w-[90vw] min-h-full items-center mx-auto">
+          <div class="trezo-card w-full bg-gray-50 dark:bg-[#0c1427] p-[20px] md:p-[25px] rounded-md">
+            <div class="trezo-card-header bg-gray-50 dark:bg-[#15203c] flex items-center justify-between -mx-[20px] md:-mx-[25px] -mt-[20px] md:-mt-[25px] py-3 text-center px-[20px] md:px-[25px] rounded-t-md">
+              <div class="trezo-card-title text-center">
+                <h5 class="mb-0 text-center">Patient Test & Create Bill</h5>
+              </div>
+              <div class="trezo-card-subtitle">
+                <div
+                  onClick={cancelcountrypopup}
+                  class="text-[23px] transition-all leading-none text-black dark:text-white hover:text-primary-500"
+                  id="add-new-popup-toggle"
+                >
+                  <i class="ri-close-fill"></i>
+                </div>
+              </div>
+            </div>
+            <fieldset class="trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
+              <legend className="px-2 text-sm text-[#000] dark:text-[#fff]">
+                Personal Information
+              </legend>
+              <form className="">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-[6px] md:gap-y-[6px] gap-x-5">
+                  <div class="sm:col-span-1 flex items-center gap-x-4">
+                    <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0 w-[18%]">
+                      Patient Id
+                    </label>
+                    <input
+                      type="text"
+                      onChange={(e) =>
+                        setForm({ ...form, doctorname: e.target.value })
+                      }
+                      value={form.doctorname}
+                      class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
+                    />
+                  </div>
+                  <div class="sm:col-span-1 flex items-center gap-x-4">
+                    <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0 w-[6%]">
+                      Date
+                    </label>
+                    <div className="relative w-full">
+                      <Flatpickr
+                        value={date}
+                        onChange={(selectedDates) => setDate(selectedDates[0])}
+                        options={{ dateFormat: "d-m-Y" }} // day-month-year
+                        className="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-4 pr-10 w-full outline-none placeholder-gray-500 dark:placeholder-[#fff]"
+                      />
+
+                      <i className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-red-500 pointer-events-none material-symbols-outlined !text-md">
+                        calendar_month
+                      </i>
+                    </div>
+                  </div>
+
+                  <div class="sm:col-span-1 flex items-center gap-x-4">
+                    <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0 w-[18%]">
+                      Patient Name
+                    </label>
+                    <input
+                      type="text"
+                      onChange={(e) =>
+                        setForm({ ...form, doctortitle: e.target.value })
+                      }
+                      value={form.doctortitle}
+                      class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
+                    />
+                  </div>
+                  <div class="sm:col-span-1 flex items-center gap-x-4">
+                    <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0 w-[6%]">
+                      Sex
+                    </label>
+                    <input
+                      type="number"
+                      onChange={(e) =>
+                        setForm({ ...form, phone: e.target.value })
+                      }
+                      value={form.phone}
+                      class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
+                    />
+                  </div>
+                  <div class="sm:col-span-1 flex items-center gap-x-4">
+                    <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0 w-[18%]">
+                      Ref. Dr.
+                    </label>
+                    <select
+                      class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500"
+                      onChange={(e) => setQualification(e.target.value)}
+                      value={qualification}
+                    >
+                      <option>Select Doctor</option>
+                      {doctorData?.map((doc) => (
+                        <option key={doc._id} value={doc._id}>
+                          {doc.doctorname}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div class="sm:col-span-1 flex items-center gap-x-4">
+                    <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0 w-[6%]">
+                      Age
+                    </label>
+                    <input
+                      type="number"
+                      onChange={(e) =>
+                        setForm({ ...form, mobile: e.target.value })
+                      }
+                      value={form.mobile}
+                      class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
+                    />
+                  </div>
+                  <div class="sm:col-span-1 flex items-center gap-x-4">
+                    <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0 w-[18%]">
+                      Phone
+                    </label>
+                    <input
+                      type="text"
+                      onChange={(e) =>
+                        setForm({ ...form, speciality: e.target.value })
+                      }
+                      value={form.speciality}
+                      class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
+                    />
+                  </div>
+                </div>
+              </form>
+            </fieldset>
+            <fieldset class="mt-2 trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
+              <legend className="px-2 text-sm text-[#000] dark:text-[#fff]">
+                Test Information
+              </legend>
+              <form className="">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-[6px] md:gap-y-[6px] gap-x-5">
+                  <div className="sm:col-span-1 flex flex-col gap-y-2">
+                    <div class="flex items-center gap-x-4">
+                      <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0 w-[18%]">
+                        Test Category
+                      </label>
+                      <select
+                        class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500"
+                        value={selectedCategory}
+                        onChange={(e) => {
+                          setSelectedCategory(e.target.value);
+                          setSelectedTest(""); // reset test when category changes
+                        }}
+                      >
+                        <option>Select Country</option>
+                        {data?.map((dept) => (
+                          <option key={dept._id} value={dept._id}>
+                            {dept.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div class="flex items-center gap-x-4">
+                      <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0 w-[18%]">
+                        Test Name
+                      </label>
+                      <select
+                        class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500"
+                        onChange={(e) => setSelectedTest(e.target.value)}
+                        disabled={!selectedCategory}
+                      >
+                        <option>Select Country</option>
+                        {filteredTests?.map((dept) => (
+                          <option key={dept._id} value={dept._id}>
+                            {dept.testname}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div class="mt-2 px-4 trezo-card-content -mx-[20px] md:-mx-[25px]">
+                      <div class="table-responsive overflow-x-auto overflow-y-hidden">
+                        <table class="w-full without-border">
+                          <thead class="text-black dark:text-white">
+                            <tr>
+                              <th class="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
+                                SL
+                              </th>
+                              <th class="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
+                                Procedure Name
+                              </th>
+                              <th class="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
+                                Procedure Charge
+                              </th>
+                              <th class="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
+                                Action
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody class="text-black dark:text-white">
+                            {data?.map((doctor, index) => (
+                              <tr key={index}>
+                                <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[5px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
+                                  <span class="text-gray-500 dark:text-gray-400">
+                                    {index + 1}
+                                  </span>
+                                </td>
+                                <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[5px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
+                                  <span class="block font-medium text-gray-500 dark:text-gray-400">
+                                    {doctor?.doctorname}
+                                  </span>
+                                </td>
+                                <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[5px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
+                                  <span class="block font-medium text-gray-500 dark:text-gray-400">
+                                    {doctor?.qualification}
+                                  </span>
+                                </td>
+
+                                <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[5px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
+                                  <div class="flex items-center gap-[9px]">
+                                    <div
+                                      class="text-danger-500 leading-none custom-tooltip cursor-pointer"
+                                      id="customTooltip"
+                                      data-text="Delete"
+                                      onClick={() =>
+                                        handleDeletepopup(doctor?._id)
+                                      }
+                                    >
+                                      <i class="material-symbols-outlined !text-md">
+                                        delete
+                                      </i>
+                                    </div>
+                                  </div>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="sm:col-span-1">
+                    <div className="mb-1 flex items-center gap-x-2">
+                      <div class="font-medium whitespace-nowrap">
+                        <div class="form-check relative top-[2px]">
+                          <input type="checkbox" class="cursor-pointer" />
+                        </div>
+                      </div>
+                      <p htmlFor="" className="mb-3">
+                        Agree Calculation ?
+                      </p>
+                    </div>
+                    <table class="w-full border-collapse border border-gray-400">
+                      <thead>
+                        <tr>
+                          <th class="border border-gray-400 px-2 py-1 text-left font-medium ltr:text-left rtl:text-right md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
+                            Department
+                          </th>
+                          <th class="border border-gray-400 px-2 py-1 text-left font-medium ltr:text-left rtl:text-right md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
+                            Total
+                          </th>
+                          <th class="border border-gray-400 px-2 py-1 text-left font-medium ltr:text-left rtl:text-right md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
+                            Discount (Editable)
+                          </th>
+                          <th class="border border-gray-400 px-2 py-1 text-left font-medium ltr:text-left rtl:text-right md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
+                            Discounted
+                          </th>
+                          <th class="border border-gray-400 px-2 py-1 text-left font-medium ltr:text-left rtl:text-right md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
+                            Paid
+                          </th>
+
+                          <th class="border border-gray-400 px-2 py-1 text-left font-medium ltr:text-left rtl:text-right md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
+                            Due
+                          </th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                        <tr>
+                          <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                            Pathology
+                          </td>
+                          <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                            1
+                          </td>
+                          <td class="border border-gray-400 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                            <input
+                              type="number"
+                              placeholder="0"
+                              class="bg-primary-200 placeholder:text-[#000] text-xs pl-1 w-full block text-[#000] outline-0 dark:bg-[#15203c] dark:text-white dark:border-[#15203c] dark:placeholder:text-gray-400"
+                            />
+                          </td>
+                          <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                            1
+                          </td>
+                          <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                            1
+                          </td>
+                          <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                            1
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                            X-Ray| ECG
+                          </td>
+                          <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                            1
+                          </td>
+                          <td class="border border-gray-400 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                            <input
+                              type="number"
+                              placeholder="0"
+                              class="bg-primary-200 placeholder:text-[#000] text-xs pl-1 w-full block text-[#000] outline-0 dark:bg-[#15203c] dark:text-white dark:border-[#15203c] dark:placeholder:text-gray-400"
+                            />
+                          </td>
+                          <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                            1
+                          </td>
+                          <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                            1
+                          </td>
+                          <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                            1
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                            Ultra-Sono
+                          </td>
+                          <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                            1
+                          </td>
+                          <td class="border border-gray-400 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                            <input
+                              type="number"
+                              placeholder="0"
+                              class="bg-primary-200 placeholder:text-[#000] text-xs pl-1 w-full block text-[#000] outline-0 dark:bg-[#15203c] dark:text-white dark:border-[#15203c] dark:placeholder:text-gray-400"
+                            />
+                          </td>
+                          <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                            1
+                          </td>
+                          <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                            1
+                          </td>
+                          <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                            1
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div className="date and timer mt-3 flex gap-x-2">
+                      <div class="w-full">
+                        <label class="mb-[2px] text-black dark:text-white font-medium block">
+                          Delevery Date :
+                        </label>
+                        <div className="relative w-full">
+                          <Flatpickr
+                            value={date}
+                            onChange={(selectedDates) =>
+                              setDate(selectedDates[0])
+                            }
+                            options={{ dateFormat: "d-m-Y" }} // day-month-year
+                            className="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-4 pr-10 w-full outline-none placeholder-gray-500 dark:placeholder-[#fff]"
+                          />
+
+                          <i className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-red-500 pointer-events-none material-symbols-outlined !text-md">
+                            calendar_month
+                          </i>
+                        </div>
+                      </div>
+                      <div class="w-full">
+                        <label class="mb-[2px] text-black dark:text-white font-medium block">
+                          Delevery Time :
+                        </label>
+                        <input
+                          type="text"
+                          onChange={(e) =>
+                            setForm({ ...form, speciality: e.target.value })
+                          }
+                          value={form.speciality}
+                          class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
+                        />
+                      </div>
+                    </div>
+                    <div className="lastcalculation mt-4">
+                      <div class="w-full max-w-md ml-auto rounded text-black dark:text-white font-medium">
+                        <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
+                          <span class="text-right">Total Charge</span>
+                          <span class="text-center w-4">=</span>
+                          <span class="text-right">0</span>
+                        </div>
+
+                        <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
+                          <span class="text-right">Discount</span>
+                          <span class="text-center w-4">=</span>
+                          <span class="text-right">0</span>
+                        </div>
+
+                        <hr class="border-white/40" />
+
+                        <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
+                          <span class="text-right">Discounted Amount</span>
+                          <span class="text-center w-4">=</span>
+                          <span class="text-right">0</span>
+                        </div>
+
+                        <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
+                          <span class="text-right">Paid</span>
+                          <span class="text-center w-4">=</span>
+                          <input
+                            type="number"
+                            class="!w-full px-2 py-1 bg-yellow-100 text-black border border-gray-400 rounded text-right"
+                            placeholder="0"
+                          />
+                        </div>
+
+                        <hr class="border-white/40" />
+
+                        <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
+                          <span class="text-right">Due Amount</span>
+                          <span class="text-center w-4">=</span>
+                          <span class="text-right">0</span>
+                        </div>
+
+                        <div class="flex justify-end gap-x-4 pt-4">
+                          <button class="bg-white text-black px-6 py-2 rounded border border-gray-300 hover:bg-gray-100">
+                            Close
+                          </button>
+                          <button class="bg-white text-black px-6 py-2 rounded border border-gray-300 hover:bg-gray-100">
+                            New
+                          </button>
+                          <button class="bg-white text-black px-6 py-2 rounded border border-gray-300 hover:bg-gray-100">
+                            Save
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default PatientCreatePopup;
