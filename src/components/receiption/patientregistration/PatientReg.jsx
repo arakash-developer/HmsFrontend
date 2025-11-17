@@ -47,7 +47,7 @@ const PatientReg = () => {
     create: patientcreate,
     update: patientupdate,
     remove: patientremove,
-  } = useCrudPaginated("api/patientregistration", 1, 10);
+  } = useCrudPaginated("api/patientregistration", 1, 30);
 
   const { data: patientSearch } = useSearch(
     patientId ? `/api/patientregistration/patientid/${patientId}` : null,
@@ -151,8 +151,18 @@ const PatientReg = () => {
           patientId={patientId}
           setPatientId={setPatientId}
           addcountryhandler={addcountryhandler}
+          setPage={setPage}
+          page={page}
+          setLimit={setLimit}
         />
-        <PatientTables patientData={displayedData} />
+        <PatientTables
+          patientData={displayedData}
+          page={page}
+          setPage={setPage}
+          limit={limit}
+          setLimit={setLimit}
+          patientrefetch={patientrefetch}
+        />
       </div>
 
       <div class="grow"></div>
