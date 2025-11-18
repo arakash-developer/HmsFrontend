@@ -22,6 +22,7 @@ const PatientCreatePopup = ({
   filteredTests,
 }) => {
   const [finalTotalCalculation, setFinalTotalCalculation] = useState({});
+  const [dueAmount, setDueAmount] = useState(0);
   const [totals, setTotals] = useState({
     totalDiscount: 0,
     totalDiscountedPrice: 0,
@@ -43,7 +44,6 @@ const PatientCreatePopup = ({
     // Create a new updated array for testIds
     const updatedTestIds = [...testIds, obj._id];
     setTestIds(updatedTestIds);
-
   };
 
   let handleDeleteProcedure = (id) => {
@@ -102,23 +102,41 @@ const PatientCreatePopup = ({
     });
   };
 
-  const calculateTotals = (obj) => {
-    const result = Object.values(obj).reduce(
-      (acc, item) => {
-        acc.totalDiscount += item.discount || 0;
-        acc.totalDiscountedPrice += item.discountedPrice || 0;
-        acc.totalDiscountAmount += item.discountAmount || 0;
-        return acc;
-      },
-      { totalDiscount: 0, totalDiscountedPrice: 0, totalDiscountAmount: 0 }
-    );
+  const calculateTotals = (discountObj) => {
+    let result = {
+      totalDiscount: 0,
+      totalDiscountedPrice: 0,
+      totalDiscountAmount: 0,
+    };
+
+    departmentTotals.forEach((dept) => {
+      const deptName = dept.depname;
+      const totalPrice = dept.totalPrice;
+
+      const discount = discountObj[deptName]?.discount || 0;
+      const discountedPrice = totalPrice - discount;
+      const discountAmount = discount;
+
+      result.totalDiscount += discount;
+      result.totalDiscountedPrice += discountedPrice;
+      result.totalDiscountAmount += discountAmount;
+    });
 
     setTotals(result);
   };
   useEffect(() => {
     calculateTotals(finalTotalCalculation);
-  }, [finalTotalCalculation]);
+  }, [finalTotalCalculation, departmentTotals]);
+  const handlerPaid = (e) => {
+    let paid = Number(e.target.value) || 0; // default 0 if empty or invalid
+    const maxPayable = totals?.totalDiscountedPrice || 0; // cannot pay more than discounted
+    if (paid < 0) paid = 0; // prevent negative
+    if (paid > maxPayable) paid = maxPayable; // prevent overpay
+    const due = maxPayable - paid; // calculate due
+    setDueAmount(due);
+  };
 
+  console.log(dueAmount);
   return (
     <>
       <div
@@ -430,8 +448,10 @@ const PatientCreatePopup = ({
                                 0
                               </td>
                               <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                                {finalTotalCalculation[item.depname]
-                                  ?.discountedPrice || item?.totalPrice}
+                                {
+                                  finalTotalCalculation[item.depname]
+                                    ?.discountedPrice
+                                }
                               </td>
                             </tr>
                           ))
@@ -581,6 +601,8 @@ const PatientCreatePopup = ({
                             type="number"
                             class="!w-full px-2 py-1 bg-yellow-100 text-black border border-gray-400 rounded text-right"
                             placeholder="0"
+                            value={totals?.totalDiscountedPrice - dueAmount} // Paid = total - due
+                            onChange={handlerPaid}
                           />
                         </div>
 
@@ -589,7 +611,9 @@ const PatientCreatePopup = ({
                         <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
                           <span class="text-right">Due Amount</span>
                           <span class="text-center w-4">=</span>
-                          <span class="text-right">0</span>
+                          <span class="text-right">
+                            {dueAmount || 0}
+                          </span>
                         </div>
 
                         <div class="flex justify-end gap-x-4 pt-4">
