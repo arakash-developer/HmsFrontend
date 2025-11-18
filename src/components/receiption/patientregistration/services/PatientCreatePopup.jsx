@@ -44,7 +44,6 @@ const PatientCreatePopup = ({
     const updatedTestIds = [...testIds, obj._id];
     setTestIds(updatedTestIds);
 
-    console.log("finalTotalCalculation", finalTotalCalculation);
   };
 
   let handleDeleteProcedure = (id) => {
@@ -102,7 +101,6 @@ const PatientCreatePopup = ({
       };
     });
   };
-  console.log("a", finalTotalCalculation);
 
   const calculateTotals = (obj) => {
     const result = Object.values(obj).reduce(
@@ -120,8 +118,6 @@ const PatientCreatePopup = ({
   useEffect(() => {
     calculateTotals(finalTotalCalculation);
   }, [finalTotalCalculation]);
-
-  console.log("totals", totals);
 
   return (
     <>
