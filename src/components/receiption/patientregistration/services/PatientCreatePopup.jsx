@@ -22,7 +22,7 @@ const PatientCreatePopup = ({
   filteredTests,
 }) => {
   const [finalTotalCalculation, setFinalTotalCalculation] = useState({});
-  const [dueAmount, setDueAmount] = useState(0);
+  const [dueAmount, setDueAmount] = useState();
   const [totals, setTotals] = useState({
     totalDiscount: 0,
     totalDiscountedPrice: 0,
@@ -135,8 +135,6 @@ const PatientCreatePopup = ({
     const due = maxPayable - paid; // calculate due
     setDueAmount(due);
   };
-
-  console.log(dueAmount);
   return (
     <>
       <div
@@ -435,7 +433,7 @@ const PatientCreatePopup = ({
                                       e.target.value
                                     )
                                   }
-                                  class="bg-primary-200 placeholder:text-[#000] text-xs pl-1 w-full block text-[#000] outline-0 dark:bg-[#15203c] dark:text-white dark:border-[#15203c] dark:placeholder:text-gray-400"
+                                  class="no-arrow bg-primary-200 placeholder:text-[#000] text-xs pl-1 w-full block text-[#000] outline-0 dark:bg-[#15203c] dark:text-white dark:border-[#15203c] dark:placeholder:text-gray-400"
                                 />
                               </td>
                               <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
@@ -599,8 +597,8 @@ const PatientCreatePopup = ({
                           <span class="text-center w-4">=</span>
                           <input
                             type="number"
-                            class="!w-full px-2 py-1 bg-yellow-100 text-black border border-gray-400 rounded text-right"
-                            placeholder="0"
+                            class="no-arrow !w-full px-2 py-1 bg-yellow-100 text-black border border-gray-400 rounded text-right"
+                            placeholder=""
                             value={totals?.totalDiscountedPrice - dueAmount} // Paid = total - due
                             onChange={handlerPaid}
                           />
