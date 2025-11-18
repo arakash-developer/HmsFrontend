@@ -106,7 +106,7 @@ const toggleSidebar = (e) => {
     <>
       {/* <!-- Header --> */}
 
-      <div className="md:flex md:items-center md:justify-between">
+      <div className="md:flex md:items-center md:justify-between main_header_navbar">
         <div className="flex items-center justify-center md:justify-normal">
           <div className="relative leading-none top-px ltr:mr-[13px] ltr:md:mr-[18px] ltr:lg:mr-[23px] rtl:ml-[13px] rtl:md:ml-[18px] rtl:lg:ml-[23px]">
             <button

@@ -24,7 +24,7 @@ import Country from "@/components/receiption/Country";
 import Department from "@/components/receiption/Department";
 import Doctor from "@/components/receiption/Doctor";
 import Due from "@/components/receiption/Due";
-import Patientinfo from "@/components/receiption/Patientinfo";
+import Patientinfo from "@/components/receiption/patientinfo/Patientinfo";
 import PatientReg from "@/components/receiption/patientregistration/PatientReg";
 import RefferelDoctor from "@/components/receiption/RefferelDoctor";
 import Statement from "@/components/receiption/Statement";
