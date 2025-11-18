@@ -29,7 +29,7 @@ import PatientReg from "@/components/receiption/patientregistration/PatientReg";
 import RefferelDoctor from "@/components/receiption/RefferelDoctor";
 import Statement from "@/components/receiption/Statement";
 import Test from "@/components/receiption/Test";
-import ReceiptionLayout from "@/layouts/receiption/receiptionLayout";
+import ReceiptionLayout from "@/layouts/receiption/ReceiptionLayout";
 import ProtectedRoute from "@/routes/ProtectedRoute";
 import PublicRoute from "@/routes/PublicRoute";
 // import { i } from "react-router/dist/development/index-react-server-client-kY8DvDF3";

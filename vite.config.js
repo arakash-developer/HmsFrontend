@@ -13,6 +13,12 @@ export default defineConfig({
       filename: "bundle-report.html", // Report file name
     }),
   ],
+  // ngrok address: seminocturnal-excrescently-archimedes.ngrok-free.dev
+  server: {
+    host: true, // allow network access
+    port: 5173, // your port
+    allowedHosts: ["seminocturnal-excrescently-archimedes.ngrok-free.dev"],
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

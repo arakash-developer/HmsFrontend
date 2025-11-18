@@ -2,7 +2,8 @@ import axios from "axios";
 
 // Create an Axios instance
 const api = axios.create({
-  baseURL: "http://localhost:3000/", // Your backend URL
+  // baseURL: "http://localhost:3000/", // Your backend URL
+  baseURL: "https://seminocturnal-excrescently-archimedes.ngrok-free.dev/", // Your backend URL
   headers: {
     "Content-Type": "application/json",
   },
