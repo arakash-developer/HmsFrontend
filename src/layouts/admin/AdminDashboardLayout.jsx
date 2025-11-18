@@ -57,24 +57,9 @@ export default function DashboardLayout() {
   ];
   let receiptionItemsList = [
     {
-      title: "Doctors Entry",
+      title: "Admin Entry",
       link: "/admin/doctors-entry",
       icon: "badge",
-    },
-    {
-      title: "Patient Registration",
-      link: "/admin/patient-registration",
-      icon: "person",
-    },
-    {
-      title: "Due Collection",
-      link: "/admin/due-collection",
-      icon: "money",
-    },
-    {
-      title: "Statement",
-      link: "/admin/statement",
-      icon: "receipt",
     },
   ];
   let settingsItemsList = [
@@ -86,82 +71,6 @@ export default function DashboardLayout() {
         {
           title: "Test1",
           link: "/admin/file/test1",
-        },
-      ],
-    },
-    {
-      title: "Setup",
-      link: "/admin/setup",
-      subItems: [
-        {
-          title: "Add New Income Head",
-          link: "/admin/setup/add-income-head",
-        },
-        {
-          title: "Add New Expense Head",
-          link: "/admin/setup/add-expense-head",
-        },
-        {
-          title: "Add New Department",
-          link: "/admin/setup/add-department",
-        },
-        {
-          title: "Add New Category",
-          link: "/admin/setup/add-category",
-        },
-        {
-          title: "Add New Test",
-          link: "/admin/setup/add-test",
-        },
-        {
-          title: "Add New Country",
-          link: "/admin/setup/add-country",
-        },
-      ],
-    },
-    {
-      title: "sales",
-      link: "/admin/sales",
-      subItems: [
-        {
-          title: "Add New Doctor",
-          link: "/admin/sales/add-doctor",
-        },
-        {
-          title: "Add New Patient",
-          link: "/admin/sales/add-patient",
-        },
-        {
-          title: "Due Collection",
-          link: "/admin/sales/due-collection",
-        },
-        {
-          title: "Search Patient Info",
-          link: "/admin/sales/search-patient-info",
-        },
-        {
-          title: "Refferel Doctor",
-          link: "/admin/sales/refferel-doctor",
-        },
-      ],
-    },
-    {
-      title: "Report",
-      link: "/admin/report",
-      subItems: [
-        {
-          title: "Test1",
-          link: "/admin/report/test1",
-        },
-      ],
-    },
-    {
-      title: "Help",
-      link: "/admin/help",
-      subItems: [
-        {
-          title: "Test1",
-          link: "/admin/help/test1",
         },
       ],
     },
