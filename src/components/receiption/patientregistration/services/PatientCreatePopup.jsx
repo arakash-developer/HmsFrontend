@@ -1,4 +1,4 @@
-import useCrud from "@/hooks/useCrud";
+import { useEffect, useState } from "react";
 import Flatpickr from "react-flatpickr";
 const PatientCreatePopup = ({
   cancelcountrypopup,
@@ -21,8 +21,7 @@ const PatientCreatePopup = ({
   handleDeletepopup,
   filteredTests,
 }) => {
-  const { data: aaa, create } = useCrud("api/departmentorderprice");
-  console.log("ddd", testIds, aaa?.data?.data);
+  const [departmentDiscounts, setDepartmentDiscounts] = useState({});
 
   const handleTestSelectChange = (e) => {
     const id = e.target.value;
@@ -40,27 +39,65 @@ const PatientCreatePopup = ({
     // Create a new updated array for testIds
     const updatedTestIds = [...testIds, obj._id];
     setTestIds(updatedTestIds);
-
-    // Send immediately using updated array
-    create.mutate(
-      { testIds: updatedTestIds }, // use updatedTestIds, NOT testIds
-      {
-        onSuccess: (res) => {
-          console.log("Server response:", res);
-          alert("Created successfully!");
-        },
-        onError: (err) => {
-          console.error("Error:", err);
-          alert("Something went wrong!");
-        },
-      }
-    );
   };
 
   let handleDeleteProcedure = (id) => {
     setTestList((prev) => prev.filter((test) => test._id !== id));
   };
 
+  const [departmentTotals, setDepartmentTotals] = useState([]);
+
+  useEffect(() => {
+    if (!testList.length) {
+      setDepartmentTotals([]);
+      return;
+    }
+
+    const totalsMap = {};
+
+    testList.forEach((test) => {
+      const dept = test?.category?.department?.name?.toLowerCase() || "unknown";
+      const price = Number(test?.testcharge || 0);
+
+      totalsMap[dept] = (totalsMap[dept] || 0) + price;
+    });
+
+    // Convert map to array
+    const totalsArray = Object.entries(totalsMap).map(
+      ([depname, totalPrice]) => ({
+        depname,
+        totalPrice,
+      })
+    );
+
+    setDepartmentTotals(totalsArray);
+  }, [testList]);
+  const handleDiscountChange = (deptName, value) => {
+    setDepartmentDiscounts((prev) => {
+      const totalPrice =
+        departmentTotals.find((d) => d.depname === deptName)?.totalPrice || 0;
+
+      let discount = Number(value) || 0;
+
+      // Clamp discount between 0 and totalPrice
+      if (discount < 0) discount = 0;
+      if (discount > totalPrice) discount = totalPrice;
+
+      // Discounted price is total minus discount
+      const discountedPrice = totalPrice - discount;
+
+      return {
+        ...prev,
+        [deptName]: {
+          discount,
+          discountedPrice, // this is final price after discount
+          discountAmount: discount, // store actual discount value for clarity
+        },
+      };
+    });
+  };
+
+  console.log("a", departmentDiscounts);
   return (
     <>
       <div
@@ -335,78 +372,124 @@ const PatientCreatePopup = ({
                       </thead>
 
                       <tbody>
-                        <tr>
-                          <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                            Pathology
-                          </td>
-                          <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                            1
-                          </td>
-                          <td class="border border-gray-400 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                            <input
-                              type="number"
-                              placeholder="0"
-                              class="bg-primary-200 placeholder:text-[#000] text-xs pl-1 w-full block text-[#000] outline-0 dark:bg-[#15203c] dark:text-white dark:border-[#15203c] dark:placeholder:text-gray-400"
-                            />
-                          </td>
-                          <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                            1
-                          </td>
-                          <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                            1
-                          </td>
-                          <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                            1
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                            X-Ray| ECG
-                          </td>
-                          <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                            1
-                          </td>
-                          <td class="border border-gray-400 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                            <input
-                              type="number"
-                              placeholder="0"
-                              class="bg-primary-200 placeholder:text-[#000] text-xs pl-1 w-full block text-[#000] outline-0 dark:bg-[#15203c] dark:text-white dark:border-[#15203c] dark:placeholder:text-gray-400"
-                            />
-                          </td>
-                          <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                            1
-                          </td>
-                          <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                            1
-                          </td>
-                          <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                            1
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                            Ultra-Sono
-                          </td>
-                          <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                            1
-                          </td>
-                          <td class="border border-gray-400 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                            <input
-                              type="number"
-                              placeholder="0"
-                              class="bg-primary-200 placeholder:text-[#000] text-xs pl-1 w-full block text-[#000] outline-0 dark:bg-[#15203c] dark:text-white dark:border-[#15203c] dark:placeholder:text-gray-400"
-                            />
-                          </td>
-                          <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                            1
-                          </td>
-                          <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                            1
-                          </td>
-                          <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                            1
-                          </td>
-                        </tr>
+                        {departmentTotals.length > 0 ? (
+                          departmentTotals?.map((item, index) => (
+                            <tr>
+                              <td class="capitalize border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                                {item?.depname}
+                              </td>
+                              <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                                {item?.totalPrice}
+                              </td>
+                              <td class="border border-gray-400 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                                <input
+                                  type="number"
+                                  min={0}
+                                  max={item.totalPrice}
+                                  value={
+                                    departmentDiscounts[item.depname]
+                                      ?.discount || ""
+                                  }
+                                  onChange={(e) =>
+                                    handleDiscountChange(
+                                      item.depname,
+                                      e.target.value
+                                    )
+                                  }
+                                  class="bg-primary-200 placeholder:text-[#000] text-xs pl-1 w-full block text-[#000] outline-0 dark:bg-[#15203c] dark:text-white dark:border-[#15203c] dark:placeholder:text-gray-400"
+                                />
+                              </td>
+                              <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                                {
+                                  departmentDiscounts[item.depname]
+                                    ?.discountedPrice
+                                }
+                              </td>
+                              <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                                0
+                              </td>
+                              <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                                {
+                                  departmentDiscounts[item.depname]
+                                    ?.discountedPrice
+                                }
+                              </td>
+                            </tr>
+                          ))
+                        ) : (
+                          <>
+                            <tr>
+                              <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                                Pathology
+                              </td>
+                              <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                                0
+                              </td>
+                              <td class="border border-gray-400 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                                <input
+                                  type="number"
+                                  placeholder="0"
+                                  class="bg-primary-200 placeholder:text-[#000] text-xs pl-1 w-full block text-[#000] outline-0 dark:bg-[#15203c] dark:text-white dark:border-[#15203c] dark:placeholder:text-gray-400"
+                                />
+                              </td>
+                              <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]"></td>
+                              <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                                0
+                              </td>
+                              <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                                0
+                              </td>
+                            </tr>
+                            <tr>
+                              <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                                X-Ray| ECG
+                              </td>
+                              <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                                0
+                              </td>
+                              <td class="border border-gray-400 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                                <input
+                                  type="number"
+                                  placeholder="0"
+                                  class="bg-primary-200 placeholder:text-[#000] text-xs pl-1 w-full block text-[#000] outline-0 dark:bg-[#15203c] dark:text-white dark:border-[#15203c] dark:placeholder:text-gray-400"
+                                />
+                              </td>
+                              <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                                0
+                              </td>
+                              <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                                0
+                              </td>
+                              <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                                0
+                              </td>
+                            </tr>
+                            <tr>
+                              <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                                Ultra-Sono
+                              </td>
+                              <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                                0
+                              </td>
+                              <td class="border border-gray-400 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                                <input
+                                  type="number"
+                                  placeholder="0"
+                                  class="bg-primary-200 placeholder:text-[#000] text-xs pl-1 w-full block text-[#000] outline-0 dark:bg-[#15203c] dark:text-white dark:border-[#15203c] dark:placeholder:text-gray-400"
+                                />
+                              </td>
+                              <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                                0
+                              </td>
+                              <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                                0
+                              </td>
+                              <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                                0
+                              </td>
+                            </tr>
+                          </>
+                        )}
                       </tbody>
                     </table>
                     <div className="date and timer mt-3 flex gap-x-2">
