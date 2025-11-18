@@ -21,7 +21,7 @@ const PatientCreatePopup = ({
   handleDeletepopup,
   filteredTests,
 }) => {
-  const [departmentDiscounts, setDepartmentDiscounts] = useState({});
+  const [finalTotalCalculation, setFinalTotalCalculation] = useState({});
 
   const handleTestSelectChange = (e) => {
     const id = e.target.value;
@@ -73,7 +73,7 @@ const PatientCreatePopup = ({
     setDepartmentTotals(totalsArray);
   }, [testList]);
   const handleDiscountChange = (deptName, value) => {
-    setDepartmentDiscounts((prev) => {
+    setFinalTotalCalculation((prev) => {
       const totalPrice =
         departmentTotals.find((d) => d.depname === deptName)?.totalPrice || 0;
 
@@ -96,8 +96,8 @@ const PatientCreatePopup = ({
       };
     });
   };
+  console.log("a", finalTotalCalculation);
 
-  console.log("a", departmentDiscounts);
   return (
     <>
       <div
@@ -387,7 +387,7 @@ const PatientCreatePopup = ({
                                   min={0}
                                   max={item.totalPrice}
                                   value={
-                                    departmentDiscounts[item.depname]
+                                    finalTotalCalculation[item.depname]
                                       ?.discount || ""
                                   }
                                   onChange={(e) =>
@@ -401,7 +401,7 @@ const PatientCreatePopup = ({
                               </td>
                               <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
                                 {
-                                  departmentDiscounts[item.depname]
+                                  finalTotalCalculation[item.depname]
                                     ?.discountedPrice
                                 }
                               </td>
@@ -409,9 +409,9 @@ const PatientCreatePopup = ({
                                 0
                               </td>
                               <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                                {
-                                  departmentDiscounts[item.depname]
-                                    ?.discountedPrice
+                               {
+                                  finalTotalCalculation[item.depname]
+                                    ?.discountedPrice || item?.totalPrice
                                 }
                               </td>
                             </tr>
@@ -531,7 +531,9 @@ const PatientCreatePopup = ({
                         <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
                           <span class="text-right">Total Charge</span>
                           <span class="text-center w-4">=</span>
-                          <span class="text-right">0</span>
+                          <span class="text-right">
+                            {finalTotalCalculation?.discountedPrice}
+                          </span>
                         </div>
 
                         <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
