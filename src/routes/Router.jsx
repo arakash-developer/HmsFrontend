@@ -24,11 +24,15 @@ import Country from "@/components/receiption/Country";
 import Department from "@/components/receiption/Department";
 import Doctor from "@/components/receiption/Doctor";
 import Due from "@/components/receiption/Due";
+import OutdoorIncome from "@/components/receiption/outdoorIncome/OutdoorIncome";
 import Patientinfo from "@/components/receiption/patientinfo/Patientinfo";
 import PatientReg from "@/components/receiption/patientregistration/PatientReg";
+import PeriodicalReport from "@/components/receiption/periodicalReport/periodicalReport";
+import PeriodicalStatementReport from "@/components/receiption/periodicalStatementReport/periodicalStatementReport";
 import RefferelDoctor from "@/components/receiption/RefferelDoctor";
 import Statement from "@/components/receiption/Statement";
 import Test from "@/components/receiption/Test";
+import UserWiseCollection from "@/components/receiption/userWiseCollection/UserWiseCollection";
 import ReceiptionLayout from "@/layouts/receiption/ReceiptionLayout";
 import ProtectedRoute from "@/routes/ProtectedRoute";
 import PublicRoute from "@/routes/PublicRoute";
@@ -66,6 +70,13 @@ const routes = [
           { path: "statement", element: <Statement /> },
           { path: "search-patient-info", element: <Patientinfo /> },
           { path: "refferel-doctor", element: <RefferelDoctor /> },
+          { path: "outdoor-income", element: <OutdoorIncome /> },
+          { path: "periodical-report", element: <PeriodicalReport /> },
+          {
+            path: "periodical-statement-report",
+            element: <PeriodicalStatementReport />,
+          },
+          { path: "user-wise-collection", element: <UserWiseCollection /> },
         ],
       },
     ],

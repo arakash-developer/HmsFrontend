@@ -153,8 +153,20 @@ export default function ReceiptionLayout() {
       icon: "bar_chart",
       subItems: [
         {
-          title: "Test1",
-          link: "/admin/report/test1",
+          title: "Outdoor Income",
+          link: "/receiption/outdoor-income",
+        },
+        {
+          title: "Periodical Report",
+          link: "/receiption/periodical-report",
+        },
+        {
+          title: "Periodical Statement Report",
+          link: "/receiption/periodical-statement-report",
+        },
+        {
+          title: "User Wise Collection",
+          link: "/receiption/user-wise-collection",
         },
       ],
     },

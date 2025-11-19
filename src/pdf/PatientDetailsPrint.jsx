@@ -224,8 +224,6 @@ const PatientDetailsPrint = ({ patientData }) => {
             </tbody>
           </table>
         </div>
-        {/* Once this works, uncomment the line below */}
-        {/* <PatientInvoice data={data} patient={patient} /> */}
       </div>
     </div>
   );
