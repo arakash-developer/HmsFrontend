@@ -1,4 +1,3 @@
-import Table from "@/global/Table";
 import useCrudPaginated from "@/hooks/useCrudPaginated";
 import useDatePicker from "@hooks/useDatePicker";
 import Flatpickr from "react-flatpickr";
@@ -30,9 +29,6 @@ const OutdoorIncome = () => {
           <div class="trezo-card w-full bg-gray-50 dark:bg-[#0c1427] p-[20px] md:p-[25px] rounded-md">
             <div class="trezo-card-header bg-gray-50 dark:bg-[#15203c] mb-[20px] md:mb-[25px] flex items-center justify-between -mx-[20px] md:-mx-[25px] -mt-[20px] md:-mt-[25px] p-[20px] md:p-[25px] rounded-t-md">
               <div class="trezo-card-title">
-                <label>Select Date: {uiDate}</label>
-                <label>Select Date: {backendDate}</label>
-
                 <h5 class="mb-0">Outdoor Income Report</h5>
               </div>
               <div class="trezo-card-subtitle">

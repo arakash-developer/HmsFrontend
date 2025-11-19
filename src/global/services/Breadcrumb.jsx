@@ -1,9 +1,9 @@
-const Breadcrumb = ({ Breadcrumbname, BreadcrumbPath }) => {
+const Breadcrumb = ({ Breadcrumbname, BreadcrumbPath ,uidate}) => {
   return (
     <>
       {/* <!-- Breadcrumb --> */}
       <div class="mb-[25px] md:flex items-center justify-between">
-        <h5 class="mb-0">{Breadcrumbname ? Breadcrumbname : null}</h5>
+        <h5 class="mb-0">{Breadcrumbname ? Breadcrumbname : null} ({uidate ? uidate : null})</h5>
         <ol class="breadcrumb mt-[12px] md:mt-0">
           <li class="breadcrumb-item inline-block relative text-sm mx-[11px] ltr:first:ml-0 rtl:first:mr-0 ltr:last:mr-0 rtl:last:ml-0">
             <a

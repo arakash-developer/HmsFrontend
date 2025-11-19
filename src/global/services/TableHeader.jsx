@@ -10,7 +10,7 @@ const TableHeader = ({
   setLimit,
   patientData,
 }) => {
-      const componentRef = useRef();
+  const componentRef = useRef();
 
   const handlePrintClick = () => {
     if (!componentRef.current) {
@@ -129,7 +129,7 @@ const TableHeader = ({
           </ol>
           <div
             onClick={handlePrintClick}
-            class="inline-block transition-all rounded-md font-medium px-[13px] py-[6px] text-primary-500 border border-primary-500 hover:bg-primary-500 hover:text-white"
+            class="inline-block cursor-pointer transition-all rounded-md font-medium px-[13px] py-[6px] text-primary-500 border border-primary-500 hover:bg-primary-500 hover:text-white"
             id="add-new-popup-toggle"
           >
             <span class="inline-block relative ltr:pl-[22px] rtl:pr-[22px]">
@@ -140,7 +140,10 @@ const TableHeader = ({
             </span>
           </div>
         </div>
-        <PatientDetailsPrint patientData={patientData} componentRef={componentRef} />
+        <PatientDetailsPrint
+          patientData={patientData}
+          componentRef={componentRef}
+        />
       </div>
     </>
   );

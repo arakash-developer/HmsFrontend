@@ -14,6 +14,7 @@ const Table = ({
   limit,
   Breadcrumbname,
   BreadcrumbPath,
+  uidate,
 }) => {
   let [deletepopup, setDeletePopup] = useState(false);
   let [editpopup, setEditPopup] = useState(false);
@@ -64,6 +65,7 @@ const Table = ({
     <>
       {/* <!-- Main Content --> */}
       <Breadcrumb
+        uidate={uidate}
         Breadcrumbname={Breadcrumbname}
         BreadcrumbPath={BreadcrumbPath}
       />

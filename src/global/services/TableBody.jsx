@@ -1,6 +1,102 @@
+import PatientDetailsPrint from "@/pdf/PatientDetailsPrint";
+import { useRef, useState } from "react";
+
 const TableBody = ({ patientData = [], page, setPage, patientisLoading }) => {
+  const componentRef = useRef();
+  const singlePatientRef = useRef();
+  const [selectedPatient, setSelectedPatient] = useState(null);
+
+  const singlePrint = (patient) => {
+    setSelectedPatient([patient]); // Convert to array format for PatientDetailsPrint
+
+    setTimeout(() => {
+      if (!singlePatientRef.current) {
+        console.error("Single patient component ref not found");
+        return;
+      }
+
+      // Create a new window with only the selected patient print content
+      const printContent = singlePatientRef.current.innerHTML;
+      const printWindow = window.open("", "_blank", "width=800,height=600");
+
+      printWindow.document.write(`
+          <html>
+            <head>
+              <title>Patient Invoice - ${
+                patient?.patientname || "Patient"
+              }</title>
+              <style>
+                @page {
+                  size: A4;
+                  margin: 15mm;
+                }
+                  *{
+                margin: 0; 
+                padding: 0px;
+                }
+                body { 
+                  margin: 0; 
+                  padding: 0px;
+                  font-family: Inter, system-ui, sans-serif !important;
+                  -webkit-print-color-adjust: exact;
+                }
+                table { 
+                  width: 100%; 
+                  border-collapse: collapse; 
+                  margin-top: 20px; 
+                }
+                th, td { 
+                  padding: 8px; 
+                  border-bottom: 1px solid #ccc; 
+                  text-align: left; 
+                }
+                th { 
+                  border-bottom: 2px solid #000; 
+                  font-weight: bold; 
+                }
+                .flex { display: flex; }
+                .items-center { align-items: center; }
+                .justify-center { justify-content: center; }
+                .gap-x-2 { gap: 8px; }
+                .text-center { text-align: center; }
+                .uppercase { text-transform: uppercase; }
+                .my-5 { margin: 20px 0; }
+                img { height: 80px; display: block; }
+                h1 { margin: 0; color: #000; }
+                h3 { margin: 0; color: #000; }
+                p { margin: 5px 0; color: #2e2e2e; }
+              </style>
+            </head>
+            <body>${printContent}</body>
+          </html>
+        `);
+
+      printWindow.document.close();
+
+      printWindow.onload = () => {
+        setTimeout(() => {
+          printWindow.print();
+          printWindow.close();
+        }, 500);
+      };
+    }, 100);
+  };
+
   return (
     <>
+      <PatientDetailsPrint
+        patientData={patientData}
+        componentRef={componentRef}
+      />
+
+      {/* Hidden component for single patient printing */}
+      <div style={{ position: "absolute", left: "-9999px", top: "-9999px" }}>
+        <PatientDetailsPrint
+          patientData={selectedPatient || []}
+          componentRef={singlePatientRef}
+        />
+      </div>
+
       {patientisLoading ? (
         <h5 class="mb-0 text-center capitalize">Loading...</h5>
       ) : patientData.length > 0 ? (
@@ -99,7 +195,8 @@ const TableBody = ({ patientData = [], page, setPage, patientisLoading }) => {
                         <div
                           class="text-danger-500 leading-none custom-tooltip cursor-pointer"
                           id="customTooltip"
-                          data-text="Delete"
+                          data-text="Print"
+                          onClick={() => singlePrint(patient)}
                         >
                           <i class="material-symbols-outlined !text-xl">
                             print
@@ -128,38 +225,7 @@ const TableBody = ({ patientData = [], page, setPage, patientisLoading }) => {
                   </i>
                 </button>
               </li>
-              {/* <li class="inline-block mx-[1px] ltr:first:ml-0 ltr:last:mr-0 rtl:first:mr-0 rtl:last:ml-0">
-              <a
-                href="javascript:void(0);"
-                class="w-[31px] h-[31px] block leading-[29px] relative text-center rounded-md border border-primary-500 bg-primary-500 text-white"
-              >
-                1
-              </a>
-            </li>
-            <li class="inline-block mx-[1px] ltr:first:ml-0 ltr:last:mr-0 rtl:first:mr-0 rtl:last:ml-0">
-              <a
-                href="javascript:void(0);"
-                class="w-[31px] h-[31px] block leading-[29px] relative text-center rounded-md border border-gray-100 dark:border-[#172036] transition-all hover:bg-primary-500 hover:text-white hover:border-primary-500"
-              >
-                2
-              </a>
-            </li>
-            <li class="inline-block mx-[1px] ltr:first:ml-0 ltr:last:mr-0 rtl:first:mr-0 rtl:last:ml-0">
-              <a
-                href="javascript:void(0);"
-                class="w-[31px] h-[31px] block leading-[29px] relative text-center rounded-md border border-gray-100 dark:border-[#172036] transition-all hover:bg-primary-500 hover:text-white hover:border-primary-500"
-              >
-                3
-              </a>
-            </li>
-            <li class="inline-block mx-[1px] ltr:first:ml-0 ltr:last:mr-0 rtl:first:mr-0 rtl:last:ml-0">
-              <a
-                href="javascript:void(0);"
-                class="w-[31px] h-[31px] block leading-[29px] relative text-center rounded-md border border-gray-100 dark:border-[#172036] transition-all hover:bg-primary-500 hover:text-white hover:border-primary-500"
-              >
-                4
-              </a>
-            </li> */}
+
               <li class="inline-block mx-[1px] ltr:first:ml-0 ltr:last:mr-0 rtl:first:mr-0 rtl:last:ml-0">
                 <button
                   href="javascript:void(0);"

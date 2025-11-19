@@ -1,6 +1,6 @@
 import Logo from "@public/images/logo-big.svg";
 
-const PatientDetailsPrint = ({ patientData, back, componentRef }) => {
+const PatientDetailsPrint = ({ patientData=[], back, componentRef }) => {
   return (
     <>
       <style jsx>{`

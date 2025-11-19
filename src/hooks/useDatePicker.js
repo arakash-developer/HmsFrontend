@@ -2,42 +2,62 @@ import { useState } from "react";
 import { DateTime } from "luxon";
 
 const useDatePicker = (initialTimezone = "UTC") => {
-  // Timezone for backend conversion
   const TIMEZONE = initialTimezone;
 
-  // Default: today
+  // Default today
   const now = DateTime.now().setZone(TIMEZONE);
 
-  // UI value (Date object for Flatpickr)
+  // Flatpickr Date object
   const [displayDate, setDisplayDate] = useState(now.toJSDate());
 
-  // Backend-ready date string: yyyy-mm-dd
+  // Backend ISO date (yyyy-mm-dd)
   const [backendDate, setBackendDate] = useState(now.toISODate());
 
-  // Display string for UI: dd-mm-yyyy
+  // UI date (dd-mm-yyyy)
   const [uiDate, setUiDate] = useState(now.toFormat("dd-MM-yyyy"));
 
+  // When user selects a date from Flatpickr
   const handleDateChange = (selectedDates) => {
-    const d = selectedDates[0];
-    if (!d) return;
+    const jsDate = selectedDates[0];
+    if (!jsDate) return;
 
-    setDisplayDate(d);
+    const dt = DateTime.fromJSDate(jsDate).setZone(TIMEZONE);
 
-    // Convert JS Date -> Luxon DateTime in timezone
-    const dt = DateTime.fromJSDate(d).setZone(TIMEZONE);
+    setDisplayDate(jsDate);
+    setBackendDate(dt.toISODate());        // yyyy-mm-dd
+    setUiDate(dt.toFormat("dd-MM-yyyy"));  // dd-mm-yyyy
+  };
 
-    // Update backend date: yyyy-mm-dd
-    setBackendDate(dt.toISODate());
+  // ⭐ Convert backend yyyy-mm-dd → dd-mm-yyyy
+  const convertBackendToUi = (dateString) => {
+    if (!dateString) return "";
+    const dt = DateTime.fromISO(dateString).setZone(TIMEZONE);
+    return dt.toFormat("dd-MM-yyyy");
+  };
 
-    // Update UI string: dd-mm-yyyy
-    setUiDate(dt.toFormat("dd-MM-yyyy"));
+  // ⭐ Convert backend ISO full date → dd-mm-yyyy
+  const convertIsoToUi = (isoString) => {
+    if (!isoString) return "";
+    const dt = DateTime.fromISO(isoString).setZone(TIMEZONE);
+    return dt.toFormat("dd-MM-yyyy");
+  };
+
+  // ⭐ Convert backend yyyy-mm-dd → JS Date (Flatpickr needs this)
+  const backendToJsDate = (dateString) => {
+    if (!dateString) return null;
+    return DateTime.fromISO(dateString).setZone(TIMEZONE).toJSDate();
   };
 
   return {
-    displayDate, // for Flatpickr value
-    uiDate,      // dd-mm-yyyy for UI
-    backendDate, // yyyy-mm-dd for backend
+    displayDate,     // For Flatpickr
+    backendDate,     // Server-ready yyyy-mm-dd
+    uiDate,          // UI dd-mm-yyyy
     handleDateChange,
+
+    // NEW HELPERS
+    convertBackendToUi,  // yyyy-mm-dd → dd-mm-yyyy
+    convertIsoToUi,      // 2025-11-17T07:46:23.798Z → dd-mm-yyyy
+    backendToJsDate,      // yyyy-mm-dd → JS Date
   };
 };
 
