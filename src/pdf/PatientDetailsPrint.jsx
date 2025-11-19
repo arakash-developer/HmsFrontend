@@ -1,7 +1,8 @@
 import Logo from "@public/images/logo-big.svg";
 import { useRef } from "react";
+import { Link } from "react-router";
 
-const PatientDetailsPrint = ({ patientData }) => {
+const PatientDetailsPrint = ({ patientData, back }) => {
   const componentRef = useRef();
 
   const handlePrintClick = () => {
@@ -78,13 +79,14 @@ const PatientDetailsPrint = ({ patientData }) => {
     <div className="">
       <div className="mb-4 space-x-2">
         <div class="ltr:text-right rtl:text-left">
-          <div
+          <Link
+            to={back}
             class="cursor-pointer rounded-md inline-block transition-all font-medium ltr:mr-[15px] rtl:ml-[15px] px-[26.5px] py-[7px] bg-danger-500 text-white hover:bg-danger-400"
             id="add-new-popup-toggle"
             //   onClick={cancelcountrypopup}
           >
             Back
-          </div>
+          </Link>
           <div
             onClick={handlePrintClick}
             class="cursor-pointer inline-block bg-primary-500 text-white py-[7px] px-[26.5px] transition-all rounded-md hover:bg-primary-400"

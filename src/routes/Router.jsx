@@ -36,6 +36,7 @@ import UserWiseCollection from "@/components/receiption/userWiseCollection/UserW
 import ReceiptionLayout from "@/layouts/receiption/ReceiptionLayout";
 import ProtectedRoute from "@/routes/ProtectedRoute";
 import PublicRoute from "@/routes/PublicRoute";
+import OutdoorReport from "@/components/receiption/outdoorIncome/services/OutdoorReport";
 // import { i } from "react-router/dist/development/index-react-server-client-kY8DvDF3";
 
 const routes = [
@@ -71,6 +72,7 @@ const routes = [
           { path: "search-patient-info", element: <Patientinfo /> },
           { path: "refferel-doctor", element: <RefferelDoctor /> },
           { path: "outdoor-income", element: <OutdoorIncome /> },
+          { path: "outdoor-income/outdoor-report", element: <OutdoorReport /> },
           { path: "periodical-report", element: <PeriodicalReport /> },
           {
             path: "periodical-statement-report",
