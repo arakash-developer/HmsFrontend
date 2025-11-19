@@ -4,9 +4,12 @@
     "paths": {
       "@/*": ["./src/*"],
       "@public/*": ["./src/public/*"],
+      "@hooks/*": ["./src/hooks/*"],
       "@layouts/*": ["./src/layouts/*"],
       "@routes/*": ["./src/routes/*"],
       "@components/*": ["./src/components/*"],
+      "@pdf/*": ["./src/pdf/*"],
+      "@global/*": ["./src/global/*"],
       "@libs/*": ["./src/libs/*"],
       "@contexts/*": ["./src/contexts/*"],
       "@utils/*": ["./src/utils/*"]

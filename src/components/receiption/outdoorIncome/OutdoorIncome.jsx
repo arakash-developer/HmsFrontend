@@ -1,9 +1,28 @@
-import { useState } from "react";
+import Table from "@/global/Table";
+import useCrudPaginated from "@/hooks/useCrudPaginated";
+import useDatePicker from "@hooks/useDatePicker";
 import Flatpickr from "react-flatpickr";
 import { Link } from "react-router";
 
 const OutdoorIncome = () => {
-  const [date, setDate] = useState(new Date());
+  const { displayDate, uiDate, backendDate, handleDateChange } =
+    useDatePicker("Asia/Dhaka");
+  const backendDatee = "2025-11-17"; // from your useDatePicker hook
+  const {
+    data: patientData,
+    page,
+    setPage,
+    limit,
+    setLimit,
+    refetch: patientrefetch,
+    create: patientcreate,
+    update: patientupdate,
+    isLoading: patientisLoading,
+    remove: patientremove,
+  } = useCrudPaginated(`api/report?date=${backendDatee}&`, 1, 30);
+
+  console.log(patientData);
+
   return (
     <div>
       <div class="">
@@ -11,6 +30,9 @@ const OutdoorIncome = () => {
           <div class="trezo-card w-full bg-gray-50 dark:bg-[#0c1427] p-[20px] md:p-[25px] rounded-md">
             <div class="trezo-card-header bg-gray-50 dark:bg-[#15203c] mb-[20px] md:mb-[25px] flex items-center justify-between -mx-[20px] md:-mx-[25px] -mt-[20px] md:-mt-[25px] p-[20px] md:p-[25px] rounded-t-md">
               <div class="trezo-card-title">
+                <label>Select Date: {uiDate}</label>
+                <label>Select Date: {backendDate}</label>
+
                 <h5 class="mb-0">Outdoor Income Report</h5>
               </div>
               <div class="trezo-card-subtitle">
@@ -32,9 +54,9 @@ const OutdoorIncome = () => {
                     </label>
                     <div className="relative w-full">
                       <Flatpickr
-                        value={date}
-                        onChange={(selectedDates) => setDate(selectedDates[0])}
-                        options={{ dateFormat: "d-m-Y" }} // day-month-year
+                        value={displayDate}
+                        onChange={handleDateChange}
+                        options={{ dateFormat: "d-m-Y" }} // UI always dd-mm-yyyy
                         className="h-[40px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500"
                       />
 
@@ -69,6 +91,11 @@ const OutdoorIncome = () => {
           </div>
         </div>
       </div>
+
+      <Table paginatedataurl={`api/report?date=${backendDate}&`} page={1} limit={30} 
+      
+      searchdataurl={`/api/patientregistration/patientid/`}
+      />
     </div>
   );
 };
