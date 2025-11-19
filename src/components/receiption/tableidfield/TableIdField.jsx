@@ -12,8 +12,11 @@ const TableIdField = () => {
   const [selectedDeptId, setSelectedDeptId] = useState(""); // state to store selected ID
   const [deleteId, setDeleteId] = useState(null);
   const [editInfo, setEditInfo] = useState(null);
-  const { data, refetch, create, update, remove } = useCrud("api/category");
-  const { data: departmentData } = useCrud("api/department");
+  const { data, refetch, create, update, remove } = useCrud("api/tableidfield");
+  const { data: departmentData } = useCrud("api/table");
+
+  console.log(data, "aa");
+  console.log(departmentData, "vv");
 
   let addcountryhandler = () => {
     setPopup(true);
@@ -25,9 +28,8 @@ const TableIdField = () => {
   let addcountry = () => {
     create.mutate(
       {
-        name: form.name,
-        department: selectedDeptId,
-        carried: form.carried,
+        tableidfield: form.name,
+        table: selectedDeptId,
       },
       {
         onSuccess: () => {
@@ -54,7 +56,7 @@ const TableIdField = () => {
   let handleEditpopup = (info) => {
     setEditPopup(true);
     setEditInfo(info);
-    setForm({ name: info.name , carried: info.carried});
+    setForm({ name: info.name, carried: info.carried });
   };
   let handleEditpopupclose = () => {
     setEditPopup(false);
@@ -64,9 +66,8 @@ const TableIdField = () => {
       {
         id: editInfo.id,
         body: {
-          name: form.name,
-          carried: form.carried,
-          department: editInfo.department,
+          tableidfield: form.name,
+          table: editInfo.department.name,
         },
       },
       {
@@ -83,7 +84,7 @@ const TableIdField = () => {
       {/* <!-- Main Content --> */}
       {/* <!-- Breadcrumb --> */}
       <div class="mb-[25px] md:flex items-center justify-between">
-        <h5 class="mb-0">Category</h5>
+        <h5 class="mb-0">Table Id Field</h5>
         <ol class="breadcrumb mt-[12px] md:mt-0">
           <li class="breadcrumb-item inline-block relative text-sm mx-[11px] ltr:first:ml-0 rtl:first:mr-0 ltr:last:mr-0 rtl:last:ml-0">
             <a
@@ -130,7 +131,7 @@ const TableIdField = () => {
                 <i class="material-symbols-outlined !text-[22px] absolute ltr:-left-[4px] rtl:-right-[4px] top-1/2 -translate-y-1/2">
                   add
                 </i>
-                Add New Category
+                Add New Table Id Field
               </span>
             </div>
           </div>
@@ -149,13 +150,10 @@ const TableIdField = () => {
                     ID
                   </th>
                   <th class="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
-                    Test Category Name
+                    Table Name
                   </th>
                   <th class="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
-                    Under Department
-                  </th>
-                  <th class="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
-                    Test carried Out By
+                    Under Table
                   </th>
 
                   <th class="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
@@ -178,17 +176,12 @@ const TableIdField = () => {
                     </td>
                     <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
                       <span class="block font-medium text-gray-500 dark:text-gray-400">
-                        {department?.name}
+                        {department?.tableidfield}
                       </span>
                     </td>
                     <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
                       <span class="block font-medium text-gray-500 dark:text-gray-400">
-                        {department?.department?.name}
-                      </span>
-                    </td>
-                    <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
-                      <span class="block font-medium text-gray-500 dark:text-gray-400">
-                        {department?.carried}
+                        {department?.table?.tablename}
                       </span>
                     </td>
 
@@ -210,9 +203,8 @@ const TableIdField = () => {
                           onClick={() =>
                             handleEditpopup({
                               id: department?._id,
-                              name: department?.name,
-                              department: department?.department?.name,
-                              carried: department?.carried,
+                              name: department?.tableidfield,
+                              department: department?.table?.tablename,
                             })
                           }
                         >
@@ -252,7 +244,7 @@ const TableIdField = () => {
             <div class="trezo-card w-full bg-gray-50 dark:bg-[#0c1427] p-[20px] md:p-[25px] rounded-md">
               <div class="trezo-card-header bg-gray-50 dark:bg-[#15203c] mb-[20px] md:mb-[25px] flex items-center justify-between -mx-[20px] md:-mx-[25px] -mt-[20px] md:-mt-[25px] p-[20px] md:p-[25px] rounded-t-md">
                 <div class="trezo-card-title">
-                  <h5 class="mb-0">Add New Category</h5>
+                  <h5 class="mb-0">Add New Table Id Field</h5>
                 </div>
                 <div class="trezo-card-subtitle">
                   <div
@@ -269,24 +261,24 @@ const TableIdField = () => {
                   <div class="grid grid-cols-1 sm:grid-cols-2 gap-[20px] md:gap-[25px]">
                     <div class="sm:col-span-2">
                       <label class="mb-[10px] text-black dark:text-white font-medium block">
-                        Select Department
+                        Select Table
                       </label>
                       <select
                         class="h-[40px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500"
                         onChange={(e) => setSelectedDeptId(e.target.value)}
                         value={selectedDeptId}
                       >
-                        <option>Select Department</option>
+                        <option> Select Category</option>
                         {departmentData?.map((dept) => (
                           <option key={dept._id} value={dept._id}>
-                            {dept.name}
+                            {dept?.tablename}
                           </option>
                         ))}
                       </select>
                     </div>
                     <div class="sm:col-span-2">
                       <label class="mb-[10px] text-black dark:text-white font-medium block">
-                        Test Category Name
+                        Table Name
                       </label>
                       <input
                         type="text"
@@ -295,21 +287,7 @@ const TableIdField = () => {
                         }
                         value={form.name}
                         class="h-[45px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
-                        placeholder="Category Name"
-                      />
-                    </div>
-                    <div class="sm:col-span-2">
-                      <label class="mb-[10px] text-black dark:text-white font-medium block">
-                        Test carried Out By
-                      </label>
-                      <input
-                        type="text"
-                        onChange={(e) =>
-                          setForm({ ...form, carried: e.target.value })
-                        }
-                        value={form.carried}
-                        class="h-[45px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
-                        placeholder="Carried Out By"
+                        placeholder="Table Name"
                       />
                     </div>
                   </div>
@@ -349,7 +327,7 @@ const TableIdField = () => {
             <div class="trezo-card w-full bg-gray-50 dark:bg-[#0c1427] p-[20px] md:p-[25px] rounded-md">
               <div class="trezo-card-header bg-gray-50 dark:bg-[#15203c] mb-[20px] md:mb-[25px] flex items-center justify-between -mx-[20px] md:-mx-[25px] -mt-[20px] md:-mt-[25px] p-[20px] md:p-[25px] rounded-t-md">
                 <div class="trezo-card-title">
-                  <h5 class="mb-0">Update Category</h5>
+                  <h5 class="mb-0">Update Table Id Field</h5>
                 </div>
                 <div class="trezo-card-subtitle">
                   <div
@@ -369,7 +347,7 @@ const TableIdField = () => {
                         class="mb-[10px] text-gray-500 dark:text-gray-500 font-medium block"
                         disabled
                       >
-                        Select Without Department
+                        Select Without Table
                       </label>
                       <select
                         class="h-[40px] rounded-md text-black dark:text-white border border-gray-500  bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500"
@@ -382,7 +360,7 @@ const TableIdField = () => {
                     </div>
                     <div class="sm:col-span-2">
                       <label class="mb-[10px] text-black dark:text-white font-medium block">
-                        Test Category Name
+                        Table Id Field Name
                       </label>
                       <input
                         type="text"
@@ -392,20 +370,6 @@ const TableIdField = () => {
                         value={form.name}
                         class="h-[45px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
                         placeholder="Test Category"
-                      />
-                    </div>
-                    <div class="sm:col-span-2">
-                      <label class="mb-[10px] text-black dark:text-white font-medium block">
-                        Test Carried Out By
-                      </label>
-                      <input
-                        type="text"
-                        onChange={(e) =>
-                          setForm({ ...form, carried: e.target.value })
-                        }
-                        value={form.carried}
-                        class="h-[45px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
-                        placeholder={form.carried}
                       />
                     </div>
                   </div>
