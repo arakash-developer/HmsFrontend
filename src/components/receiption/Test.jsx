@@ -15,10 +15,14 @@ const Test = () => {
     category: "",
   });
   const [selectedDeptId, setSelectedDeptId] = useState(""); // state to store selected ID
+  const [selectedTableId, setSelectedTableId] = useState(""); // state to store selected ID
+  const [selectedTableIdfieldId, setSelectedTableIdfieldId] = useState(""); // state to store selected ID
   const [deleteId, setDeleteId] = useState(null);
   const [editInfo, setEditInfo] = useState(null);
   const { data, refetch, create, update, remove } = useCrud("api/test");
   const { data: categoryData } = useCrud("api/category");
+  const { data: tableData } = useCrud("api/table");
+  const { data: tableIdFieldData } = useCrud("api/tableidfield");
 
   let addcountryhandler = () => {
     setPopup(true);
@@ -28,25 +32,49 @@ const Test = () => {
   };
 
   let addcountry = () => {
+    console.log("Form data:", {
+      testname: form.testname,
+      unittest: form.unitest,
+      normalrange: form.normalrange,
+      tablename: selectedTableId,
+      tableidfield: selectedTableIdfieldId,
+      testcharge: form.testcharge,
+      category: selectedDeptId,
+    });
+
     create.mutate(
       {
         testname: form.testname,
         unittest: form.unitest,
         normalrange: form.normalrange,
-        tablename: "ax",
-        tableidfield: "a",
+        tablename: selectedTableId,
+        tableidfield: selectedTableIdfieldId,
         testcharge: form.testcharge,
         category: selectedDeptId,
       },
       {
         onSuccess: () => {
+          console.log("Test created successfully!");
           refetch();
+          setPopup(false);
+          setForm({
+            testname: "",
+            unitest: "",
+            normalrange: "",
+            tablename: "",
+            tableidfield: "",
+            testcharge: "",
+            category: "",
+          });
+          setSelectedDeptId("");
+          setSelectedTableId("");
+          setSelectedTableIdfieldId("");
+        },
+        onError: (error) => {
+          console.error("Error creating test:", error);
         },
       }
     );
-
-    setPopup(false);
-    setForm({ name: "" });
   };
 
   const handleDeletepopup = (id) => {
@@ -87,6 +115,40 @@ const Test = () => {
     setEditPopup(false);
     setForm({ name: "" });
   };
+
+  // Filter tables based on selected category
+  const filteredTables =
+    tableData?.filter((table) =>
+      selectedDeptId ? table.category?._id === selectedDeptId : false
+    ) || [];
+
+  // Filter table ID fields based on selected table
+  const filteredTableIdFields =
+    tableIdFieldData?.filter((field) =>
+      selectedTableId ? field.table?._id === selectedTableId : false
+    ) || [];
+
+  // Debug logs for filtering
+  console.log("Selected Category ID:", selectedDeptId);
+  console.log("Table Data:", tableData);
+  console.log("Filtered Tables:", filteredTables);
+  console.log("Selected Table ID:", selectedTableId);
+  console.log("Table ID Field Data:", tableIdFieldData);
+  console.log("Filtered Table ID Fields:", filteredTableIdFields);
+
+  // Handle category change - reset dependent dropdowns
+  const handleCategoryChange = (e) => {
+    setSelectedDeptId(e.target.value);
+    setSelectedTableId(""); // Reset table selection
+    setSelectedTableIdfieldId(""); // Reset table ID field selection
+  };
+
+  // Handle table change - reset dependent dropdown
+  const handleTableChange = (e) => {
+    setSelectedTableId(e.target.value);
+    setSelectedTableIdfieldId(""); // Reset table ID field selection
+  };
+
   return (
     <>
       {/* <!-- Main Content --> */}
@@ -289,10 +351,10 @@ const Test = () => {
                       </label>
                       <select
                         class="h-[40px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500"
-                        onChange={(e) => setSelectedDeptId(e.target.value)}
+                        onChange={handleCategoryChange}
                         value={selectedDeptId}
                       >
-                        <option>Select Test Category</option>
+                        <option value="">Select Test Category</option>
                         {categoryData?.map((dept) => (
                           <option key={dept._id} value={dept._id}>
                             {dept.name}
@@ -348,10 +410,16 @@ const Test = () => {
                       </label>
                       <select
                         class="h-[40px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500"
-                        onChange={(e) => setSelectedDeptId(e.target.value)}
-                        value={selectedDeptId}
+                        onChange={handleTableChange}
+                        value={selectedTableId}
+                        disabled={!selectedDeptId}
                       >
-                        <option>Select Table Name</option>
+                        <option value="">Select Table Name</option>
+                        {filteredTables.map((table) => (
+                          <option key={table._id} value={table._id}>
+                            {table?.tablename}
+                          </option>
+                        ))}
                       </select>
                     </div>
                     <div class="sm:col-span-1">
@@ -360,10 +428,21 @@ const Test = () => {
                       </label>
                       <select
                         class="h-[40px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500"
-                        onChange={(e) => setSelectedDeptId(e.target.value)}
-                        value={selectedDeptId}
+                        onChange={(e) =>
+                          setSelectedTableIdfieldId(e.target.value)
+                        }
+                        value={selectedTableIdfieldId}
+                        disabled={!selectedTableId}
                       >
-                        <option>Select Table Id Field</option>
+                        <option value="">Select Table Id Field</option>
+                        {filteredTableIdFields.map((tableIdField) => (
+                          <option
+                            key={tableIdField._id}
+                            value={tableIdField._id}
+                          >
+                            {tableIdField?.tableidfield}
+                          </option>
+                        ))}
                       </select>
                     </div>
                     <div class="sm:col-span-2">
