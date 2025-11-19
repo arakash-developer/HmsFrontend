@@ -12,8 +12,11 @@ const Table = () => {
   const [selectedDeptId, setSelectedDeptId] = useState(""); // state to store selected ID
   const [deleteId, setDeleteId] = useState(null);
   const [editInfo, setEditInfo] = useState(null);
-  const { data, refetch, create, update, remove } = useCrud("api/category");
-  const { data: departmentData } = useCrud("api/department");
+  const { data, refetch, create, update, remove } = useCrud("api/table");
+  const { data: departmentData } = useCrud("api/category");
+
+  console.log(data, "aa");
+  console.log(departmentData, "vv");
 
   let addcountryhandler = () => {
     setPopup(true);
@@ -54,7 +57,7 @@ const Table = () => {
   let handleEditpopup = (info) => {
     setEditPopup(true);
     setEditInfo(info);
-    setForm({ name: info.name , carried: info.carried});
+    setForm({ name: info.name, carried: info.carried });
   };
   let handleEditpopupclose = () => {
     setEditPopup(false);
