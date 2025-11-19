@@ -1,7 +1,7 @@
 import useCrud from "@/hooks/useCrud";
 import { useState } from "react";
 
-const Category = () => {
+const TableIdField = () => {
   let [popup, setPopup] = useState(false);
   let [deletepopup, setDeletePopup] = useState(false);
   let [editpopup, setEditPopup] = useState(false);
@@ -501,4 +501,4 @@ const Category = () => {
   );
 };
 
-export default Category;
+export default TableIdField;

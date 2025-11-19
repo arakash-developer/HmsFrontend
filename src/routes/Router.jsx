@@ -37,6 +37,8 @@ import ReceiptionLayout from "@/layouts/receiption/ReceiptionLayout";
 import ProtectedRoute from "@/routes/ProtectedRoute";
 import PublicRoute from "@/routes/PublicRoute";
 import OutdoorReport from "@/components/receiption/outdoorIncome/services/OutdoorReport";
+import Table from "@/components/receiption/table/Table";
+import TableIdField from "@/components/receiption/tableidfield/TableIdField";
 // import { i } from "react-router/dist/development/index-react-server-client-kY8DvDF3";
 
 const routes = [
@@ -65,6 +67,8 @@ const routes = [
           { path: "add-test", element: <Test /> },
           { path: "add-department", element: <Department /> },
           { path: "add-category", element: <Category /> },
+          { path: "add-table", element: <Table /> },
+          { path: "add-tableidfield", element: <TableIdField /> },
           { path: "doctor", element: <Doctor /> },
           { path: "patient-registration", element: <PatientReg /> },
           { path: "due-collection", element: <Due /> },
