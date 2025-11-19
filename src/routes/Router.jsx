@@ -72,7 +72,7 @@ const routes = [
           { path: "search-patient-info", element: <Patientinfo /> },
           { path: "refferel-doctor", element: <RefferelDoctor /> },
           { path: "outdoor-income", element: <OutdoorIncome /> },
-          { path: "outdoor-income/outdoor-report", element: <OutdoorReport /> },
+          { path: "outdoor-income/outdoor-report/:backendDate", element: <OutdoorReport /> },
           { path: "periodical-report", element: <PeriodicalReport /> },
           {
             path: "periodical-statement-report",

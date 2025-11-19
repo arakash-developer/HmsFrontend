@@ -75,7 +75,7 @@ const OutdoorIncome = () => {
                     Back
                   </div> */}
                   <Link
-                    to="/receiption/outdoor-income/outdoor-report"
+                    to={`/receiption/outdoor-income/outdoor-report/${backendDate}`}
                     class="cursor-pointer inline-block bg-primary-500 text-white py-[10px] px-[26.5px] transition-all rounded-md hover:bg-primary-400"
                   >
                     <span class="inline-block relative ltr:pl-[25px] rtl:pr-[25px]">
@@ -91,11 +91,6 @@ const OutdoorIncome = () => {
           </div>
         </div>
       </div>
-
-      <Table paginatedataurl={`api/report?date=${backendDate}&`} page={1} limit={30} 
-      
-      searchdataurl={`/api/patientregistration/patientid/`}
-      />
     </div>
   );
 };

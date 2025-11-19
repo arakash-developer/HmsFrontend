@@ -7,7 +7,14 @@ import EditPopup from "./services/EditPopup";
 import TableBody from "./services/TableBody";
 import TableHeader from "./services/TableHeader";
 
-const Table = ({ paginatedataurl, searchdataurl, page, limit }) => {
+const Table = ({
+  paginatedataurl,
+  searchdataurl,
+  page,
+  limit,
+  Breadcrumbname,
+  BreadcrumbPath,
+}) => {
   let [deletepopup, setDeletePopup] = useState(false);
   let [editpopup, setEditPopup] = useState(false);
 
@@ -23,9 +30,9 @@ const Table = ({ paginatedataurl, searchdataurl, page, limit }) => {
 
   const {
     data: patientData,
-    page:patientpage,
+    page: patientpage,
     setPage,
-    limit:patientlimit,
+    limit: patientlimit,
     setLimit,
 
     refetch: patientrefetch,
@@ -56,7 +63,10 @@ const Table = ({ paginatedataurl, searchdataurl, page, limit }) => {
   return (
     <>
       {/* <!-- Main Content --> */}
-      <Breadcrumb />
+      <Breadcrumb
+        Breadcrumbname={Breadcrumbname}
+        BreadcrumbPath={BreadcrumbPath}
+      />
 
       {/* <!-- To Do List --> */}
       <div class="trezo-card bg-white dark:bg-[#0c1427] mb-[25px] p-[20px] md:p-[25px] rounded-md ">

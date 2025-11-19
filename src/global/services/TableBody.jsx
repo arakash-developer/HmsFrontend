@@ -3,7 +3,7 @@ const TableBody = ({ patientData = [], page, setPage, patientisLoading }) => {
     <>
       {patientisLoading ? (
         <h5 class="mb-0 text-center capitalize">Loading...</h5>
-      ) : (
+      ) : patientData.length > 0 ? (
         <div class="trezo-card-content -mx-[20px] md:-mx-[25px]">
           <div class="table-responsive overflow-x-auto overflow-y-hidden">
             <table class="w-full without-border">
@@ -175,6 +175,10 @@ const TableBody = ({ patientData = [], page, setPage, patientisLoading }) => {
             </ol>
           </div>
         </div>
+      ) : (
+        <h6 class="font-medium text-center px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
+          No Data Found
+        </h6>
       )}
     </>
   );

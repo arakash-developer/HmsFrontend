@@ -1,9 +1,9 @@
-const Breadcrumb = () => {
+const Breadcrumb = ({ Breadcrumbname, BreadcrumbPath }) => {
   return (
     <>
       {/* <!-- Breadcrumb --> */}
       <div class="mb-[25px] md:flex items-center justify-between">
-        <h5 class="mb-0">Patient Information</h5>
+        <h5 class="mb-0">{Breadcrumbname ? Breadcrumbname : null}</h5>
         <ol class="breadcrumb mt-[12px] md:mt-0">
           <li class="breadcrumb-item inline-block relative text-sm mx-[11px] ltr:first:ml-0 rtl:first:mr-0 ltr:last:mr-0 rtl:last:ml-0">
             <a
@@ -13,14 +13,16 @@ const Breadcrumb = () => {
               <i class="material-symbols-outlined absolute ltr:left-0 rtl:right-0 !text-lg -mt-px text-primary-500 top-1/2 -translate-y-1/2">
                 home
               </i>
-              Dashboard
+              {BreadcrumbPath && BreadcrumbPath.one ? BreadcrumbPath.one : null}
             </a>
           </li>
           <li class="breadcrumb-item inline-block relative text-sm mx-[11px] ltr:first:ml-0 rtl:first:mr-0 ltr:last:mr-0 rtl:last:ml-0">
-            Setup
+            {BreadcrumbPath && BreadcrumbPath.two ? BreadcrumbPath.two : null}
           </li>
           <li class="breadcrumb-item inline-block relative text-sm mx-[11px] ltr:first:ml-0 rtl:first:mr-0 ltr:last:mr-0 rtl:last:ml-0">
-            Patient
+            {BreadcrumbPath && BreadcrumbPath.three
+              ? BreadcrumbPath.three
+              : null}
           </li>
         </ol>
       </div>

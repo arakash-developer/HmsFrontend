@@ -1,15 +1,22 @@
-import useCrudPaginated from "@/hooks/useCrudPaginated";
-import PatientDetailsPrint from "@/pdf/PatientDetailsPrint";
+import Table from "@/global/Table";
+import { useParams } from "react-router";
 
 const OutdoorReport = () => {
-  const { data: patientData } = useCrudPaginated(
-    "api/patientregistration",
-    1,
-    300
-  );
+  const { backendDate } = useParams();
   return (
     <>
-      <PatientDetailsPrint patientData={patientData} back="/receiption/outdoor-income" />
+      <Table
+        Breadcrumbname="Outdoor Income Report"
+        BreadcrumbPath={{
+          one: "Dasboard",
+          two: "Report",
+          three: "Outdoor",
+        }}
+        paginatedataurl={`api/report?date=${backendDate}&`}
+        page={1}
+        limit={30}
+        searchdataurl={`/api/patientregistration/patientid/`}
+      />
     </>
   );
 };
