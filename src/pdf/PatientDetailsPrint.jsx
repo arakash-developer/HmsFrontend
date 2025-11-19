@@ -1,6 +1,11 @@
 import Logo from "@public/images/logo-big.svg";
 
-const PatientDetailsPrint = ({ patientData=[], back, componentRef }) => {
+const PatientDetailsPrint = ({
+  patientData = [],
+  back,
+  componentRef,
+  uidate,
+}) => {
   return (
     <>
       <style jsx>{`
@@ -30,7 +35,7 @@ const PatientDetailsPrint = ({ patientData=[], back, componentRef }) => {
           </div>
           <div className="text-[#000] text-center my-5">
             <h4 className="uppercase text-[#000]">Total Collection</h4>
-            <p>Date : 12/02/2005</p>
+            <p>Date: {uidate ? uidate : "No Date Provided"}</p>
           </div>
 
           <table

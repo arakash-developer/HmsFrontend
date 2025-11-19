@@ -1,7 +1,13 @@
 import PatientDetailsPrint from "@/pdf/PatientDetailsPrint";
 import { useRef, useState } from "react";
 
-const TableBody = ({ patientData = [], page, setPage, patientisLoading }) => {
+const TableBody = ({
+  patientData = [],
+  page,
+  setPage,
+  patientisLoading,
+  uidate,
+}) => {
   const componentRef = useRef();
   const singlePatientRef = useRef();
   const [selectedPatient, setSelectedPatient] = useState(null);
@@ -87,6 +93,7 @@ const TableBody = ({ patientData = [], page, setPage, patientisLoading }) => {
       <PatientDetailsPrint
         patientData={patientData}
         componentRef={componentRef}
+        uidate={uidate}
       />
 
       {/* Hidden component for single patient printing */}

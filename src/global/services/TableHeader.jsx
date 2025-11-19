@@ -3,6 +3,7 @@ import { useRef } from "react";
 
 const TableHeader = ({
   patientId,
+  uidate,
   setPatientId,
   addcountryhandler,
   setPage,
@@ -143,6 +144,7 @@ const TableHeader = ({
         <PatientDetailsPrint
           patientData={patientData}
           componentRef={componentRef}
+            uidate={uidate}
         />
       </div>
     </>

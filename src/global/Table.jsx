@@ -75,6 +75,7 @@ const Table = ({
         <TableHeader
           patientId={patientId}
           setPatientId={setPatientId}
+          uidate={uidate}
           addcountryhandler={addcountryhandler}
           setPage={setPage}
           page={page}
@@ -84,6 +85,7 @@ const Table = ({
         <TableBody
           patientData={displayedData}
           page={page}
+          uidate={uidate}
           patientisLoading={patientisLoading}
           setPage={setPage}
           limit={limit}
