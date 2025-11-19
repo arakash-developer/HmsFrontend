@@ -106,9 +106,9 @@ const PatientDetailsPrint = ({ patientData }) => {
             className="flex items-center justify-center gap-x-2"
             style={{ display: "flex", justifyContent: "center" }}
           >
-            <img style={{ height: "80px" }} src={Logo} alt="xxx" srcset="" />
+            <img style={{ height: "80px" }} src={Logo} alt="Logo" srcset="" />
             <div className="trezo-card-content">
-              <h1 className="text-[#000] capitalize">Demo Hospital Dhaka</h1>
+              <h1 className="text-[#000] uppercase">Demo Hospital</h1>
               <div class="trezo-card-content">
                 <p class="text-[1.25rem] font-light">
                   Mirpur Dhaka Mobile : 0123456789
