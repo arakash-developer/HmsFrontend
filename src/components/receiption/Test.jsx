@@ -9,7 +9,7 @@ const Test = () => {
     testname: "",
     unitest: "",
     normalrange: "",
-    tablename: "",
+    table: "",
     tableidfield: "",
     testcharge: "",
     category: "",
@@ -31,12 +31,14 @@ const Test = () => {
     setPopup(false);
   };
 
+  console.log("form", form);
+
   let addcountry = () => {
     console.log("Form data:", {
       testname: form.testname,
       unittest: form.unitest,
       normalrange: form.normalrange,
-      tablename: selectedTableId,
+      table: selectedTableId,
       tableidfield: selectedTableIdfieldId,
       testcharge: form.testcharge,
       category: selectedDeptId,
@@ -47,7 +49,7 @@ const Test = () => {
         testname: form.testname,
         unittest: form.unitest,
         normalrange: form.normalrange,
-        tablename: selectedTableId,
+        table: selectedTableId,
         tableidfield: selectedTableIdfieldId,
         testcharge: form.testcharge,
         category: selectedDeptId,
@@ -61,7 +63,7 @@ const Test = () => {
             testname: "",
             unitest: "",
             normalrange: "",
-            tablename: "",
+            table: "",
             tableidfield: "",
             testcharge: "",
             category: "",
@@ -99,9 +101,11 @@ const Test = () => {
       normalrange: info.normalrange,
       testcharge: info.testcharge,
     });
-    setSelectedDeptId(info.category);
-    setSelectedTableId(info.tablename);
-    setSelectedTableIdfieldId(info.tableidfield);
+
+    // Set all select values with proper IDs
+    setSelectedDeptId(info.category?._id || info.category);
+    setSelectedTableId(info.table?._id || info.table);
+    setSelectedTableIdfieldId(info.tableidfield?._id || info.tableidfield);
   };
   let handleEditpopupclose = () => {
     setEditPopup(false);
@@ -110,7 +114,7 @@ const Test = () => {
       testname: "",
       unitest: "",
       normalrange: "",
-      tablename: "",
+      table: "",
       tableidfield: "",
       testcharge: "",
       category: "",
@@ -129,7 +133,7 @@ const Test = () => {
           testname: form.testname,
           unittest: form.unitest,
           normalrange: form.normalrange,
-          tablename: selectedTableId,
+          table: selectedTableId,
           tableidfield: selectedTableIdfieldId,
           testcharge: form.testcharge,
           category: selectedDeptId,
@@ -145,13 +149,13 @@ const Test = () => {
     );
   };
 
-  // Filter tables based on selected category
+  // Filter tables based on selected category (for both add and edit)
   const filteredTables =
     tableData?.filter((table) =>
       selectedDeptId ? table.category?._id === selectedDeptId : false
     ) || [];
 
-  // Filter table ID fields based on selected table
+  // Filter table ID fields based on selected table (for both add and edit)
   const filteredTableIdFields =
     tableIdFieldData?.filter((field) =>
       selectedTableId ? field.table?._id === selectedTableId : false
@@ -169,6 +173,8 @@ const Test = () => {
     setSelectedTableId(e.target.value);
     setSelectedTableIdfieldId(""); // Reset table ID field selection
   };
+
+  console.log(filteredTables);
 
   return (
     <>
