@@ -22,72 +22,22 @@ const App = () => {
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
-    onBeforePrint: () => console.log("Before print"),
-    onAfterPrint: () => console.log("After print"),
-    onPrintError: () => console.log("Print error"),
-    pageStyle: `
-      @page {
-        size: A4;
-        margin: 15mm;
-      }
-      @media print {
-        @page {
-          margin: 0;
-        }
-        body {
-          margin: 0;
-          padding: 0;
-        }
-        body * {
-          visibility: hidden;
-        }
-          html * {
-            visibility:hidden;
-            }
-        #print-area, #print-area * {
-          visibility: visible;
-        }
-        #print-area {
-          position: absolute;
-          left: 0;
-          top: 0;
-          width: 100%;
-        }
-        /* Hide browser headers and footers */
-        @page :first {
-          margin-top: 0;
-        }
-        @page :left {
-          margin-left: 0;
-        }
-        @page :right {
-          margin-right: 0;
-        }
-      }
-    `,
+    documentTitle: "Patient Invoice",
+    pageStyle: "",
   });
 
   console.log(patientData);
 
   const handlePrintClick = () => {
-    // Fallback method if react-to-print doesn't work
     if (!componentRef.current) {
       console.error("Component ref not found");
       return;
     }
 
-    try {
-      handlePrint();
-    } catch (error) {
-      console.error("React-to-print failed, using window.print", error);
-      // Fallback to native print
-      window.print();
-    }
-  };
-
-  const handleNativePrint = () => {
+    // Create a new window with only the print content
     const printContent = componentRef.current.innerHTML;
-    const printWindow = window.open("", "_blank");
+    const printWindow = window.open("", "_blank", "width=800,height=600");
+
     printWindow.document.write(`
       <html>
         <head>
@@ -103,29 +53,44 @@ const App = () => {
               padding: 20px;
               -webkit-print-color-adjust: exact;
             }
-            table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-            th, td { padding: 8px; border-bottom: 1px solid #ccc; text-align: left; }
-            th { border-bottom: 2px solid #000; font-weight: bold; }
+            table { 
+              width: 100%; 
+              border-collapse: collapse; 
+              margin-top: 20px; 
+            }
+            th, td { 
+              padding: 8px; 
+              border-bottom: 1px solid #ccc; 
+              text-align: left; 
+            }
+            th { 
+              border-bottom: 2px solid #000; 
+              font-weight: bold; 
+            }
             .flex { display: flex; }
             .items-center { align-items: center; }
+            .justify-center { justify-content: center; }
             .gap-x-2 { gap: 8px; }
-            .bg-\\[\\#fff\\] { background-color: #fff; }
-            .text-\\[\\#000\\] { color: #000; }
-            img { width: 100px; height: auto; display: block; }
+            .text-center { text-align: center; }
+            .uppercase { text-transform: uppercase; }
+            .my-5 { margin: 20px 0; }
+            img { height: 80px; display: block; }
             h1 { margin: 0; color: #000; }
-            p { margin: 5px 0; }
+            h3 { margin: 0; color: #000; }
+            p { margin: 5px 0; color: #2e2e2e; }
           </style>
         </head>
         <body>${printContent}</body>
       </html>
     `);
+
     printWindow.document.close();
 
     printWindow.onload = () => {
       setTimeout(() => {
         printWindow.print();
         printWindow.close();
-      }, 1000);
+      }, 500);
     };
   };
 
@@ -137,12 +102,6 @@ const App = () => {
           className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
         >
           Print Invoice (React)
-        </button>
-        <button
-          onClick={handleNativePrint}
-          className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
-        >
-          Print Invoice (Native)
         </button>
       </div>
 
@@ -180,7 +139,9 @@ const App = () => {
                   Total Ammount
                 </th>
                 <th style={{ padding: "8px", textAlign: "left" }}>Paid</th>
-                <th style={{ padding: "8px", textAlign: "left" }}>Due</th>
+                <th style={{ padding: "8px", textAlign: "left" }}>
+                  Due
+                </th>
               </tr>
             </thead>
             <tbody>
