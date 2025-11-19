@@ -118,6 +118,14 @@ export default function ReceiptionLayout() {
           title: "Add New Country",
           link: "/receiption/add-country",
         },
+        {
+          title: "Add New Table",
+          link: "/receiption/add-table",
+        },
+        {
+          title: "Add New Table Id Field",
+          link: "/receiption/add-tableidfield",
+        },
       ],
     },
     {
