@@ -11,7 +11,7 @@ const OutdoorIncome = () => {
           <div class="trezo-card w-full bg-gray-50 dark:bg-[#0c1427] p-[20px] md:p-[25px] rounded-md">
             <div class="trezo-card-header bg-gray-50 dark:bg-[#15203c] mb-[20px] md:mb-[25px] flex items-center justify-between -mx-[20px] md:-mx-[25px] -mt-[20px] md:-mt-[25px] p-[20px] md:p-[25px] rounded-t-md">
               <div class="trezo-card-title">
-                <h5 class="mb-0">Add New Category</h5>
+                <h5 class="mb-0">Outdoor Income Report</h5>
               </div>
               <div class="trezo-card-subtitle">
                 <div
@@ -28,7 +28,7 @@ const OutdoorIncome = () => {
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-[20px] md:gap-[25px]">
                   <div class="sm:col-span-2">
                     <label class="mb-[10px] text-black dark:text-white font-medium block">
-                      Select Department
+                      Daily Income Statement With Due Collection.
                     </label>
                     <div className="relative w-full">
                       <Flatpickr
