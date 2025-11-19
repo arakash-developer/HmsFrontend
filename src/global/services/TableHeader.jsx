@@ -1,3 +1,6 @@
+import PatientDetailsPrint from "@/pdf/PatientDetailsPrint";
+import { useRef } from "react";
+
 const TableHeader = ({
   patientId,
   setPatientId,
@@ -5,7 +8,79 @@ const TableHeader = ({
   setPage,
   page,
   setLimit,
+  patientData,
 }) => {
+      const componentRef = useRef();
+
+  const handlePrintClick = () => {
+    if (!componentRef.current) {
+      console.error("Component ref not found");
+      return;
+    }
+
+    // Create a new window with only the print content
+    const printContent = componentRef.current.innerHTML;
+    const printWindow = window.open("", "_blank", "width=800,height=600");
+
+    printWindow.document.write(`
+      <html>
+        <head>
+          <title>Patient Invoice</title>
+          <style>
+            @page {
+              size: A4;
+              margin: 15mm;
+            }
+              *{
+            margin: 0; 
+            padding: 0px;
+            }
+            body { 
+              margin: 0; 
+              padding: 0px;
+              font-family: Inter, system-ui, sans-serif !important;
+              -webkit-print-color-adjust: exact;
+            }
+            table { 
+              width: 100%; 
+              border-collapse: collapse; 
+              margin-top: 20px; 
+            }
+            th, td { 
+              padding: 8px; 
+              border-bottom: 1px solid #ccc; 
+              text-align: left; 
+            }
+            th { 
+              border-bottom: 2px solid #000; 
+              font-weight: bold; 
+            }
+            .flex { display: flex; }
+            .items-center { align-items: center; }
+            .justify-center { justify-content: center; }
+            .gap-x-2 { gap: 8px; }
+            .text-center { text-align: center; }
+            .uppercase { text-transform: uppercase; }
+            .my-5 { margin: 20px 0; }
+            img { height: 80px; display: block; }
+            h1 { margin: 0; color: #000; }
+            h3 { margin: 0; color: #000; }
+            p { margin: 5px 0; color: #2e2e2e; }
+          </style>
+        </head>
+        <body>${printContent}</body>
+      </html>
+    `);
+
+    printWindow.document.close();
+
+    printWindow.onload = () => {
+      setTimeout(() => {
+        printWindow.print();
+        printWindow.close();
+      }, 500);
+    };
+  };
   return (
     <>
       <div class="trezo-card-header mb-[20px] md:mb-[25px] sm:flex items-center justify-between ">
@@ -53,7 +128,7 @@ const TableHeader = ({
             </li>
           </ol>
           <div
-            onClick={addcountryhandler}
+            onClick={handlePrintClick}
             class="inline-block transition-all rounded-md font-medium px-[13px] py-[6px] text-primary-500 border border-primary-500 hover:bg-primary-500 hover:text-white"
             id="add-new-popup-toggle"
           >
@@ -65,6 +140,7 @@ const TableHeader = ({
             </span>
           </div>
         </div>
+        <PatientDetailsPrint patientData={patientData} componentRef={componentRef} />
       </div>
     </>
   );

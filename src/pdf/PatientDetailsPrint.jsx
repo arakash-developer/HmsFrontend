@@ -1,107 +1,17 @@
 import Logo from "@public/images/logo-big.svg";
-import { useRef } from "react";
-import { Link } from "react-router";
 
-const PatientDetailsPrint = ({ patientData, back }) => {
-  const componentRef = useRef();
-
-  const handlePrintClick = () => {
-    if (!componentRef.current) {
-      console.error("Component ref not found");
-      return;
-    }
-
-    // Create a new window with only the print content
-    const printContent = componentRef.current.innerHTML;
-    const printWindow = window.open("", "_blank", "width=800,height=600");
-
-    printWindow.document.write(`
-      <html>
-        <head>
-          <title>Patient Invoice</title>
-          <style>
-            @page {
-              size: A4;
-              margin: 15mm;
-            }
-              *{
-            margin: 0; 
-            padding: 0px;
-            }
-            body { 
-              margin: 0; 
-              padding: 0px;
-              font-family: Inter, system-ui, sans-serif !important;
-              -webkit-print-color-adjust: exact;
-            }
-            table { 
-              width: 100%; 
-              border-collapse: collapse; 
-              margin-top: 20px; 
-            }
-            th, td { 
-              padding: 8px; 
-              border-bottom: 1px solid #ccc; 
-              text-align: left; 
-            }
-            th { 
-              border-bottom: 2px solid #000; 
-              font-weight: bold; 
-            }
-            .flex { display: flex; }
-            .items-center { align-items: center; }
-            .justify-center { justify-content: center; }
-            .gap-x-2 { gap: 8px; }
-            .text-center { text-align: center; }
-            .uppercase { text-transform: uppercase; }
-            .my-5 { margin: 20px 0; }
-            img { height: 80px; display: block; }
-            h1 { margin: 0; color: #000; }
-            h3 { margin: 0; color: #000; }
-            p { margin: 5px 0; color: #2e2e2e; }
-          </style>
-        </head>
-        <body>${printContent}</body>
-      </html>
-    `);
-
-    printWindow.document.close();
-
-    printWindow.onload = () => {
-      setTimeout(() => {
-        printWindow.print();
-        printWindow.close();
-      }, 500);
-    };
-  };
-
+const PatientDetailsPrint = ({ patientData, back, componentRef }) => {
   return (
-    <div className="">
-      <div className="mb-4 space-x-2">
-        <div class="ltr:text-right rtl:text-left">
-          <Link
-            to={back}
-            class="cursor-pointer rounded-md inline-block transition-all font-medium ltr:mr-[15px] rtl:ml-[15px] px-[26.5px] py-[7px] bg-danger-500 text-white hover:bg-danger-400"
-            id="add-new-popup-toggle"
-            //   onClick={cancelcountrypopup}
-          >
-            Back
-          </Link>
-          <div
-            onClick={handlePrintClick}
-            class="cursor-pointer inline-block bg-primary-500 text-white py-[7px] px-[26.5px] transition-all rounded-md hover:bg-primary-400"
-          >
-            <span class="inline-block relative ltr:pl-[25px] rtl:pr-[25px] ">
-              <i class="material-symbols-outlined !text-[20px] absolute ltr:left-0 rtl:right-0 top-1/2 -translate-y-1/2">
-                print
-              </i>
-              Print
-            </span>
-          </div>
-        </div>
-      </div>
+    <>
+      <style jsx>{`
+        @media screen {
+          #print-area {
+            display: none !important;
+          }
+        }
+      `}</style>
 
-      <div ref={componentRef} id="print-area">
+      <div ref={componentRef} id="print-area" className="">
         {/* Test with simple content first */}
         <div style={{ padding: "20px" }} className="bg-[#fff]">
           <div
@@ -227,7 +137,7 @@ const PatientDetailsPrint = ({ patientData, back }) => {
           </table>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -77,6 +77,7 @@ const Table = ({
           setPage={setPage}
           page={page}
           setLimit={setLimit}
+          patientData={patientData}
         />
         <TableBody
           patientData={displayedData}
