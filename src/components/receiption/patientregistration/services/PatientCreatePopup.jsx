@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import Flatpickr from "react-flatpickr";
 const PatientCreatePopup = ({
   cancelcountrypopup,
-  form,
+  patientrefetch,
   selectedTest,
-  setForm,
+  patientcreate,
   selectedCategory,
   date,
   setDate,
@@ -21,8 +21,17 @@ const PatientCreatePopup = ({
   handleDeletepopup,
   filteredTests,
 }) => {
+  const [form, setForm] = useState({
+    date: "",
+    patientName: "",
+
+    refdoctor: "",
+    age: "",
+    phone: "",
+  });
   const [finalTotalCalculation, setFinalTotalCalculation] = useState({});
   const [dueAmount, setDueAmount] = useState();
+  const [sex, setSex] = useState();
   const [totals, setTotals] = useState({
     totalDiscount: 0,
     totalDiscountedPrice: 0,
@@ -51,6 +60,7 @@ const PatientCreatePopup = ({
   };
 
   const [departmentTotals, setDepartmentTotals] = useState([]);
+  const [departmentPayments, setDepartmentPayments] = useState({});
 
   useEffect(() => {
     if (!testList.length) {
@@ -67,16 +77,26 @@ const PatientCreatePopup = ({
       totalsMap[dept] = (totalsMap[dept] || 0) + price;
     });
 
-    // Convert map to array
+    // Convert map to array with structure matching updated backend schema
     const totalsArray = Object.entries(totalsMap).map(
-      ([depname, totalPrice]) => ({
-        depname,
-        totalPrice,
-      })
+      ([depname, totalPrice]) => {
+        const discount = finalTotalCalculation[depname]?.discount || 0;
+        const discounted = totalPrice - discount;
+        const due = discounted; // due is same as discounted since no paid field
+
+        return {
+          depname,
+          totalPrice,
+          discount,
+          discounted,
+          due,
+        };
+      }
     );
 
     setDepartmentTotals(totalsArray);
-  }, [testList]);
+  }, [testList, finalTotalCalculation]);
+
   const handleDiscountChange = (deptName, value) => {
     setFinalTotalCalculation((prev) => {
       const totalPrice =
@@ -134,6 +154,49 @@ const PatientCreatePopup = ({
     if (paid > maxPayable) paid = maxPayable; // prevent overpay
     const due = maxPayable - paid; // calculate due
     setDueAmount(due);
+  };
+
+  const handleDepartmentPayment = (deptName, paidAmount) => {
+    setDepartmentPayments((prev) => ({
+      ...prev,
+      [deptName]: Number(paidAmount) || 0,
+    }));
+  };
+
+  const patientReg = () => {
+    console.log(departmentTotals);
+
+    // Prepare procedure calculation data for backend (without paid field)
+    const procedureCalculationData = departmentTotals.map((dept) => ({
+      depname: dept.depname,
+      totalPrice: dept.totalPrice,
+      discount: dept.discount,
+      discounted: dept.discounted,
+      due: dept.due,
+    }));
+
+    patientcreate.mutate(
+      {
+        patientname: form.patientName,
+        sex: sex,
+        age: form.age,
+        refDoctor: "6747bb8074f43ce9b6d0b111",
+        phone: form.phone,
+        procedures: testList,
+        procedurecalculation: procedureCalculationData,
+        totalCharge: totals?.totalDiscountedPrice + totals?.totalDiscountAmount,
+        totalDiscount: totals?.totalDiscountAmount,
+        totalDiscounted: totals?.totalDiscountedPrice,
+        totalPaid: totals?.totalDiscountedPrice - dueAmount,
+        totalDue: dueAmount,
+      },
+
+      {
+        onSuccess: () => {
+          patientrefetch();
+        },
+      }
+    );
   };
   return (
     <>
@@ -209,14 +272,15 @@ const PatientCreatePopup = ({
                     <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0 w-[6%]">
                       Sex
                     </label>
-                    <input
-                      type="number"
-                      onChange={(e) =>
-                        setForm({ ...form, phone: e.target.value })
-                      }
-                      value={form.phone}
-                      class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
-                    />
+                    <select
+                      class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500"
+                      onChange={(e) => setSex(e.target.value)}
+                      value={sex}
+                    >
+                      <option>Select Sex</option>
+                      <option>Male</option>
+                      <option>Female</option>
+                    </select>
                   </div>
                   <div class="sm:col-span-1 flex items-center gap-x-4">
                     <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0 w-[18%]">
@@ -243,9 +307,9 @@ const PatientCreatePopup = ({
                     <input
                       type="number"
                       onChange={(e) =>
-                        setForm({ ...form, mobile: e.target.value })
+                        setForm({ ...form, age: e.target.value })
                       }
-                      value={form.mobile}
+                      value={form.age}
                       class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
                     />
                   </div>
@@ -256,9 +320,9 @@ const PatientCreatePopup = ({
                     <input
                       type="text"
                       onChange={(e) =>
-                        setForm({ ...form, speciality: e.target.value })
+                        setForm({ ...form, phone: e.target.value })
                       }
-                      value={form.speciality}
+                      value={form.phone}
                       class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
                     />
                   </div>
@@ -411,7 +475,7 @@ const PatientCreatePopup = ({
                       <tbody>
                         {departmentTotals.length > 0 ? (
                           departmentTotals?.map((item, index) => (
-                            <tr>
+                            <tr key={index}>
                               <td class="capitalize border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
                                 {item?.depname}
                               </td>
@@ -437,19 +501,21 @@ const PatientCreatePopup = ({
                                 />
                               </td>
                               <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                                {
-                                  finalTotalCalculation[item.depname]
-                                    ?.discountedPrice
-                                }
+                                {item.discounted ||
+                                  item.totalPrice -
+                                    (finalTotalCalculation[item.depname]
+                                      ?.discount || 0)}
                               </td>
-                              <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                              <td class="border border-gray-400 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
                                 0
                               </td>
                               <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                                {
-                                  finalTotalCalculation[item.depname]
-                                    ?.discountedPrice
-                                }
+                                {item.due ||
+                                  (item.discounted ||
+                                    item.totalPrice -
+                                      (finalTotalCalculation[item.depname]
+                                        ?.discount || 0)) -
+                                    (departmentPayments[item.depname] || 0)}
                               </td>
                             </tr>
                           ))
@@ -609,9 +675,7 @@ const PatientCreatePopup = ({
                         <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
                           <span class="text-right">Due Amount</span>
                           <span class="text-center w-4">=</span>
-                          <span class="text-right">
-                            {dueAmount || 0}
-                          </span>
+                          <span class="text-right">{dueAmount || 0}</span>
                         </div>
 
                         <div class="flex justify-end gap-x-4 pt-4">
@@ -621,9 +685,12 @@ const PatientCreatePopup = ({
                           <button class="bg-white text-black px-6 py-2 rounded border border-gray-300 hover:bg-gray-100">
                             New
                           </button>
-                          <button class="bg-white text-black px-6 py-2 rounded border border-gray-300 hover:bg-gray-100">
+                          <div
+                            onClick={patientReg}
+                            class="bg-white text-black px-6 py-2 rounded border border-gray-300 hover:bg-gray-100"
+                          >
                             Save
-                          </button>
+                          </div>
                         </div>
                       </div>
                     </div>
