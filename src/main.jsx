@@ -1,7 +1,7 @@
+import "flatpickr/dist/flatpickr.min.css"; // default Flatpickr styles
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
-import "./assets/scss/style.scss";
 import "./assets/css/apexcharts.css";
 import "./assets/css/jsvectormap.min.css";
 import "./assets/css/prism.css";
@@ -10,8 +10,8 @@ import "./assets/css/remixicon.css";
 import "./assets/css/simplebar.css";
 import "./assets/css/style.css";
 import "./assets/css/swiper-bundle.min.css";
+import "./assets/scss/style.scss";
 import "./index.css";
-import "flatpickr/dist/flatpickr.min.css"; // default Flatpickr styles
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

@@ -8,9 +8,11 @@ const PublicRoute = () => {
 
   if (loading) return <div>Loading...</div>;
 
-  if (temptoken?.token?.role == "admin") return <Navigate to="/admin" />;
-  if (temptoken?.token?.role == "receiption")
+  if (temptoken?.token?.role === "admin") return <Navigate to="/admin" />;
+  if (temptoken?.token?.role === "receiption")
     return <Navigate to="/receiption" />;
+  if (temptoken?.token?.role === "superadmin")
+    return <Navigate to="/superadmin" />;
 
   return <Outlet />;
 };

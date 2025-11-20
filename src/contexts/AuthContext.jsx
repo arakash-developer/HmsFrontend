@@ -1,10 +1,11 @@
-import { createContext, useContext, useState, useEffect } from 'react';
-import { getToken, setToken, clearToken } from '@utils/auth';
+import { clearToken, getToken, setToken } from "@utils/auth";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [temptoken, setTemptoken] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Check if there is a valid token in localStorage
@@ -13,6 +14,7 @@ export const AuthProvider = ({ children }) => {
       // If token exists, consider the temptoken as valid
       setTemptoken({ token });
     }
+    setLoading(false);
   }, []);
 
   const login = (token) => {
@@ -26,7 +28,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ temptoken, login, logout }}>
+    <AuthContext.Provider value={{ temptoken, login, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );

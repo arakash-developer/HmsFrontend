@@ -247,6 +247,45 @@ const PatientCreatePopup = ({
     );
   };
 
+  const handleNewPatient = () => {
+    // First save the current patient data
+    const procedureCalculationData = departmentTotals.map((dept) => ({
+      depname: dept.depname,
+      totalPrice: dept.totalPrice,
+      discount: dept.discount,
+      discounted: dept.discounted,
+      due: dept.due,
+    }));
+
+    patientcreate.mutate(
+      {
+        patientid: nextpatientid?.patientid,
+        patientname: form.patientName,
+        sex: sex,
+        age: form.age,
+        date: backendDate,
+        deleveryDate: deleveryBackendDate,
+        refDoctor: qualification,
+        phone: form.phone,
+        procedures: testList,
+        procedurecalculation: procedureCalculationData,
+        totalCharge: totals?.totalDiscountedPrice + totals?.totalDiscountAmount,
+        totalDiscount: totals?.totalDiscountAmount,
+        totalDiscounted: totals?.totalDiscountedPrice,
+        totalPaid: totals?.totalDiscountedPrice - dueAmount || 0,
+        totalDue: dueAmount,
+      },
+      {
+        onSuccess: () => {
+          patientrefetch();
+          refetchNextPatientId();
+          resetForm(); // Clear form for next patient
+          // Keep popup open for next patient registration
+        },
+      }
+    );
+  };
+
   const closepopuphandler = () => {
     setPopup(false);
     resetForm();
@@ -716,7 +755,7 @@ const PatientCreatePopup = ({
                             type="number"
                             class="no-arrow !w-full px-2 py-1 bg-yellow-100 text-black border border-gray-400 rounded text-right"
                             placeholder=""
-                            value={totals?.totalDiscountedPrice - dueAmount} // Paid = total - due
+                            value={totals?.totalDiscountedPrice - dueAmount || 0} // Paid = total - due
                             onChange={handlerPaid}
                           />
                         </div>
@@ -732,16 +771,19 @@ const PatientCreatePopup = ({
                         <div class="flex justify-end gap-x-4 pt-4">
                           <div
                             onClick={closepopuphandler}
-                            class="bg-white text-black px-6 py-2 rounded border border-gray-300 hover:bg-gray-100"
+                            class="bg-white text-black px-6 py-2 rounded border border-gray-300 hover:bg-gray-100 cursor-pointer"
                           >
                             Close
                           </div>
-                          <div class="bg-white text-black px-6 py-2 rounded border border-gray-300 hover:bg-gray-100">
+                          <div
+                            onClick={handleNewPatient}
+                            class="bg-white text-black px-6 py-2 rounded border border-gray-300 hover:bg-gray-100 cursor-pointer"
+                          >
                             New
                           </div>
                           <div
                             onClick={patientReg}
-                            class="bg-white text-black px-6 py-2 rounded border border-gray-300 hover:bg-gray-100"
+                            class="bg-white text-black px-6 py-2 rounded border border-gray-300 hover:bg-gray-100 cursor-pointer"
                           >
                             Save
                           </div>
