@@ -562,8 +562,8 @@ const PatientCreatePopup = ({
                       value={form.patientName}
                       className={`h-[32px] rounded-md text-black dark:text-white border-2 ${
                         validationErrors.patientName
-                          ? "!border-gray-400"
-                          : "border-gray-500 dark:border-[#49557c]"
+                          ? "dark:!border-gray-400 !border-[#49557c]"
+                          : "dark:!border-[#49557c] !border-gray-400"
                       } bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500`}
                       placeholder="Enter patient name"
                     />
@@ -575,8 +575,8 @@ const PatientCreatePopup = ({
                     <select
                       className={`h-[32px] rounded-md text-black dark:text-white border-2 ${
                         validationErrors.sex
-                         ? "!border-gray-400"
-                          : "border-gray-500 dark:border-[#49557c]"
+                          ? "dark:!border-gray-400 !border-[#49557c]"
+                          : "dark:!border-[#49557c] !border-gray-400"
                       } bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500`}
                       onChange={(e) => handleSexChange(e.target.value)}
                       value={sex || ""}
@@ -593,8 +593,8 @@ const PatientCreatePopup = ({
                     <select
                       className={`h-[32px] rounded-md text-black dark:text-white border-2 ${
                         validationErrors.refdoctor
-                            ? "!border-gray-400"
-                          : "border-gray-500 dark:border-[#49557c]"
+                          ? "dark:!border-gray-400 !border-[#49557c]"
+                          : "dark:!border-[#49557c] !border-gray-400"
                       } bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500`}
                       onChange={(e) => handleDoctorChange(e.target.value)}
                       value={qualification || ""}
@@ -620,8 +620,8 @@ const PatientCreatePopup = ({
                       value={form.age}
                       className={`h-[32px] rounded-md text-black dark:text-white border-2 ${
                         validationErrors.age
-                          ? "!border-gray-400"
-                          : "border-gray-500 dark:border-[#49557c]"
+                          ? "dark:!border-gray-400 !border-[#49557c]"
+                          : "dark:!border-[#49557c] !border-gray-400"
                       } bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500`}
                       placeholder="Enter age"
                     />
@@ -631,15 +631,15 @@ const PatientCreatePopup = ({
                       Phone <span className="text-red-500">*</span>
                     </label>
                     <input
-                      type="text"
+                      type="number"
                       onChange={(e) =>
                         handleFormChange("phone", e.target.value)
                       }
                       value={form.phone}
-                      className={`h-[32px] rounded-md text-black dark:text-white border-2 ${
+                      className={`h-[32px] no-arrow rounded-md text-black dark:text-white border-2 ${
                         validationErrors.phone
-                          ? "!border-gray-400"
-                          : "border-gray-500 dark:border-[#49557c]"
+                          ? "dark:!border-gray-400 !border-[#49557c]"
+                          : "dark:!border-[#49557c] !border-gray-400"
                       } bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500`}
                       placeholder="Enter phone number"
                     />
@@ -661,8 +661,8 @@ const PatientCreatePopup = ({
                       <select
                         class={`h-[32px] rounded-md text-black dark:text-white border-2 ${
                           validationErrors.tests
-                            ? "!border-gray-400"
-                            : "border-gray-500 dark:border-[#49557c]"
+                            ? "dark:!border-gray-400 !border-[#49557c]"
+                            : "dark:!border-[#49557c] !border-gray-400"
                         } bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500`}
                         value={selectedCategory}
                         onChange={(e) => {
@@ -934,8 +934,8 @@ const PatientCreatePopup = ({
                             options={{ dateFormat: "d-m-Y" }}
                             className={`h-[32px] rounded-md text-black dark:text-white border-2 ${
                               validationErrors.deleveryDate
-                                ? "!border-red-500"
-                                : "border-gray-500 dark:border-[#49557c]"
+                                ? "dark:!border-gray-400 !border-[#49557c]"
+                                : "dark:!border-[#49557c] !border-gray-400"
                             } bg-white dark:bg-[#0c1427] px-4 pr-10 w-full outline-none placeholder-gray-500 dark:placeholder-[#fff] focus:border-primary-500`}
                           />
 
