@@ -177,6 +177,7 @@ const PatientReg = () => {
           cancelcountrypopup={cancelcountrypopup}
           setDate={setDate}
           doctorData={doctorData}
+          setPopup={setPopup}
           testList={testList}
           setTestList={setTestList}
           qualification={qualification}

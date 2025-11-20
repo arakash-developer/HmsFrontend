@@ -1,3 +1,4 @@
+import useCrud from "@/hooks/useCrud";
 import useDatePicker from "@/hooks/useDatePicker";
 import { useEffect, useState } from "react";
 import Flatpickr from "react-flatpickr";
@@ -5,6 +6,7 @@ const PatientCreatePopup = ({
   cancelcountrypopup,
   patientrefetch,
   selectedTest,
+  setPopup,
   patientcreate,
   selectedCategory,
   date,
@@ -173,9 +175,9 @@ const PatientCreatePopup = ({
     handleDateChange: handleDeleveryDateChange,
   } = useDatePicker("Asia/Dhaka");
 
+  const { data: nextpatientid, refetch: refetchNextPatientId } =
+    useCrud("api/nextpatientid");
   const patientReg = () => {
-    console.log(departmentTotals);
-
     // Prepare procedure calculation data for backend (without paid field)
     const procedureCalculationData = departmentTotals.map((dept) => ({
       depname: dept.depname,
@@ -187,12 +189,13 @@ const PatientCreatePopup = ({
 
     patientcreate.mutate(
       {
+        patientid: nextpatientid?.patientid,
         patientname: form.patientName,
         sex: sex,
         age: form.age,
         date: backendDate,
         deleveryDate: deleveryBackendDate,
-        refDoctor: qualification, 
+        refDoctor: qualification,
         phone: form.phone,
         procedures: testList,
         procedurecalculation: procedureCalculationData,
@@ -205,6 +208,8 @@ const PatientCreatePopup = ({
       {
         onSuccess: () => {
           patientrefetch();
+          refetchNextPatientId();
+          setPopup(false); 
         },
       }
     );
@@ -245,7 +250,7 @@ const PatientCreatePopup = ({
                     <input
                       disabled
                       type="text"
-                      value={102023}
+                      value={nextpatientid?.patientid || "Loading..."}
                       class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
                     />
                   </div>
