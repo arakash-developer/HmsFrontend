@@ -9,11 +9,9 @@ export const useToast = () => {
 
   const showSuccess = (headline, paragraph, options = {}) => {
     const content = (
-      <div className="bg-[red] rounded-lg p-4">
-        <div>
-          <h1 className="font-bold text-white">{headline}</h1>
-          <p className="text-sm text-white">{paragraph}</p>
-        </div>
+      <div className="bg-[red] rounded-lg p-2">
+        <h1 className="font-bold text-white">{headline}</h1>
+        <p className="text-sm text-white">{paragraph}</p>
       </div>
     );
     return addToast(content, { ...options, type: "success" });
@@ -21,7 +19,7 @@ export const useToast = () => {
 
   const showError = (headline, paragraph, options = {}) => {
     const content = (
-      <div className="mycontent bg-red-500 rounded-lg p-4">
+      <div className="bg-red-500 rounded-lg p-4">
         <div>
           <h1 className="font-bold text-white">{headline}</h1>
           <p className="text-sm text-white">{paragraph}</p>
