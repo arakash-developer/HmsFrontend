@@ -247,6 +247,10 @@ const PatientCreatePopup = ({
     );
   };
 
+  const closepopuphandler = () => {
+    setPopup(false);
+    resetForm();
+  };
   return (
     <>
       <div
@@ -726,12 +730,15 @@ const PatientCreatePopup = ({
                         </div>
 
                         <div class="flex justify-end gap-x-4 pt-4">
-                          <button class="bg-white text-black px-6 py-2 rounded border border-gray-300 hover:bg-gray-100">
+                          <div
+                            onClick={closepopuphandler}
+                            class="bg-white text-black px-6 py-2 rounded border border-gray-300 hover:bg-gray-100"
+                          >
                             Close
-                          </button>
-                          <button class="bg-white text-black px-6 py-2 rounded border border-gray-300 hover:bg-gray-100">
+                          </div>
+                          <div class="bg-white text-black px-6 py-2 rounded border border-gray-300 hover:bg-gray-100">
                             New
-                          </button>
+                          </div>
                           <div
                             onClick={patientReg}
                             class="bg-white text-black px-6 py-2 rounded border border-gray-300 hover:bg-gray-100"
