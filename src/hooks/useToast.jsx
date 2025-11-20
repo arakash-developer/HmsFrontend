@@ -9,9 +9,9 @@ export const useToast = () => {
 
   const showSuccess = (headline, paragraph, options = {}) => {
     const content = (
-      <div className="bg-[red] rounded-lg p-2">
-        <h1 className="font-bold text-white">{headline}</h1>
-        <p className="text-sm text-white">{paragraph}</p>
+      <div className="bg-primary-500 border trezo-card-content border-primary-500 rounded-md py-2 px-4">
+        <h5 className="font-bold text-white mb-0 pb-0">{headline}</h5>
+        <p className="text-sm text-white mt-0 pt-0">{paragraph}</p>
       </div>
     );
     return addToast(content, { ...options, type: "success" });

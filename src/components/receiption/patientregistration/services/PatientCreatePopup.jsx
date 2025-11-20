@@ -1,5 +1,6 @@
 import useCrud from "@/hooks/useCrud";
 import useDatePicker from "@/hooks/useDatePicker";
+import { useToast } from "@hooks/useToast";
 import { useEffect, useState } from "react";
 import Flatpickr from "react-flatpickr";
 const PatientCreatePopup = ({
@@ -24,6 +25,7 @@ const PatientCreatePopup = ({
   handleDeletepopup,
   filteredTests,
 }) => {
+  const { showSuccess, showError } = useToast();
   const [form, setForm] = useState({
     date: "",
     patientName: "",
@@ -46,7 +48,14 @@ const PatientCreatePopup = ({
 
     // Prevent duplicates
     if (testList.some((item) => item._id === obj._id)) {
-      alert("Test already added!");
+      showError(
+        "Duplicate Test",
+        "This test has already been added to the list",
+        {
+          duration: 3000,
+          showCloseButton: true,
+        }
+      );
       return;
     }
 
@@ -56,10 +65,18 @@ const PatientCreatePopup = ({
     // Create a new updated array for testIds
     const updatedTestIds = [...testIds, obj._id];
     setTestIds(updatedTestIds);
+
+    clearValidationError("tests");
   };
 
   let handleDeleteProcedure = (id) => {
     setTestList((prev) => prev.filter((test) => test._id !== id));
+    setTestIds((prev) => prev.filter((testId) => testId !== id));
+
+    showSuccess("Test Removed", "Test has been removed from the list", {
+      duration: 3000,
+      showCloseButton: true,
+    });
   };
 
   const [departmentTotals, setDepartmentTotals] = useState([]);
@@ -206,90 +223,271 @@ const PatientCreatePopup = ({
     });
     setDepartmentTotals([]);
     setDepartmentPayments({});
+
+    // Reset validation errors
+    setValidationErrors({});
+    setIsSubmitting(false);
   };
 
-  const patientReg = () => {
-    // Prepare procedure calculation data for backend (without paid field)
-    const procedureCalculationData = departmentTotals.map((dept) => ({
-      depname: dept.depname,
-      totalPrice: dept.totalPrice,
-      discount: dept.discount,
-      discounted: dept.discounted,
-      due: dept.due,
-    }));
+  // Validation states
+  const [validationErrors, setValidationErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-    patientcreate.mutate(
-      {
+  // Form validation function
+  const validateForm = () => {
+    const errors = {};
+
+    // Patient Name validation
+    if (!form.patientName?.trim()) {
+      errors.patientName = "Patient name is required";
+    } else if (form.patientName.trim().length < 2) {
+      errors.patientName = "Patient name must be at least 2 characters";
+    }
+
+    // Age validation
+    if (!form.age) {
+      errors.age = "Age is required";
+    } else if (isNaN(form.age) || form.age < 0 || form.age > 150) {
+      errors.age = "Please enter a valid age (0-150)";
+    }
+
+    // Phone validation
+    if (!form.phone?.trim()) {
+      errors.phone = "Phone number is required";
+    } else if (!/^[0-9+\-\s()]{10,15}$/.test(form.phone.trim())) {
+      errors.phone = "Please enter a valid phone number";
+    }
+
+    // Sex validation
+    if (!sex || sex === "") {
+      errors.sex = "Please select patient sex";
+    }
+
+    // Date validation
+    if (!backendDate) {
+      errors.date = "Date is required";
+    }
+
+    // Delivery date validation
+    if (!deleveryBackendDate) {
+      errors.deleveryDate = "Delivery date is required";
+    }
+
+    // Doctor validation
+    if (!qualification || qualification === "") {
+      errors.refdoctor = "Please select a referring doctor";
+    }
+
+    // Test validation
+    if (!testList || testList.length === 0) {
+      errors.tests = "Please add at least one test";
+    }
+
+    setValidationErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  // Clear specific validation error
+  const clearValidationError = (field) => {
+    setValidationErrors((prev) => {
+      const newErrors = { ...prev };
+      delete newErrors[field];
+      return newErrors;
+    });
+  };
+
+  // Enhanced form field handlers with validation clearing
+  const handleFormChange = (field, value) => {
+    setForm((prev) => ({ ...prev, [field]: value }));
+    clearValidationError(field);
+  };
+
+  const handleSexChange = (value) => {
+    setSex(value);
+    clearValidationError("sex");
+  };
+
+  const handleDoctorChange = (value) => {
+    setQualification(value);
+    clearValidationError("refdoctor");
+  };
+
+  const handleDateChangeWithValidation = (dates) => {
+    handleDateChange(dates);
+    clearValidationError("date");
+  };
+
+  const handleDeliveryDateChangeWithValidation = (dates) => {
+    handleDeleveryDateChange(dates);
+    clearValidationError("deleveryDate");
+  };
+
+  const patientReg = async () => {
+    if (isSubmitting) return;
+
+    // Validate form
+    if (!validateForm()) {
+      showError(
+        "Validation Error",
+        "Please fill in all required fields correctly",
+        {
+          duration: 5000,
+          showCloseButton: true,
+        }
+      );
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // Prepare procedure calculation data for backend
+      const procedureCalculationData = departmentTotals.map((dept) => ({
+        depname: dept.depname,
+        totalPrice: dept.totalPrice,
+        discount: dept.discount,
+        discounted: dept.discounted,
+        due: dept.due,
+      }));
+
+      const patientData = {
         patientid: nextpatientid?.patientid,
-        patientname: form.patientName,
+        patientname: form.patientName.trim(),
         sex: sex,
-        age: form.age,
+        age: parseInt(form.age),
         date: backendDate,
         deleveryDate: deleveryBackendDate,
         refDoctor: qualification,
-        phone: form.phone,
+        phone: form.phone.trim(),
         procedures: testList,
         procedurecalculation: procedureCalculationData,
-        totalCharge: totals?.totalDiscountedPrice + totals?.totalDiscountAmount,
-        totalDiscount: totals?.totalDiscountAmount,
-        totalDiscounted: totals?.totalDiscountedPrice,
-        totalPaid: totals?.totalDiscountedPrice - dueAmount,
-        totalDue: dueAmount,
-      },
-      {
-        onSuccess: () => {
-          patientrefetch();
-          refetchNextPatientId();
-          resetForm(); // Clear form after successful save
-          setPopup(false);
-        },
-      }
-    );
+        totalCharge:
+          (totals?.totalDiscountedPrice || 0) +
+          (totals?.totalDiscountAmount || 0),
+        totalDiscount: totals?.totalDiscountAmount || 0,
+        totalDiscounted: totals?.totalDiscountedPrice || 0,
+        totalPaid: (totals?.totalDiscountedPrice || 0) - (dueAmount || 0),
+        totalDue: dueAmount || 0,
+      };
+
+      await patientcreate.mutateAsync(patientData);
+
+      showSuccess(
+        "Operation Successful",
+        "Patient registration completed successfully",
+        {
+          duration: 5000,
+          showCloseButton: true,
+        }
+      );
+
+      // Call parent refetch first
+      patientrefetch();
+      refetchNextPatientId();
+
+      // Reset form and close popup
+      resetForm();
+      setPopup(false);
+    } catch (error) {
+      console.error("Patient registration error:", error);
+      showError(
+        "Operation Failed",
+        "Something went wrong during patient registration. Please try again later",
+        {
+          duration: 5000,
+          showCloseButton: true,
+        }
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const handleNewPatient = () => {
-    // First save the current patient data
-    const procedureCalculationData = departmentTotals.map((dept) => ({
-      depname: dept.depname,
-      totalPrice: dept.totalPrice,
-      discount: dept.discount,
-      discounted: dept.discounted,
-      due: dept.due,
-    }));
+  const handleNewPatient = async () => {
+    if (isSubmitting) return;
 
-    patientcreate.mutate(
-      {
+    // Validate form
+    if (!validateForm()) {
+      showError(
+        "Validation Error",
+        "Please fill in all required fields correctly",
+        {
+          duration: 5000,
+          showCloseButton: true,
+        }
+      );
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // Prepare procedure calculation data for backend
+      const procedureCalculationData = departmentTotals.map((dept) => ({
+        depname: dept.depname,
+        totalPrice: dept.totalPrice,
+        discount: dept.discount,
+        discounted: dept.discounted,
+        due: dept.due,
+      }));
+
+      const patientData = {
         patientid: nextpatientid?.patientid,
-        patientname: form.patientName,
+        patientname: form.patientName.trim(),
         sex: sex,
-        age: form.age,
+        age: parseInt(form.age),
         date: backendDate,
         deleveryDate: deleveryBackendDate,
         refDoctor: qualification,
-        phone: form.phone,
+        phone: form.phone.trim(),
         procedures: testList,
         procedurecalculation: procedureCalculationData,
-        totalCharge: totals?.totalDiscountedPrice + totals?.totalDiscountAmount,
-        totalDiscount: totals?.totalDiscountAmount,
-        totalDiscounted: totals?.totalDiscountedPrice,
-        totalPaid: totals?.totalDiscountedPrice - dueAmount || 0,
-        totalDue: dueAmount,
-      },
-      {
-        onSuccess: () => {
-          patientrefetch();
-          refetchNextPatientId();
-          resetForm(); // Clear form for next patient
-          // Keep popup open for next patient registration
-        },
-      }
-    );
+        totalCharge:
+          (totals?.totalDiscountedPrice || 0) +
+          (totals?.totalDiscountAmount || 0),
+        totalDiscount: totals?.totalDiscountAmount || 0,
+        totalDiscounted: totals?.totalDiscountedPrice || 0,
+        totalPaid: (totals?.totalDiscountedPrice || 0) - (dueAmount || 0),
+        totalDue: dueAmount || 0,
+      };
+
+      await patientcreate.mutateAsync(patientData);
+
+      showSuccess(
+        "Operation Successful",
+        "Patient saved successfully. Ready for next patient",
+        {
+          duration: 5000,
+          showCloseButton: true,
+        }
+      );
+
+      // Call parent refetch first
+      patientrefetch();
+      refetchNextPatientId();
+
+      // Reset form but keep popup open for next patient
+      resetForm();
+    } catch (error) {
+      console.error("Patient registration error:", error);
+      showError(
+        "Operation Failed",
+        "Something went wrong during patient registration. Please try again later",
+        {
+          duration: 5000,
+          showCloseButton: true,
+        }
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const closepopuphandler = () => {
-    setPopup(false);
     resetForm();
+    setPopup(false);
   };
+
   return (
     <>
       <div
@@ -304,7 +502,7 @@ const PatientCreatePopup = ({
               </div>
               <div class="trezo-card-subtitle">
                 <div
-                  onClick={cancelcountrypopup}
+                  onClick={closepopuphandler}
                   class="text-[23px] transition-all leading-none text-black dark:text-white hover:text-primary-500"
                   id="add-new-popup-toggle"
                 >
@@ -312,6 +510,7 @@ const PatientCreatePopup = ({
                 </div>
               </div>
             </div>
+
             <fieldset class="trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
               <legend className="px-2 text-sm text-[#000] dark:text-[#fff]">
                 Personal Information
@@ -331,14 +530,18 @@ const PatientCreatePopup = ({
                   </div>
                   <div class="sm:col-span-1 flex items-center gap-x-4">
                     <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0 w-[6%]">
-                      Date
+                      Date <span className="text-red-500">*</span>
                     </label>
                     <div className="relative w-full">
                       <Flatpickr
                         value={displayDate}
-                        onChange={handleDateChange}
-                        options={{ dateFormat: "d-m-Y" }} // UI always dd-mm-yyyy
-                        className="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-4 pr-10 w-full outline-none placeholder-gray-500 dark:placeholder-[#fff]"
+                        onChange={handleDateChangeWithValidation}
+                        options={{ dateFormat: "d-m-Y" }}
+                        className={`h-[32px] rounded-md text-black dark:text-white border-2 ${
+                          validationErrors.date
+                            ? "!border-red-500"
+                            : "border-gray-500 dark:border-[#49557c]"
+                        } bg-white dark:bg-[#0c1427] px-4 pr-10 w-full outline-none placeholder-gray-500 dark:placeholder-[#fff] focus:border-primary-500`}
                       />
 
                       <i className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-red-500 pointer-events-none material-symbols-outlined !text-md">
@@ -349,41 +552,54 @@ const PatientCreatePopup = ({
 
                   <div class="sm:col-span-1 flex items-center gap-x-4">
                     <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0 w-[18%]">
-                      Patient Name
+                      Patient Name <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text"
                       onChange={(e) =>
-                        setForm({ ...form, patientName: e.target.value })
+                        handleFormChange("patientName", e.target.value)
                       }
                       value={form.patientName}
-                      class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
+                      className={`h-[32px] rounded-md text-black dark:text-white border-2 ${
+                        validationErrors.patientName
+                          ? "!border-red-500"
+                          : "border-gray-500 dark:border-[#49557c]"
+                      } bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500`}
+                      placeholder="Enter patient name"
                     />
                   </div>
                   <div class="sm:col-span-1 flex items-center gap-x-4">
                     <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0 w-[6%]">
-                      Sex
+                      Sex <span className="text-red-500">*</span>
                     </label>
                     <select
-                      class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500"
-                      onChange={(e) => setSex(e.target.value)}
-                      value={sex}
+                      className={`h-[32px] rounded-md text-black dark:text-white border-2 ${
+                        validationErrors.sex
+                          ? "!border-red-500"
+                          : "border-gray-500 dark:border-[#49557c]"
+                      } bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500`}
+                      onChange={(e) => handleSexChange(e.target.value)}
+                      value={sex || ""}
                     >
-                      <option>Select Sex</option>
-                      <option>Male</option>
-                      <option>Female</option>
+                      <option value="">Select Sex</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
                     </select>
                   </div>
                   <div class="sm:col-span-1 flex items-center gap-x-4">
                     <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0 w-[18%]">
-                      Ref. Dr.
+                      Ref. Dr. <span className="text-red-500">*</span>
                     </label>
                     <select
-                      class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500"
-                      onChange={(e) => setQualification(e.target.value)}
-                      value={qualification}
+                      className={`h-[32px] rounded-md text-black dark:text-white border-2 ${
+                        validationErrors.refdoctor
+                          ? "!border-red-500"
+                          : "border-gray-500 dark:border-[#49557c]"
+                      } bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500`}
+                      onChange={(e) => handleDoctorChange(e.target.value)}
+                      value={qualification || ""}
                     >
-                      <option>Select Doctor</option>
+                      <option value="">Select Doctor</option>
                       {doctorData?.map((doc) => (
                         <option key={doc._id} value={doc._id}>
                           {doc.doctorname}
@@ -394,28 +610,38 @@ const PatientCreatePopup = ({
 
                   <div class="sm:col-span-1 flex items-center gap-x-4">
                     <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0 w-[6%]">
-                      Age
+                      Age <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="number"
-                      onChange={(e) =>
-                        setForm({ ...form, age: e.target.value })
-                      }
+                      min="0"
+                      max="150"
+                      onChange={(e) => handleFormChange("age", e.target.value)}
                       value={form.age}
-                      class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
+                      className={`h-[32px] rounded-md text-black dark:text-white border-2 ${
+                        validationErrors.age
+                          ? "!border-red-500"
+                          : "border-gray-500 dark:border-[#49557c]"
+                      } bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500`}
+                      placeholder="Enter age"
                     />
                   </div>
                   <div class="sm:col-span-1 flex items-center gap-x-4">
                     <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0 w-[18%]">
-                      Phone
+                      Phone <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text"
                       onChange={(e) =>
-                        setForm({ ...form, phone: e.target.value })
+                        handleFormChange("phone", e.target.value)
                       }
                       value={form.phone}
-                      class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
+                      className={`h-[32px] rounded-md text-black dark:text-white border-2 ${
+                        validationErrors.phone
+                          ? "!border-red-500"
+                          : "border-gray-500 dark:border-[#49557c]"
+                      } bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500`}
+                      placeholder="Enter phone number"
                     />
                   </div>
                 </div>
@@ -423,7 +649,7 @@ const PatientCreatePopup = ({
             </fieldset>
             <fieldset class="mt-2 trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
               <legend className="px-2 text-sm text-[#000] dark:text-[#fff]">
-                Test Information
+                Test Information <span className="text-red-500">*</span>
               </legend>
               <form className="">
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-[6px] md:gap-y-[6px] gap-x-5">
@@ -433,14 +659,18 @@ const PatientCreatePopup = ({
                         Test Category
                       </label>
                       <select
-                        class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500"
+                        class={`h-[32px] rounded-md text-black dark:text-white border-2 ${
+                          validationErrors.tests
+                            ? "!border-red-500"
+                            : "border-gray-500 dark:border-[#49557c]"
+                        } bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500`}
                         value={selectedCategory}
                         onChange={(e) => {
                           setSelectedCategory(e.target.value);
-                          // setSelectedTest(""); // reset test when category changes
+                          clearValidationError("tests");
                         }}
                       >
-                        <option>Select Test Category</option>
+                        <option value="">Select Test Category</option>
                         {data?.map((dept) => (
                           <option key={dept._id} value={dept._id}>
                             {dept.name}
@@ -453,12 +683,16 @@ const PatientCreatePopup = ({
                         Test Name
                       </label>
                       <select
-                        class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500"
+                        class={`h-[32px] rounded-md text-black dark:text-white border-2 ${
+                          validationErrors.tests
+                            ? "!border-red-500"
+                            : "border-gray-500 dark:border-[#49557c]"
+                        } bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500`}
                         onChange={handleTestSelectChange}
                         disabled={!selectedCategory}
                         value={selectedTest}
                       >
-                        <option>Select Test</option>
+                        <option value="">Select Test</option>
                         {filteredTests?.map((item) => (
                           <option key={item._id} value={item._id}>
                             {item.testname}
@@ -690,14 +924,19 @@ const PatientCreatePopup = ({
                     <div className="date and timer mt-3 flex gap-x-2">
                       <div class="w-full">
                         <label class="mb-[2px] text-black dark:text-white font-medium block">
-                          Delevery Date :
+                          Delivery Date :{" "}
+                          <span className="text-red-500">*</span>
                         </label>
                         <div className="relative w-full">
                           <Flatpickr
                             value={deleveryDate}
-                            onChange={handleDeleveryDateChange}
-                            options={{ dateFormat: "d-m-Y" }} // UI always dd-mm-yyyy
-                            className="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-4 pr-10 w-full outline-none placeholder-gray-500 dark:placeholder-[#fff]"
+                            onChange={handleDeliveryDateChangeWithValidation}
+                            options={{ dateFormat: "d-m-Y" }}
+                            className={`h-[32px] rounded-md text-black dark:text-white border-2 ${
+                              validationErrors.deleveryDate
+                                ? "!border-red-500"
+                                : "border-gray-500 dark:border-[#49557c]"
+                            } bg-white dark:bg-[#0c1427] px-4 pr-10 w-full outline-none placeholder-gray-500 dark:placeholder-[#fff] focus:border-primary-500`}
                           />
 
                           <i className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-red-500 pointer-events-none material-symbols-outlined !text-md">
@@ -707,7 +946,7 @@ const PatientCreatePopup = ({
                       </div>
                       <div class="w-full">
                         <label class="mb-[2px] text-black dark:text-white font-medium block">
-                          Delevery Time :
+                          Delivery Time :
                         </label>
                         <input
                           type="text"
@@ -755,7 +994,9 @@ const PatientCreatePopup = ({
                             type="number"
                             class="no-arrow !w-full px-2 py-1 bg-yellow-100 text-black border border-gray-400 rounded text-right"
                             placeholder=""
-                            value={totals?.totalDiscountedPrice - dueAmount || 0} // Paid = total - due
+                            value={
+                              totals?.totalDiscountedPrice - dueAmount || 0
+                            } // Paid = total - due
                             onChange={handlerPaid}
                           />
                         </div>
@@ -769,24 +1010,30 @@ const PatientCreatePopup = ({
                         </div>
 
                         <div class="flex justify-end gap-x-4 pt-4">
-                          <div
+                          <button
+                            type="button"
                             onClick={closepopuphandler}
-                            class="bg-white text-black px-6 py-2 rounded border border-gray-300 hover:bg-gray-100 cursor-pointer"
+                            disabled={isSubmitting}
+                            class="bg-white text-black px-6 py-2 rounded border border-gray-300 hover:bg-gray-100 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                           >
                             Close
-                          </div>
-                          <div
+                          </button>
+                          <button
+                            type="button"
                             onClick={handleNewPatient}
-                            class="bg-white text-black px-6 py-2 rounded border border-gray-300 hover:bg-gray-100 cursor-pointer"
+                            disabled={isSubmitting}
+                            class="bg-blue-500 text-white px-6 py-2 rounded border border-blue-500 hover:bg-blue-600 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                           >
-                            New
-                          </div>
-                          <div
+                            {isSubmitting ? "Saving..." : "New"}
+                          </button>
+                          <button
+                            type="button"
                             onClick={patientReg}
-                            class="bg-white text-black px-6 py-2 rounded border border-gray-300 hover:bg-gray-100 cursor-pointer"
+                            disabled={isSubmitting}
+                            class="bg-green-500 text-white px-6 py-2 rounded border border-green-500 hover:bg-green-600 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                           >
-                            Save
-                          </div>
+                            {isSubmitting ? "Saving..." : "Save"}
+                          </button>
                         </div>
                       </div>
                     </div>

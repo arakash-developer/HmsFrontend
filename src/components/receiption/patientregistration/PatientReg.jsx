@@ -188,9 +188,6 @@ const PatientReg = () => {
           handleDeletepopup={handleDeletepopup}
         />
       )}
-
-      {editpopup && <EditPopup />}
-      {deletepopup && <DeletePopup />}
     </>
   );
 };
