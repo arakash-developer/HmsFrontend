@@ -1,34 +1,47 @@
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { useToast } from "../../../hooks/useToast.jsx";
 
 export default function App() {
-  const handleCustomToast = () => {
-    toast(
-      <div className="bg-[red]">
-        <img src="/user.png" className="w-8 h-8 rounded-full" />
-        <div>
-          <h1 className="font-bold">New Message</h1>
-          <p className="text-sm">You have 1 unread message</p>
-        </div>
-      </div>,
+  const { showSuccess, showError } = useToast();
+
+  const handleSuccessToast = () => {
+    showSuccess(
+      "Operation Successful",
+      "Your request has been completed successfully",
       {
-        autoClose: 5000,
-        closeButton: true,
-        hideProgressBar: false,
+        duration: 5000,
+        showCloseButton: true,
+      }
+    );
+  };
+
+  const handleErrorToast = () => {
+    showError(
+      "Operation Failed",
+      "Something went wrong. Please try again later",
+      {
+        duration: 5000,
+        showCloseButton: true,
       }
     );
   };
 
   return (
     <>
-      <button
-        onClick={handleCustomToast}
-        className="px-4 py-2 bg-blue-600 text-white rounded-lg"
-      >
-        Show Custom JSX Toast
-      </button>
+      <div className="space-x-4">
+        <button
+          onClick={handleSuccessToast}
+          className="px-4 py-2 bg-green-600 text-white rounded-lg"
+        >
+          Show Success Toast
+        </button>
 
-      <ToastContainer position="bottom-left" />
+        <button
+          onClick={handleErrorToast}
+          className="px-4 py-2 bg-red-600 text-white rounded-lg"
+        >
+          Show Error Toast
+        </button>
+      </div>
     </>
   );
 }
