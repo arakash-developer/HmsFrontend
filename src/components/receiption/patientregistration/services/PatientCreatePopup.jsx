@@ -1,3 +1,4 @@
+import useDatePicker from "@/hooks/useDatePicker";
 import { useEffect, useState } from "react";
 import Flatpickr from "react-flatpickr";
 const PatientCreatePopup = ({
@@ -163,6 +164,15 @@ const PatientCreatePopup = ({
     }));
   };
 
+  const { displayDate, uiDate, backendDate, handleDateChange } =
+    useDatePicker("Asia/Dhaka");
+  const {
+    displayDate: deleveryDate,
+    uiDate: deleveryUiDate,
+    backendDate: deleveryBackendDate,
+    handleDateChange: handleDeleveryDateChange,
+  } = useDatePicker("Asia/Dhaka");
+
   const patientReg = () => {
     console.log(departmentTotals);
 
@@ -180,7 +190,9 @@ const PatientCreatePopup = ({
         patientname: form.patientName,
         sex: sex,
         age: form.age,
-        refDoctor: "6747bb8074f43ce9b6d0b111",
+        date: backendDate,
+        deleveryDate: deleveryBackendDate,
+        refDoctor: qualification, 
         phone: form.phone,
         procedures: testList,
         procedurecalculation: procedureCalculationData,
@@ -190,7 +202,6 @@ const PatientCreatePopup = ({
         totalPaid: totals?.totalDiscountedPrice - dueAmount,
         totalDue: dueAmount,
       },
-
       {
         onSuccess: () => {
           patientrefetch();
@@ -198,6 +209,7 @@ const PatientCreatePopup = ({
       }
     );
   };
+
   return (
     <>
       <div
@@ -243,9 +255,9 @@ const PatientCreatePopup = ({
                     </label>
                     <div className="relative w-full">
                       <Flatpickr
-                        value={date}
-                        onChange={(selectedDates) => setDate(selectedDates[0])}
-                        options={{ dateFormat: "d-m-Y" }} // day-month-year
+                        value={displayDate}
+                        onChange={handleDateChange}
+                        options={{ dateFormat: "d-m-Y" }} // UI always dd-mm-yyyy
                         className="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-4 pr-10 w-full outline-none placeholder-gray-500 dark:placeholder-[#fff]"
                       />
 
@@ -602,11 +614,9 @@ const PatientCreatePopup = ({
                         </label>
                         <div className="relative w-full">
                           <Flatpickr
-                            value={date}
-                            onChange={(selectedDates) =>
-                              setDate(selectedDates[0])
-                            }
-                            options={{ dateFormat: "d-m-Y" }} // day-month-year
+                            value={deleveryDate}
+                            onChange={handleDeleveryDateChange}
+                            options={{ dateFormat: "d-m-Y" }} // UI always dd-mm-yyyy
                             className="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-4 pr-10 w-full outline-none placeholder-gray-500 dark:placeholder-[#fff]"
                           />
 
