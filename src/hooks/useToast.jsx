@@ -19,11 +19,9 @@ export const useToast = () => {
 
   const showError = (headline, paragraph, options = {}) => {
     const content = (
-      <div className="bg-red-500 rounded-lg p-4">
-        <div>
-          <h1 className="font-bold text-white">{headline}</h1>
-          <p className="text-sm text-white">{paragraph}</p>
-        </div>
+      <div className="bg-primary-500 border trezo-card-content border-primary-500 rounded-md py-2 px-4">
+        <h5 className="font-bold text-white mb-0 pb-0">{headline}</h5>
+        <p className="text-sm text-white mt-0 pt-0">{paragraph}</p>
       </div>
     );
     return addToast(content, { ...options, type: "error" });
