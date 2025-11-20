@@ -177,6 +177,37 @@ const PatientCreatePopup = ({
 
   const { data: nextpatientid, refetch: refetchNextPatientId } =
     useCrud("api/nextpatientid");
+
+  const resetForm = () => {
+    // Reset form fields
+    setForm({
+      date: "",
+      patientName: "",
+      refdoctor: "",
+      age: "",
+      phone: "",
+    });
+
+    // Reset all selections and calculations
+    setSex("");
+    setQualification("");
+    setSelectedCategory("");
+    setSelectedTest("");
+    setTestList([]);
+    setTestIds([]);
+
+    // Reset calculation states
+    setFinalTotalCalculation({});
+    setDueAmount(0);
+    setTotals({
+      totalDiscount: 0,
+      totalDiscountedPrice: 0,
+      totalDiscountAmount: 0,
+    });
+    setDepartmentTotals([]);
+    setDepartmentPayments({});
+  };
+
   const patientReg = () => {
     // Prepare procedure calculation data for backend (without paid field)
     const procedureCalculationData = departmentTotals.map((dept) => ({
@@ -209,7 +240,8 @@ const PatientCreatePopup = ({
         onSuccess: () => {
           patientrefetch();
           refetchNextPatientId();
-          setPopup(false); 
+          resetForm(); // Clear form after successful save
+          setPopup(false);
         },
       }
     );
