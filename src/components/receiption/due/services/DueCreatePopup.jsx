@@ -933,7 +933,20 @@ const DueCreatePopup = ({
                           />
                         </div>
                         <div className="buttons w-full flex justify-end">
-                          <div className="ss">ss</div>
+                          <div
+                            class="cursor-pointer rounded-md inline-block transition-all font-medium ltr:mr-[15px] rtl:ml-[15px] px-[26.5px] py-[10px] bg-danger-500 text-white hover:bg-danger-400"
+                            id="add-new-popup-toggle"
+                          >
+                            Cancel
+                          </div>
+                          <div class="cursor-pointer inline-block bg-primary-500 text-white py-[10px] px-[26.5px] transition-all rounded-md hover:bg-primary-400">
+                            <span class="inline-block relative ltr:pl-[25px] rtl:pr-[25px]">
+                              <i class="material-symbols-outlined !text-[20px] absolute ltr:left-0 rtl:right-0 top-1/2 -translate-y-1/2">
+                                save
+                              </i>
+                              Save
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </fieldset>
