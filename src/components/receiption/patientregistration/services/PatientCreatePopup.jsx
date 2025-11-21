@@ -1,7 +1,7 @@
 import useCrud from "@/hooks/useCrud";
 import useDatePicker from "@/hooks/useDatePicker";
 import { useToast } from "@hooks/useToast";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Flatpickr from "react-flatpickr";
 const PatientCreatePopup = ({
   cancelcountrypopup,
@@ -199,6 +199,18 @@ const PatientCreatePopup = ({
   const { data: nextpatientid, refetch: refetchNextPatientId } =
     useCrud("api/nextpatientid");
 
+  // Patient ID management with ref to prevent re-renders
+  const [currentPatientId, setCurrentPatientId] = useState(null);
+  const hasInitialized = useRef(false);
+
+  // Initialize patient ID only once
+  useEffect(() => {
+    if (nextpatientid?.patientid && !hasInitialized.current) {
+      setCurrentPatientId(nextpatientid.patientid);
+      hasInitialized.current = true;
+    }
+  }, [nextpatientid]);
+
   const resetForm = () => {
     // Reset form fields
     setForm({
@@ -330,7 +342,6 @@ const PatientCreatePopup = ({
   const patientReg = async () => {
     if (isSubmitting) return;
 
-    // Validate form
     if (!validateForm()) {
       showError(
         "Validation Error",
@@ -356,7 +367,7 @@ const PatientCreatePopup = ({
       }));
 
       const patientData = {
-        patientid: nextpatientid?.patientid,
+        patientid: currentPatientId,
         patientname: form.patientName.trim(),
         sex: sex,
         age: parseInt(form.age),
@@ -389,7 +400,11 @@ const PatientCreatePopup = ({
 
       // Call parent refetch first
       patientrefetch();
-      refetchNextPatientId();
+      
+      const result = await refetchNextPatientId();
+      if (result?.data?.patientid) {
+        setCurrentPatientId(result.data.patientid);
+      }
 
       // Reset form and close popup
       resetForm();
@@ -454,7 +469,6 @@ const PatientCreatePopup = ({
   const handleNewPatient = async () => {
     if (isSubmitting) return;
 
-    // Validate form
     if (!validateForm()) {
       showError(
         "Validation Error",
@@ -480,7 +494,7 @@ const PatientCreatePopup = ({
       }));
 
       const patientData = {
-        patientid: nextpatientid?.patientid,
+        patientid: currentPatientId,
         patientname: form.patientName.trim(),
         sex: sex,
         age: parseInt(form.age),
@@ -513,7 +527,11 @@ const PatientCreatePopup = ({
 
       // Call parent refetch and get new patient ID
       await patientrefetch();
-      await refetchNextPatientId();
+      
+      const result = await refetchNextPatientId();
+      if (result?.data?.patientid) {
+        setCurrentPatientId(result.data.patientid);
+      }
 
       // Reset form but keep popup open for next patient
       resetForm();
@@ -576,7 +594,7 @@ const PatientCreatePopup = ({
                     <input
                       disabled
                       type="text"
-                      value={nextpatientid?.patientid || "Loading..."}
+                      value={currentPatientId || "Loading..."}
                       class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
                     />
                   </div>
