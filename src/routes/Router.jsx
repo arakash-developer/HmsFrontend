@@ -39,6 +39,8 @@ import PublicRoute from "@/routes/PublicRoute";
 import OutdoorReport from "@/components/receiption/outdoorIncome/services/OutdoorReport";
 import Table from "@/components/receiption/table/Table";
 import TableIdField from "@/components/receiption/tableidfield/TableIdField";
+import Outdoorincomestatement from "@/components/receiption/outdoorincomestatement/Outdoorincomestatement";
+import OutdoorStatement from "@/components/receiption/outdoorincomestatement/services/OutdoorStatement";
 // import { i } from "react-router/dist/development/index-react-server-client-kY8DvDF3";
 
 const routes = [
@@ -76,7 +78,8 @@ const routes = [
           { path: "search-patient-info", element: <Patientinfo /> },
           { path: "refferel-doctor", element: <RefferelDoctor /> },
           { path: "outdoor-income", element: <OutdoorIncome /> },
-          { path: "outdoor-income/outdoor-report/:backendDate", element: <OutdoorReport /> },
+          { path: "outdoor-income-statement", element: <Outdoorincomestatement /> },
+          { path: "outdoor-income-statement/outdoor-statement/:startingBackendDate/:endingBackendDate", element: <OutdoorStatement /> },
           { path: "periodical-report", element: <PeriodicalReport /> },
           {
             path: "periodical-statement-report",
