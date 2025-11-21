@@ -6,22 +6,6 @@ import { Link } from "react-router";
 const OutdoorIncome = () => {
   const { displayDate, uiDate, backendDate, handleDateChange } =
     useDatePicker("Asia/Dhaka");
-  const backendDatee = "2025-11-17"; // from your useDatePicker hook
-  const {
-    data: patientData,
-    page,
-    setPage,
-    limit,
-    setLimit,
-    refetch: patientrefetch,
-    create: patientcreate,
-    update: patientupdate,
-    isLoading: patientisLoading,
-    remove: patientremove,
-  } = useCrudPaginated(`api/report?date=${backendDatee}&`, 1, 30);
-
-  console.log(patientData);
-
   return (
     <div>
       <div class="">

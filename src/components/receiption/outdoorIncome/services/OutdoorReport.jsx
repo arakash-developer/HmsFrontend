@@ -16,8 +16,8 @@ const OutdoorReport = () => {
         }}
         uidate={convertIsoToUi(backendDate)}
         paginatedataurl={`api/report?date=${backendDate}&`}
+        limit={1}
         page={1}
-        limit={30}
         searchdataurl={`/api/patientregistration/patientid/`}
       />
     </>

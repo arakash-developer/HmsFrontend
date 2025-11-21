@@ -5,11 +5,11 @@ const TableHeader = ({
   patientId,
   uidate,
   setPatientId,
-  addcountryhandler,
   setPage,
   page,
-  setLimit,
   patientData,
+  isSearchActive,
+  totalPages,
 }) => {
   const componentRef = useRef();
 
@@ -100,34 +100,43 @@ const TableHeader = ({
           </form>
         </div>
         <div class="trezo-card-subtitle mt-[15px] sm:mt-0 flex items-center gap-[10px]">
-          <ol class="sm:mt-0">
-            <li class="inline-block mx-[1px] ltr:first:ml-0 ltr:last:mr-0 rtl:first:mr-0 rtl:last:ml-0">
-              <button
-                onClick={() => setPage(page - 1)}
-                disabled={page === 1}
-                href="javascript:void(0);"
-                class="w-[31px] h-[31px] block leading-[29px] relative text-center rounded-md border border-gray-100 dark:border-[#172036] transition-all hover:bg-primary-500 hover:text-white hover:border-primary-500"
-              >
-                <span class="opacity-0">0</span>
-                <i class="material-symbols-outlined left-0 right-0 absolute top-1/2 -translate-y-1/2">
-                  chevron_left
-                </i>
-              </button>
-            </li>
+          {!isSearchActive && totalPages > 1 && (
+            <ol class="sm:mt-0">
+              <li class="inline-block mx-[1px] ltr:first:ml-0 ltr:last:mr-0 rtl:first:mr-0 rtl:last:ml-0">
+                <button
+                  onClick={() => setPage(page - 1)}
+                  disabled={page === 1}
+                  href="javascript:void(0);"
+                  class="w-[31px] h-[31px] block leading-[29px] relative text-center rounded-md border border-gray-100 dark:border-[#172036] transition-all hover:bg-primary-500 hover:text-white hover:border-primary-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <span class="opacity-0">0</span>
+                  <i class="material-symbols-outlined left-0 right-0 absolute top-1/2 -translate-y-1/2">
+                    chevron_left
+                  </i>
+                </button>
+              </li>
 
-            <li class="inline-block mx-[1px] ltr:first:ml-0 ltr:last:mr-0 rtl:first:mr-0 rtl:last:ml-0">
-              <button
-                href="javascript:void(0);"
-                onClick={() => setPage(page + 1)}
-                class="w-[31px] h-[31px] block leading-[29px] relative text-center rounded-md border border-gray-100 dark:border-[#172036] transition-all hover:bg-primary-500 hover:text-white hover:border-primary-500"
-              >
-                <span class="opacity-0">0</span>
-                <i class="material-symbols-outlined left-0 right-0 absolute top-1/2 -translate-y-1/2">
-                  chevron_right
-                </i>
-              </button>
-            </li>
-          </ol>
+              <li class="inline-block mx-[1px] ltr:first:ml-0 ltr:last:mr-0 rtl:first:mr-0 rtl:last:ml-0">
+                <span class="w-[31px] h-[31px] flex items-center justify-center text-sm font-medium border border-gray-100 dark:border-[#172036] rounded-md">
+                  {page}
+                </span>
+              </li>
+
+              <li class="inline-block mx-[1px] ltr:first:ml-0 ltr:last:mr-0 rtl:first:mr-0 rtl:last:ml-0">
+                <button
+                  href="javascript:void(0);"
+                  onClick={() => setPage(page + 1)}
+                  disabled={page >= totalPages}
+                  class="w-[31px] h-[31px] block leading-[29px] relative text-center rounded-md border border-gray-100 dark:border-[#172036] transition-all hover:bg-primary-500 hover:text-white hover:border-primary-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <span class="opacity-0">0</span>
+                  <i class="material-symbols-outlined left-0 right-0 absolute top-1/2 -translate-y-1/2">
+                    chevron_right
+                  </i>
+                </button>
+              </li>
+            </ol>
+          )}
           <div
             onClick={handlePrintClick}
             class="inline-block cursor-pointer transition-all rounded-md font-medium px-[13px] py-[6px] text-primary-500 border border-primary-500 hover:bg-primary-500 hover:text-white"
@@ -144,7 +153,7 @@ const TableHeader = ({
         <PatientDetailsPrint
           patientData={patientData}
           componentRef={componentRef}
-            uidate={uidate}
+          uidate={uidate}
         />
       </div>
     </>

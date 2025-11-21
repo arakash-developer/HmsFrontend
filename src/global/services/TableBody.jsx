@@ -7,6 +7,8 @@ const TableBody = ({
   setPage,
   patientisLoading,
   uidate,
+  isSearchActive,
+  totalPages,
 }) => {
   const componentRef = useRef();
   const singlePatientRef = useRef();
@@ -216,37 +218,42 @@ const TableBody = ({
               </tbody>
             </table>
           </div>
-          <div class="mt-5 px-[20px] py-[12px] md:py-[14px] rounded-b-md border-l border-r border-t  border-gray-100 dark:border-[#172036] sm:flex sm:items-center justify-between">
-            <p class="mb-0 text-sm">Next & Previous Button</p>
-            <ol class="mt-[10px] sm:mt-0">
-              <li class="inline-block mx-[1px] ltr:first:ml-0 ltr:last:mr-0 rtl:first:mr-0 rtl:last:ml-0">
-                <button
-                  onClick={() => setPage(page - 1)}
-                  disabled={page === 1}
-                  href="javascript:void(0);"
-                  class="w-[31px] h-[31px] block leading-[29px] relative text-center rounded-md border border-gray-100 dark:border-[#172036] transition-all hover:bg-primary-500 hover:text-white hover:border-primary-500"
-                >
-                  <span class="opacity-0">0</span>
-                  <i class="material-symbols-outlined left-0 right-0 absolute top-1/2 -translate-y-1/2">
-                    chevron_left
-                  </i>
-                </button>
-              </li>
+          {!isSearchActive && totalPages > 1 && (
+            <div class="mt-5 px-[20px] py-[12px] md:py-[14px] rounded-b-md border-l border-r border-t  border-gray-100 dark:border-[#172036] sm:flex sm:items-center justify-between">
+              <p class="mb-0 text-sm">
+                Page {page} of {totalPages}
+              </p>
+              <ol class="mt-[10px] sm:mt-0">
+                <li class="inline-block mx-[1px] ltr:first:ml-0 ltr:last:mr-0 rtl:first:mr-0 rtl:last:ml-0">
+                  <button
+                    onClick={() => setPage(page - 1)}
+                    disabled={page === 1}
+                    href="javascript:void(0);"
+                    class="w-[31px] h-[31px] block leading-[29px] relative text-center rounded-md border border-gray-100 dark:border-[#172036] transition-all hover:bg-primary-500 hover:text-white hover:border-primary-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <span class="opacity-0">0</span>
+                    <i class="material-symbols-outlined left-0 right-0 absolute top-1/2 -translate-y-1/2">
+                      chevron_left
+                    </i>
+                  </button>
+                </li>
 
-              <li class="inline-block mx-[1px] ltr:first:ml-0 ltr:last:mr-0 rtl:first:mr-0 rtl:last:ml-0">
-                <button
-                  href="javascript:void(0);"
-                  onClick={() => setPage(page + 1)}
-                  class="w-[31px] h-[31px] block leading-[29px] relative text-center rounded-md border border-gray-100 dark:border-[#172036] transition-all hover:bg-primary-500 hover:text-white hover:border-primary-500"
-                >
-                  <span class="opacity-0">0</span>
-                  <i class="material-symbols-outlined left-0 right-0 absolute top-1/2 -translate-y-1/2">
-                    chevron_right
-                  </i>
-                </button>
-              </li>
-            </ol>
-          </div>
+                <li class="inline-block mx-[1px] ltr:first:ml-0 ltr:last:mr-0 rtl:first:mr-0 rtl:last:ml-0">
+                  <button
+                    href="javascript:void(0);"
+                    onClick={() => setPage(page + 1)}
+                    disabled={page >= totalPages}
+                    class="w-[31px] h-[31px] block leading-[29px] relative text-center rounded-md border border-gray-100 dark:border-[#172036] transition-all hover:bg-primary-500 hover:text-white hover:border-primary-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <span class="opacity-0">0</span>
+                    <i class="material-symbols-outlined left-0 right-0 absolute top-1/2 -translate-y-1/2">
+                      chevron_right
+                    </i>
+                  </button>
+                </li>
+              </ol>
+            </div>
+          )}
         </div>
       ) : (
         <h6 class="font-medium text-center px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
