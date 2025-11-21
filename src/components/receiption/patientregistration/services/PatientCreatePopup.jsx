@@ -1,7 +1,7 @@
 import useCrud from "@/hooks/useCrud";
 import useDatePicker from "@/hooks/useDatePicker";
 import { useToast } from "@hooks/useToast";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Flatpickr from "react-flatpickr";
 const PatientCreatePopup = ({
   cancelcountrypopup,
@@ -106,13 +106,15 @@ const PatientCreatePopup = ({
       ([depname, totalPrice]) => {
         const discount = finalTotalCalculation[depname]?.discount || 0;
         const discounted = totalPrice - discount;
-        const due = discounted; // due is same as discounted since no paid field
+        const paid = 0; // Will be calculated in distributePaidAmount
+        const due = discounted - paid;
 
         return {
           depname,
           totalPrice,
           discount,
           discounted,
+          paid,
           due,
         };
       }
@@ -357,12 +359,23 @@ const PatientCreatePopup = ({
     setIsSubmitting(true);
 
     try {
+      // Calculate total paid amount
+      const totalPaidAmount =
+        (totals?.totalDiscountedPrice || 0) - (dueAmount || 0);
+
+      // Distribute paid amount across departments
+      const departmentsWithPaid = distributePaidAmount(
+        totalPaidAmount,
+        departmentTotals
+      );
+
       // Prepare procedure calculation data for backend
-      const procedureCalculationData = departmentTotals.map((dept) => ({
+      const procedureCalculationData = departmentsWithPaid.map((dept) => ({
         depname: dept.depname,
         totalPrice: dept.totalPrice,
         discount: dept.discount,
         discounted: dept.discounted,
+        paid: dept.paid,
         due: dept.due,
       }));
 
@@ -375,7 +388,7 @@ const PatientCreatePopup = ({
         deleveryDate: deleveryBackendDate,
         refDoctor: qualification,
         phone: form.phone.trim(),
-        receptionist: receptionistId, // Use extracted receptionist ID
+        receptionist: receptionistId,
         procedures: testIdObjects,
         procedurecalculation: procedureCalculationData,
         totalCharge:
@@ -383,7 +396,7 @@ const PatientCreatePopup = ({
           (totals?.totalDiscountAmount || 0),
         totalDiscount: totals?.totalDiscountAmount || 0,
         totalDiscounted: totals?.totalDiscountedPrice || 0,
-        totalPaid: (totals?.totalDiscountedPrice || 0) - (dueAmount || 0),
+        totalPaid: totalPaidAmount,
         totalDue: dueAmount || 0,
       };
 
@@ -400,7 +413,7 @@ const PatientCreatePopup = ({
 
       // Call parent refetch first
       patientrefetch();
-      
+
       const result = await refetchNextPatientId();
       if (result?.data?.patientid) {
         setCurrentPatientId(result.data.patientid);
@@ -484,12 +497,23 @@ const PatientCreatePopup = ({
     setIsSubmitting(true);
 
     try {
+      // Calculate total paid amount
+      const totalPaidAmount =
+        (totals?.totalDiscountedPrice || 0) - (dueAmount || 0);
+
+      // Distribute paid amount across departments
+      const departmentsWithPaid = distributePaidAmount(
+        totalPaidAmount,
+        departmentTotals
+      );
+
       // Prepare procedure calculation data for backend
-      const procedureCalculationData = departmentTotals.map((dept) => ({
+      const procedureCalculationData = departmentsWithPaid.map((dept) => ({
         depname: dept.depname,
         totalPrice: dept.totalPrice,
         discount: dept.discount,
         discounted: dept.discounted,
+        paid: dept.paid,
         due: dept.due,
       }));
 
@@ -510,7 +534,7 @@ const PatientCreatePopup = ({
           (totals?.totalDiscountAmount || 0),
         totalDiscount: totals?.totalDiscountAmount || 0,
         totalDiscounted: totals?.totalDiscountedPrice || 0,
-        totalPaid: (totals?.totalDiscountedPrice || 0) - (dueAmount || 0),
+        totalPaid: totalPaidAmount,
         totalDue: dueAmount || 0,
       };
 
@@ -527,7 +551,7 @@ const PatientCreatePopup = ({
 
       // Call parent refetch and get new patient ID
       await patientrefetch();
-      
+
       const result = await refetchNextPatientId();
       if (result?.data?.patientid) {
         setCurrentPatientId(result.data.patientid);
@@ -556,6 +580,36 @@ const PatientCreatePopup = ({
   const closepopuphandler = () => {
     resetForm();
     setPopup(false);
+  };
+
+  // Add this new function to distribute paid amount across departments
+  const distributePaidAmount = (totalPaidAmount, departmentTotalsArray) => {
+    let remainingPaid = Number(totalPaidAmount) || 0;
+
+    return departmentTotalsArray.map((dept) => {
+      const discounted = dept.discounted;
+      let paid = 0;
+
+      if (remainingPaid > 0) {
+        if (remainingPaid >= discounted) {
+          // This department can be fully paid
+          paid = discounted;
+          remainingPaid -= discounted;
+        } else {
+          // Partial payment for this department
+          paid = remainingPaid;
+          remainingPaid = 0;
+        }
+      }
+
+      const due = discounted - paid;
+
+      return {
+        ...dept,
+        paid,
+        due,
+      };
+    });
   };
 
   return (
@@ -902,16 +956,11 @@ const PatientCreatePopup = ({
                                     (finalTotalCalculation[item.depname]
                                       ?.discount || 0)}
                               </td>
-                              <td class="border border-gray-400 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                                0
+                              <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
+                                {item.paid}
                               </td>
                               <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                                {item.due ||
-                                  (item.discounted ||
-                                    item.totalPrice -
-                                      (finalTotalCalculation[item.depname]
-                                        ?.discount || 0)) -
-                                    (departmentPayments[item.depname] || 0)}
+                                {item.due}
                               </td>
                             </tr>
                           ))

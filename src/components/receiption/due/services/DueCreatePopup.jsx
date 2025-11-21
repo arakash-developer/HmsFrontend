@@ -4,9 +4,12 @@ import { useToast } from "@hooks/useToast";
 import { useEffect, useRef, useState } from "react";
 const DueCreatePopup = ({
   cancelcountrypopup,
+  patientSearchdata,
   patientrefetch,
+  patientId,
   selectedTest,
   setPopup,
+  setPatientId,
   patientcreate,
   selectedCategory,
   date,
@@ -24,6 +27,8 @@ const DueCreatePopup = ({
   handleDeletepopup,
   filteredTests,
 }) => {
+  console.log("dd", patientSearchdata?.procedurecalculation);
+
   const { showSuccess, showError } = useToast();
   const [form, setForm] = useState({
     date: "",
@@ -590,10 +595,12 @@ const DueCreatePopup = ({
                     <fieldset class="trezo-card-content px-4 py-2 rounded-md">
                       <div class="flex items-center gap-x-4">
                         <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0">
-                          Search Patient By Reg. No
+                          Search Patient By Id. No
                         </label>
                         <input
                           type="number"
+                          onChange={(e) => setPatientId(e.target.value)}
+                          value={patientId}
                           class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500 no-arrow"
                         />
                       </div>
@@ -629,63 +636,70 @@ const DueCreatePopup = ({
                       </div>
                     </fieldset>
                   </div>
-                  <div className="pathology sm:col-span-1">
-                    <fieldset class="trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
-                      <legend className="px-2 text-sm text-[#000] dark:text-[#fff]">
-                        Pathology
-                      </legend>
-                      <div class="flex items-center gap-x-4">
-                        <div className="">
-                          <label class="text-black dark:text-white font-medium block flex-shrink-0">
-                            Total
-                          </label>
-                          <label class="text-black dark:text-white font-medium block flex-shrink-0">
-                            Discount
-                          </label>
-                          <label class="text-black dark:text-white font-medium block flex-shrink-0">
-                            Paid
-                          </label>
-                          <label class="text-black dark:text-white font-medium block flex-shrink-0">
-                            Due
-                          </label>
-                        </div>
-                        <div className="">
-                          <div className="">:</div>
-                          <div className="">:</div>
-                          <div className="">:</div>
-                          <div className="">:</div>
-                        </div>
-                        <div className="">
-                          <div class="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500">
-                            ssss
+
+                  {patientSearchdata?.procedurecalculation?.length > 0
+                    ? patientSearchdata?.procedurecalculation?.map(
+                        (item, index) => (
+                          <div className="pathology sm:col-span-1">
+                            <fieldset class="trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
+                              <legend className="px-2 capitalize text-sm text-[#000] dark:text-[#fff]">
+                                {item?.depname}
+                              </legend>
+                              <div class="flex items-center gap-x-4">
+                                <div className="">
+                                  <label class="text-black dark:text-white font-medium block flex-shrink-0">
+                                    Total
+                                  </label>
+                                  <label class="text-black dark:text-white font-medium block flex-shrink-0">
+                                    Discount
+                                  </label>
+                                  <label class="text-black dark:text-white font-medium block flex-shrink-0">
+                                    Paid
+                                  </label>
+                                  <label class="text-black dark:text-white font-medium block flex-shrink-0">
+                                    Due
+                                  </label>
+                                </div>
+                                <div className="">
+                                  <div className="">:</div>
+                                  <div className="">:</div>
+                                  <div className="">:</div>
+                                  <div className="">:</div>
+                                </div>
+                                <div className="">
+                                  <div class="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500">
+                                    {item?.totalPrice}
+                                  </div>
+                                  <div class="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500">
+                                    {item?.discount}
+                                  </div>
+                                  <div class="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500">
+                                    {0}
+                                  </div>
+                                  <div class="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500">
+                                    {item?.due}
+                                  </div>
+                                </div>
+                              </div>
+                            </fieldset>
+                            <fieldset class="sm:col-span-1 trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
+                              <legend className="px-2 text-sm text-[#000] dark:text-[#fff]">
+                                Present
+                              </legend>
+                              <div class="flex items-center gap-x-4">
+                                <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0">
+                                  Collection
+                                </label>
+                                <input
+                                  type="number"
+                                  class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500 no-arrow"
+                                />
+                              </div>
+                            </fieldset>
                           </div>
-                          <div class="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500">
-                            ssss
-                          </div>
-                          <div class="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500">
-                            ssss
-                          </div>
-                          <div class="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500">
-                            ssss
-                          </div>
-                        </div>
-                      </div>
-                    </fieldset>
-                    <fieldset class="sm:col-span-1 trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
-                      <legend className="px-2 text-sm text-[#000] dark:text-[#fff]">
-                        Present
-                      </legend>
-                      <div class="flex items-center gap-x-4">
-                        <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0">
-                          Collection
-                        </label>
-                        <input
-                          type="number"
-                          class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500 no-arrow"
-                        />
-                      </div>
-                    </fieldset>
-                  </div>
+                        )
+                      )
+                    : null}
                   <div className="xray-ecg sm:col-span-1">
                     <fieldset class="trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
                       <legend className="px-2 text-sm text-[#000] dark:text-[#fff]">

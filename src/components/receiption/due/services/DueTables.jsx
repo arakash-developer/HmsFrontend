@@ -1,3 +1,5 @@
+import useSearch from "@/hooks/useSearch";
+
 const DueTables = ({
   patientData = [],
   page,

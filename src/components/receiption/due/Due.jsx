@@ -166,14 +166,17 @@ const Due = () => {
         <DueCreatePopup
           patientrefetch={patientrefetch}
           data={data}
+          patientId={patientId}
           patientcreate={patientcreate}
           selectedCategory={selectedCategory}
           date={date}
           setTestIds={setTestIds}
+          patientSearchdata={patientSearch}
           testIds={testIds}
           setSelectedCategory={setSelectedCategory}
           cancelcountrypopup={cancelcountrypopup}
           setDate={setDate}
+          setPatientId={setPatientId}
           doctorData={doctorData}
           setPopup={setPopup}
           testList={testList}
