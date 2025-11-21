@@ -239,11 +239,6 @@ const Test = () => {
               <thead class="text-black dark:text-white">
                 <tr>
                   <th class="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
-                    <div class="form-check relative top-[2px]">
-                      <input type="checkbox" class="cursor-pointer" />
-                    </div>
-                  </th>
-                  <th class="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
                     SL
                   </th>
                   <th class="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
@@ -266,11 +261,6 @@ const Test = () => {
               <tbody class="text-black dark:text-white">
                 {data?.map((department, index) => (
                   <tr key={index}>
-                    <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
-                      <div class="form-check relative top-[2px]">
-                        <input type="checkbox" class="cursor-pointer" />
-                      </div>
-                    </td>
                     <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
                       <span class="text-gray-500 dark:text-gray-400">
                         {index + 1}
@@ -299,15 +289,6 @@ const Test = () => {
 
                     <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
                       <div class="flex items-center gap-[9px]">
-                        <div
-                          class="text-primary-500 leading-none custom-tooltip"
-                          id="customTooltip"
-                          data-text="View"
-                        >
-                          <i class="material-symbols-outlined !text-xl">
-                            visibility
-                          </i>
-                        </div>
                         <div
                           class="cursor-pointer text-gray-500 dark:text-gray-400 leading-none custom-tooltip"
                           id="customTooltip"
