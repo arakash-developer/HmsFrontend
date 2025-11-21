@@ -42,6 +42,7 @@ const PatientCreatePopup = ({
     totalDiscountedPrice: 0,
     totalDiscountAmount: 0,
   });
+  const [testIdObjects, setTestIdObjects] = useState([]);
   const handleTestSelectChange = (e) => {
     const id = e.target.value;
     const obj = filteredTests.find((t) => t._id === id);
@@ -66,8 +67,11 @@ const PatientCreatePopup = ({
     const updatedTestIds = [...testIds, obj._id];
     setTestIds(updatedTestIds);
 
+    // ⭐ EXTRA FUNCTIONALITY YOU WANT:
+    setTestIdObjects(updatedTestIds.map((id) => ({ test: id })));
     clearValidationError("tests");
   };
+  console.log("akash", testIdObjects);
 
   let handleDeleteProcedure = (id) => {
     setTestList((prev) => prev.filter((test) => test._id !== id));
@@ -359,7 +363,7 @@ const PatientCreatePopup = ({
         deleveryDate: deleveryBackendDate,
         refDoctor: qualification,
         phone: form.phone.trim(),
-        procedures: testList,
+        procedures: testIdObjects,
         procedurecalculation: procedureCalculationData,
         totalCharge:
           (totals?.totalDiscountedPrice || 0) +
