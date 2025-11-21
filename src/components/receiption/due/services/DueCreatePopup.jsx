@@ -786,24 +786,24 @@ const DueCreatePopup = ({
                       </div>
                     </fieldset>
                   </div>
-                  <div className="total sm:col-span-3 flex justify-between items-center">
-                    <fieldset class="sm:col-span-1 trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
+                  <div className="total sm:col-span-3">
+                    <fieldset class="w-full trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
                       <legend className="px-2 text-sm text-[#000] dark:text-[#fff]">
-                        Present
+                        Total Collection
                       </legend>
-                      <div class="flex items-center gap-x-4">
-                        <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0">
-                          Collection
-                        </label>
-                        <input
-                          type="number"
-                          class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500 no-arrow"
-                        />
+                      <div className="flex justify-between items-center">
+                        <div class="flex items-center gap-x-4 w-full">
+                          <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0">
+                            Total Collection
+                          </label>
+                          <input
+                            type="number"
+                            class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500 no-arrow"
+                          />
+                        </div>
+                        <div className="buttons w-full">sss</div>
                       </div>
                     </fieldset>
-                    <div className="buttons">
-                      sss
-                    </div>
                   </div>
                 </div>
               </form>
