@@ -637,183 +637,286 @@ const DueCreatePopup = ({
                     </fieldset>
                   </div>
 
-                  {patientSearchdata?.procedurecalculation?.length > 0
-                    ? patientSearchdata?.procedurecalculation?.map(
-                        (item, index) => (
-                          <div className="pathology sm:col-span-1">
-                            <fieldset class="trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
-                              <legend className="px-2 capitalize text-sm text-[#000] dark:text-[#fff]">
-                                {item?.depname}
-                              </legend>
-                              <div class="flex items-center gap-x-4">
-                                <div className="">
-                                  <label class="text-black dark:text-white font-medium block flex-shrink-0">
-                                    Total
-                                  </label>
-                                  <label class="text-black dark:text-white font-medium block flex-shrink-0">
-                                    Discount
-                                  </label>
-                                  <label class="text-black dark:text-white font-medium block flex-shrink-0">
-                                    Paid
-                                  </label>
-                                  <label class="text-black dark:text-white font-medium block flex-shrink-0">
-                                    Due
-                                  </label>
-                                </div>
-                                <div className="">
-                                  <div className="">:</div>
-                                  <div className="">:</div>
-                                  <div className="">:</div>
-                                  <div className="">:</div>
-                                </div>
-                                <div className="">
-                                  <div class="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500">
-                                    {item?.totalPrice}
-                                  </div>
-                                  <div class="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500">
-                                    {item?.discount}
-                                  </div>
-                                  <div class="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500">
-                                    {0}
-                                  </div>
-                                  <div class="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500">
-                                    {item?.due}
-                                  </div>
-                                </div>
+                  {patientSearchdata?.procedurecalculation?.length > 0 ? (
+                    patientSearchdata?.procedurecalculation?.map((item) => (
+                      <div key={item._id} className="pathology sm:col-span-1">
+                        <fieldset class="trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
+                          <legend className="px-2 capitalize text-sm text-[#000] dark:text-[#fff]">
+                            {item?.depname}
+                          </legend>
+                          <div class="flex items-center gap-x-4">
+                            <div className="">
+                              <label class="text-black dark:text-white font-medium block flex-shrink-0">
+                                Total
+                              </label>
+                              <label class="text-black dark:text-white font-medium block flex-shrink-0">
+                                Discount
+                              </label>
+                              <label class="text-black dark:text-white font-medium block flex-shrink-0">
+                                Paid
+                              </label>
+                              <label class="text-black dark:text-white font-medium block flex-shrink-0">
+                                Due
+                              </label>
+                            </div>
+                            <div className="">
+                              <div className="">:</div>
+                              <div className="">:</div>
+                              <div className="">:</div>
+                              <div className="">:</div>
+                            </div>
+                            <div className="">
+                              <div class="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500">
+                                {item?.totalPrice}
                               </div>
-                            </fieldset>
-                            <fieldset class="sm:col-span-1 trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
-                              <legend className="px-2 text-sm text-[#000] dark:text-[#fff]">
-                                Present
-                              </legend>
-                              <div class="flex items-center gap-x-4">
-                                <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0">
-                                  Collection
-                                </label>
-                                <input
-                                  type="number"
-                                  class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500 no-arrow"
-                                />
+                              <div class="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500">
+                                {item?.discount}
                               </div>
-                            </fieldset>
+                              <div class="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500">
+                                {item?.paid}
+                              </div>
+                              <div class="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500">
+                                {item?.due}
+                              </div>
+                            </div>
                           </div>
-                        )
-                      )
-                    : null}
-                  <div className="xray-ecg sm:col-span-1">
-                    <fieldset class="trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
-                      <legend className="px-2 text-sm text-[#000] dark:text-[#fff]">
-                        X-ray & Ecg
-                      </legend>
-                      <div class="flex items-center gap-x-4">
-                        <div className="">
-                          <label class="text-black dark:text-white font-medium block flex-shrink-0">
-                            Total
-                          </label>
-                          <label class="text-black dark:text-white font-medium block flex-shrink-0">
-                            Discount
-                          </label>
-                          <label class="text-black dark:text-white font-medium block flex-shrink-0">
-                            Paid
-                          </label>
-                          <label class="text-black dark:text-white font-medium block flex-shrink-0">
-                            Due
-                          </label>
-                        </div>
-                        <div className="">
-                          <div className="">:</div>
-                          <div className="">:</div>
-                          <div className="">:</div>
-                          <div className="">:</div>
-                        </div>
-                        <div className="">
-                          <div class="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500">
-                            ssss
+                        </fieldset>
+                        <fieldset class="sm:col-span-1 trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
+                          <legend className="px-2 text-sm text-[#000] dark:text-[#fff]">
+                            Present
+                          </legend>
+                          <div className="flex gap-x-4 items-center">
+                            <div className="flex flex-col gap-y-2">
+                              <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0">
+                                Collection
+                              </label>
+                              <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0">
+                                Again Discount
+                              </label>
+                            </div>
+                            <div className="flex flex-col gap-y-2">
+                              <input
+                                type="number"
+                                class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500 no-arrow"
+                              />
+                              <input
+                                type="number"
+                                class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500 no-arrow"
+                              />
+                            </div>
                           </div>
-                          <div class="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500">
-                            ssss
-                          </div>
-                          <div class="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500">
-                            ssss
-                          </div>
-                          <div class="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500">
-                            ssss
-                          </div>
-                        </div>
+                        </fieldset>
                       </div>
-                    </fieldset>
-                    <fieldset class="sm:col-span-1 trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
-                      <legend className="px-2 text-sm text-[#000] dark:text-[#fff]">
-                        Present
-                      </legend>
-                      <div class="flex items-center gap-x-4">
-                        <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0">
-                          Collection
-                        </label>
-                        <input
-                          type="number"
-                          class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500 no-arrow"
-                        />
+                    ))
+                  ) : (
+                    <>
+                      <div className="pathology sm:col-span-1">
+                        <fieldset class="trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
+                          <legend className="px-2 capitalize text-sm text-[#000] dark:text-[#fff]">
+                            Pathology
+                          </legend>
+                          <div class="flex items-center gap-x-4">
+                            <div className="">
+                              <label class="text-black dark:text-white font-medium block flex-shrink-0">
+                                Total
+                              </label>
+                              <label class="text-black dark:text-white font-medium block flex-shrink-0">
+                                Discount
+                              </label>
+                              <label class="text-black dark:text-white font-medium block flex-shrink-0">
+                                Paid
+                              </label>
+                              <label class="text-black dark:text-white font-medium block flex-shrink-0">
+                                Due
+                              </label>
+                            </div>
+                            <div className="">
+                              <div className="">:</div>
+                              <div className="">:</div>
+                              <div className="">:</div>
+                              <div className="">:</div>
+                            </div>
+                            <div className="">
+                              <div class="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500">
+                                0
+                              </div>
+                              <div class="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500">
+                                0
+                              </div>
+                              <div class="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500">
+                                0
+                              </div>
+                              <div class="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500">
+                                0
+                              </div>
+                            </div>
+                          </div>
+                        </fieldset>
+                        <fieldset class="sm:col-span-1 trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
+                          <legend className="px-2 text-sm text-[#000] dark:text-[#fff]">
+                            Present
+                          </legend>
+                          <div className="flex gap-x-4 items-center">
+                            <div className="flex flex-col gap-y-2">
+                              <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0">
+                                Collection
+                              </label>
+                              <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0">
+                                Again Discount
+                              </label>
+                            </div>
+                            <div className="flex flex-col gap-y-2">
+                              <input
+                                type="number"
+                                class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500 no-arrow"
+                              />
+                              <input
+                                type="number"
+                                class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500 no-arrow"
+                              />
+                            </div>
+                          </div>
+                        </fieldset>
                       </div>
-                    </fieldset>
-                  </div>
-                  <div className="ultrasound sm:col-span-1">
-                    <fieldset class="trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
-                      <legend className="px-2 text-sm text-[#000] dark:text-[#fff]">
-                        Ultra Sound
-                      </legend>
-                      <div class="flex items-center gap-x-4">
-                        <div className="">
-                          <label class="text-black dark:text-white font-medium block flex-shrink-0">
-                            Total
-                          </label>
-                          <label class="text-black dark:text-white font-medium block flex-shrink-0">
-                            Discount
-                          </label>
-                          <label class="text-black dark:text-white font-medium block flex-shrink-0">
-                            Paid
-                          </label>
-                          <label class="text-black dark:text-white font-medium block flex-shrink-0">
-                            Due
-                          </label>
-                        </div>
-                        <div className="">
-                          <div className="">:</div>
-                          <div className="">:</div>
-                          <div className="">:</div>
-                          <div className="">:</div>
-                        </div>
-                        <div className="">
-                          <div class="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500">
-                            ssss
+                      <div className="xray-ecg sm:col-span-1">
+                        <fieldset class="trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
+                          <legend className="px-2 text-sm text-[#000] dark:text-[#fff]">
+                            X-ray & Ecg
+                          </legend>
+                          <div class="flex items-center gap-x-4">
+                            <div className="">
+                              <label class="text-black dark:text-white font-medium block flex-shrink-0">
+                                Total
+                              </label>
+                              <label class="text-black dark:text-white font-medium block flex-shrink-0">
+                                Discount
+                              </label>
+                              <label class="text-black dark:text-white font-medium block flex-shrink-0">
+                                Paid
+                              </label>
+                              <label class="text-black dark:text-white font-medium block flex-shrink-0">
+                                Due
+                              </label>
+                            </div>
+                            <div className="">
+                              <div className="">:</div>
+                              <div className="">:</div>
+                              <div className="">:</div>
+                              <div className="">:</div>
+                            </div>
+                            <div className="">
+                              <div class="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500">
+                                0
+                              </div>
+                              <div class="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500">
+                                0
+                              </div>
+                              <div class="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500">
+                                0
+                              </div>
+                              <div class="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500">
+                                0
+                              </div>
+                            </div>
                           </div>
-                          <div class="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500">
-                            ssss
+                        </fieldset>
+                        <fieldset class="sm:col-span-1 trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
+                          <legend className="px-2 text-sm text-[#000] dark:text-[#fff]">
+                            Present
+                          </legend>
+                          <div className="flex gap-x-4 items-center">
+                            <div className="flex flex-col gap-y-2">
+                              <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0">
+                                Collection
+                              </label>
+                              <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0">
+                                Again Discount
+                              </label>
+                            </div>
+                            <div className="flex flex-col gap-y-2">
+                              <input
+                                type="number"
+                                class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500 no-arrow"
+                              />
+                              <input
+                                type="number"
+                                class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500 no-arrow"
+                              />
+                            </div>
                           </div>
-                          <div class="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500">
-                            ssss
-                          </div>
-                          <div class="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500">
-                            ssss
-                          </div>
-                        </div>
+                        </fieldset>
                       </div>
-                    </fieldset>
-                    <fieldset class="sm:col-span-1 trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
-                      <legend className="px-2 text-sm text-[#000] dark:text-[#fff]">
-                        Present
-                      </legend>
-                      <div class="flex items-center gap-x-4">
-                        <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0">
-                          Collection
-                        </label>
-                        <input
-                          type="number"
-                          class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500 no-arrow"
-                        />
+                      <div className="ultrasound sm:col-span-1">
+                        <fieldset class="trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
+                          <legend className="px-2 text-sm text-[#000] dark:text-[#fff]">
+                            Ultra Sound
+                          </legend>
+                          <div class="flex items-center gap-x-4">
+                            <div className="">
+                              <label class="text-black dark:text-white font-medium block flex-shrink-0">
+                                Total
+                              </label>
+                              <label class="text-black dark:text-white font-medium block flex-shrink-0">
+                                Discount
+                              </label>
+                              <label class="text-black dark:text-white font-medium block flex-shrink-0">
+                                Paid
+                              </label>
+                              <label class="text-black dark:text-white font-medium block flex-shrink-0">
+                                Due
+                              </label>
+                            </div>
+                            <div className="">
+                              <div className="">:</div>
+                              <div className="">:</div>
+                              <div className="">:</div>
+                              <div className="">:</div>
+                            </div>
+                            <div className="">
+                              <div class="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500">
+                                0
+                              </div>
+                              <div class="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500">
+                                0
+                              </div>
+                              <div class="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500">
+                                0
+                              </div>
+                              <div class="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500">
+                                0
+                              </div>
+                            </div>
+                          </div>
+                        </fieldset>
+                        <fieldset class="sm:col-span-1 trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
+                          <legend className="px-2 text-sm text-[#000] dark:text-[#fff]">
+                            Present
+                          </legend>
+                          <div className="flex gap-x-4 items-center">
+                            <div className="flex flex-col gap-y-2">
+                              <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0">
+                                Collection
+                              </label>
+                              <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0">
+                                Again Discount
+                              </label>
+                            </div>
+                            <div className="flex flex-col gap-y-2">
+                              <input
+                                type="number"
+                                class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500 no-arrow"
+                              />
+                              <input
+                                type="number"
+                                class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500 no-arrow"
+                              />
+                            </div>
+                          </div>
+                        </fieldset>
                       </div>
-                    </fieldset>
-                  </div>
+                    </>
+                  )}
+
                   <div className="total sm:col-span-3">
                     <fieldset class="w-full trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
                       <legend className="px-2 text-sm text-[#000] dark:text-[#fff]">
