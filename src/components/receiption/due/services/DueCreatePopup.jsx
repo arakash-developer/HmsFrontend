@@ -2,7 +2,6 @@ import useCrud from "@/hooks/useCrud";
 import useDatePicker from "@/hooks/useDatePicker";
 import { useToast } from "@hooks/useToast";
 import { useEffect, useRef, useState } from "react";
-import Flatpickr from "react-flatpickr";
 const DueCreatePopup = ({
   cancelcountrypopup,
   patientrefetch,
@@ -583,12 +582,41 @@ const DueCreatePopup = ({
 
             <fieldset class="trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
               <legend className="px-2 text-sm text-[#000] dark:text-[#fff]">
-                Personal Information
+                Due Information
               </legend>
               <form className="">
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-y-[6px] md:gap-y-[6px] gap-x-5">
-                  <div className="pathology">
-                    <fieldset class="sm:col-span-1 trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
+                  <div className="patientinfo sm:col-span-3">
+                    <fieldset class="trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
+                      <legend className="px-2 text-sm text-[#000] dark:text-[#fff]">
+                        Patient Info
+                      </legend>
+                      <div class="flex items-center gap-x-4">
+                        <div className="">
+                          <label class="text-black dark:text-white font-medium block flex-shrink-0">
+                            Patient Name
+                          </label>
+                          <label class="text-black dark:text-white font-medium block flex-shrink-0">
+                            Invoice Date
+                          </label>
+                        </div>
+                        <div className="">
+                          <div className="">:</div>
+                          <div className="">:</div>
+                        </div>
+                        <div className="">
+                          <div class="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500">
+                            Bakul Miah
+                          </div>
+                          <div class="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500">
+                            17/11/2025
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+                  <div className="pathology sm:col-span-1">
+                    <fieldset class="trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
                       <legend className="px-2 text-sm text-[#000] dark:text-[#fff]">
                         Pathology
                       </legend>
@@ -644,8 +672,8 @@ const DueCreatePopup = ({
                       </div>
                     </fieldset>
                   </div>
-                  <div className="ultrasound">
-                    <fieldset class="sm:col-span-1 trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
+                  <div className="xray-ecg sm:col-span-1">
+                    <fieldset class="trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
                       <legend className="px-2 text-sm text-[#000] dark:text-[#fff]">
                         X-ray & Ecg
                       </legend>
@@ -701,8 +729,8 @@ const DueCreatePopup = ({
                       </div>
                     </fieldset>
                   </div>
-                  <div className="ultrasound">
-                    <fieldset class="sm:col-span-1 trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
+                  <div className="ultrasound sm:col-span-1">
+                    <fieldset class="trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
                       <legend className="px-2 text-sm text-[#000] dark:text-[#fff]">
                         Ultra Sound
                       </legend>
@@ -758,561 +786,23 @@ const DueCreatePopup = ({
                       </div>
                     </fieldset>
                   </div>
-                  <div className="xray-ecg">
-                    <fieldset class="sm:col-span-1 trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
-                      <legend className="px-2 text-sm text-[#000] dark:text-[#fff]">
-                        X-ray & Ecg
-                      </legend>
-                      <div class="flex items-center gap-x-4">
-                        <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0 w-[18%]">
-                          Patient Id
-                        </label>
-                        <input
-                          disabled
-                          type="text"
-                          value={currentPatientId || "Loading..."}
-                          class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
-                        />
-                      </div>
-                    </fieldset>
+                  <div className="total sm:col-span-3 flex justify-between items-center">
                     <fieldset class="sm:col-span-1 trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
                       <legend className="px-2 text-sm text-[#000] dark:text-[#fff]">
                         Present
                       </legend>
                       <div class="flex items-center gap-x-4">
-                        <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0 w-[18%]">
-                          Patient Id
+                        <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0">
+                          Collection
                         </label>
                         <input
-                          disabled
-                          type="text"
-                          value={currentPatientId || "Loading..."}
-                          class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
+                          type="number"
+                          class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500 no-arrow"
                         />
                       </div>
                     </fieldset>
-                  </div>
-                  <div className="ultrasound">
-                    <fieldset class="sm:col-span-1 trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
-                      <legend className="px-2 text-sm text-[#000] dark:text-[#fff]">
-                        Ultra Sound
-                      </legend>
-                      <div class="flex items-center gap-x-4">
-                        <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0 w-[18%]">
-                          Patient Id
-                        </label>
-                        <input
-                          disabled
-                          type="text"
-                          value={currentPatientId || "Loading..."}
-                          class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
-                        />
-                      </div>
-                    </fieldset>
-                    <fieldset class="sm:col-span-1 trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
-                      <legend className="px-2 text-sm text-[#000] dark:text-[#fff]">
-                        Present
-                      </legend>
-                      <div class="flex items-center gap-x-4">
-                        <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0 w-[18%]">
-                          Patient Id
-                        </label>
-                        <input
-                          disabled
-                          type="text"
-                          value={currentPatientId || "Loading..."}
-                          class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
-                        />
-                      </div>
-                    </fieldset>
-                  </div>
-
-                  <div class="sm:col-span-1 flex items-center gap-x-4">
-                    <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0 w-[18%]">
-                      Patient Name <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      onChange={(e) =>
-                        handleFormChange("patientName", e.target.value)
-                      }
-                      value={form.patientName}
-                      className={`h-[32px] rounded-md text-black dark:text-white border-2 ${
-                        validationErrors.patientName
-                          ? "dark:!border-gray-400 !border-[#49557c]"
-                          : "dark:!border-[#49557c] !border-gray-400"
-                      } bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500`}
-                      placeholder="Enter patient name"
-                    />
-                  </div>
-                  <div class="sm:col-span-1 flex items-center gap-x-4">
-                    <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0 w-[6%]">
-                      Sex <span className="text-red-500">*</span>
-                    </label>
-                    <select
-                      className={`h-[32px] rounded-md text-black dark:text-white border-2 ${
-                        validationErrors.sex
-                          ? "dark:!border-gray-400 !border-[#49557c]"
-                          : "dark:!border-[#49557c] !border-gray-400"
-                      } bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500`}
-                      onChange={(e) => handleSexChange(e.target.value)}
-                      value={sex || ""}
-                    >
-                      <option value="">Select Sex</option>
-                      <option value="Male">Male</option>
-                      <option value="Female">Female</option>
-                    </select>
-                  </div>
-                  <div class="sm:col-span-1 flex items-center gap-x-4">
-                    <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0 w-[18%]">
-                      Ref. Dr. <span className="text-red-500">*</span>
-                    </label>
-                    <select
-                      className={`h-[32px] rounded-md text-black dark:text-white border-2 ${
-                        validationErrors.refdoctor
-                          ? "dark:!border-gray-400 !border-[#49557c]"
-                          : "dark:!border-[#49557c] !border-gray-400"
-                      } bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500`}
-                      onChange={(e) => handleDoctorChange(e.target.value)}
-                      value={qualification || ""}
-                    >
-                      <option value="">Select Doctor</option>
-                      {doctorData?.map((doc) => (
-                        <option key={doc._id} value={doc._id}>
-                          {doc.doctorname}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div class="sm:col-span-1 flex items-center gap-x-4">
-                    <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0 w-[6%]">
-                      Age <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="number"
-                      min="0"
-                      max="150"
-                      onChange={(e) => handleFormChange("age", e.target.value)}
-                      value={form.age}
-                      className={`h-[32px] rounded-md text-black dark:text-white border-2 ${
-                        validationErrors.age
-                          ? "dark:!border-gray-400 !border-[#49557c]"
-                          : "dark:!border-[#49557c] !border-gray-400"
-                      } bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500`}
-                      placeholder="Enter age"
-                    />
-                  </div>
-                  <div class="sm:col-span-1 flex items-center gap-x-4">
-                    <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0 w-[18%]">
-                      Phone <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="number"
-                      onChange={(e) =>
-                        handleFormChange("phone", e.target.value)
-                      }
-                      value={form.phone}
-                      className={`h-[32px] no-arrow rounded-md text-black dark:text-white border-2 ${
-                        validationErrors.phone
-                          ? "dark:!border-gray-400 !border-[#49557c]"
-                          : "dark:!border-[#49557c] !border-gray-400"
-                      } bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500`}
-                      placeholder="Enter phone number"
-                    />
-                  </div>
-                </div>
-              </form>
-            </fieldset>
-            <fieldset class="mt-2 trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
-              <legend className="px-2 text-sm text-[#000] dark:text-[#fff]">
-                Test Information <span className="text-red-500">*</span>
-              </legend>
-              <form className="">
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-[6px] md:gap-y-[6px] gap-x-5">
-                  <div className="sm:col-span-1 flex flex-col gap-y-2">
-                    <div class="flex items-center gap-x-4">
-                      <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0 w-[18%]">
-                        Test Category
-                      </label>
-                      <select
-                        class={`h-[32px] rounded-md text-black dark:text-white border-2 ${
-                          validationErrors.tests
-                            ? "dark:!border-gray-400 !border-[#49557c]"
-                            : "dark:!border-[#49557c] !border-gray-400"
-                        } bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500`}
-                        value={selectedCategory}
-                        onChange={(e) => {
-                          setSelectedCategory(e.target.value);
-                          clearValidationError("tests");
-                        }}
-                      >
-                        <option value="">Select Test Category</option>
-                        {data?.map((dept) => (
-                          <option key={dept._id} value={dept._id}>
-                            {dept.name}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                    <div class="flex items-center gap-x-4">
-                      <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0 w-[18%]">
-                        Test Name
-                      </label>
-                      <select
-                        class={`h-[32px] rounded-md text-black dark:text-white border-2 ${
-                          validationErrors.tests
-                            ? "!border-gray-400"
-                            : "border-gray-500 dark:border-[#49557c]"
-                        } bg-white dark:bg-[#0c1427] px-[14px] block !w-full outline-0 cursor-pointer transition-all focus:border-primary-500`}
-                        onChange={handleTestSelectChange}
-                        disabled={!selectedCategory}
-                        value={selectedTest}
-                      >
-                        <option value="">Select Test</option>
-                        {filteredTests?.map((item) => (
-                          <option key={item._id} value={item._id}>
-                            {item.testname}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                    <div class="mt-2 px-4 trezo-card-content -mx-[20px] md:-mx-[25px]">
-                      <div class="table-responsive overflow-x-auto overflow-y-hidden">
-                        <table class="w-full without-border">
-                          <thead class="text-black dark:text-white">
-                            <tr>
-                              <th class="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
-                                SL
-                              </th>
-                              <th class="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
-                                Procedure Name
-                              </th>
-                              <th class="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
-                                Procedure Charge
-                              </th>
-                              <th class="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
-                                Action
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody class="text-black dark:text-white">
-                            {testList?.map((test, index) => (
-                              <tr key={index}>
-                                <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[5px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
-                                  <span class="text-gray-500 dark:text-gray-400">
-                                    {index + 1}
-                                  </span>
-                                </td>
-                                <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[5px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
-                                  <span class="block font-medium text-gray-500 dark:text-gray-400">
-                                    {test?.testname}
-                                  </span>
-                                </td>
-                                <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[5px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
-                                  <span class="block font-medium text-gray-500 dark:text-gray-400">
-                                    {test?.testcharge}
-                                  </span>
-                                </td>
-
-                                <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[5px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
-                                  <div class="flex items-center gap-[9px]">
-                                    <div
-                                      class="text-danger-500 leading-none custom-tooltip cursor-pointer"
-                                      id="customTooltip"
-                                      data-text="Delete"
-                                      onClick={() =>
-                                        handleDeleteProcedure(test?._id)
-                                      }
-                                    >
-                                      <i class="material-symbols-outlined !text-md">
-                                        delete
-                                      </i>
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="sm:col-span-1">
-                    <div className="mb-1 flex items-center gap-x-2">
-                      <div class="font-medium whitespace-nowrap">
-                        <div class="form-check relative top-[2px]">
-                          <input type="checkbox" class="cursor-pointer" />
-                        </div>
-                      </div>
-                      <p htmlFor="" className="mb-3">
-                        Agree Calculation ?
-                      </p>
-                    </div>
-                    <table class="w-full border-collapse border border-gray-400">
-                      <thead>
-                        <tr>
-                          <th class="border border-gray-400 px-2 py-1 text-left font-medium ltr:text-left rtl:text-right md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
-                            Department
-                          </th>
-                          <th class="border border-gray-400 px-2 py-1 text-left font-medium ltr:text-left rtl:text-right md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
-                            Total
-                          </th>
-                          <th class="border border-gray-400 px-2 py-1 text-left font-medium ltr:text-left rtl:text-right md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
-                            Discount (Editable)
-                          </th>
-                          <th class="border border-gray-400 px-2 py-1 text-left font-medium ltr:text-left rtl:text-right md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
-                            Discounted
-                          </th>
-                          <th class="border border-gray-400 px-2 py-1 text-left font-medium ltr:text-left rtl:text-right md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
-                            Paid
-                          </th>
-
-                          <th class="border border-gray-400 px-2 py-1 text-left font-medium ltr:text-left rtl:text-right md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
-                            Due
-                          </th>
-                        </tr>
-                      </thead>
-
-                      <tbody>
-                        {departmentTotals.length > 0 ? (
-                          departmentTotals?.map((item, index) => (
-                            <tr key={index}>
-                              <td class="capitalize border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                                {item?.depname}
-                              </td>
-                              <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                                {item?.totalPrice}
-                              </td>
-                              <td class="border border-gray-400 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                                <input
-                                  type="number"
-                                  min={0}
-                                  max={item.totalPrice}
-                                  value={
-                                    finalTotalCalculation[item.depname]
-                                      ?.discount || ""
-                                  }
-                                  onChange={(e) =>
-                                    handleDiscountChange(
-                                      item.depname,
-                                      e.target.value
-                                    )
-                                  }
-                                  class="no-arrow bg-primary-200 placeholder:text-[#000] text-xs pl-1 w-full block text-[#000] outline-0 dark:bg-[#15203c] dark:text-white dark:border-[#15203c] dark:placeholder:text-gray-400"
-                                />
-                              </td>
-                              <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                                {item.discounted ||
-                                  item.totalPrice -
-                                    (finalTotalCalculation[item.depname]
-                                      ?.discount || 0)}
-                              </td>
-                              <td class="border border-gray-400 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                                0
-                              </td>
-                              <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                                {item.due ||
-                                  (item.discounted ||
-                                    item.totalPrice -
-                                      (finalTotalCalculation[item.depname]
-                                        ?.discount || 0)) -
-                                    (departmentPayments[item.depname] || 0)}
-                              </td>
-                            </tr>
-                          ))
-                        ) : (
-                          <>
-                            <tr>
-                              <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                                Pathology
-                              </td>
-                              <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                                0
-                              </td>
-                              <td class="border border-gray-400 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                                <input
-                                  type="number"
-                                  placeholder="0"
-                                  class="bg-primary-200 placeholder:text-[#000] text-xs pl-1 w-full block text-[#000] outline-0 dark:bg-[#15203c] dark:text-white dark:border-[#15203c] dark:placeholder:text-gray-400"
-                                />
-                              </td>
-                              <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]"></td>
-                              <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                                0
-                              </td>
-                              <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                                0
-                              </td>
-                            </tr>
-                            <tr>
-                              <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                                X-Ray| ECG
-                              </td>
-                              <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                                0
-                              </td>
-                              <td class="border border-gray-400 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                                <input
-                                  type="number"
-                                  placeholder="0"
-                                  class="bg-primary-200 placeholder:text-[#000] text-xs pl-1 w-full block text-[#000] outline-0 dark:bg-[#15203c] dark:text-white dark:border-[#15203c] dark:placeholder:text-gray-400"
-                                />
-                              </td>
-                              <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                                0
-                              </td>
-                              <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                                0
-                              </td>
-                              <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                                0
-                              </td>
-                            </tr>
-                            <tr>
-                              <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                                Ultra-Sono
-                              </td>
-                              <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                                0
-                              </td>
-                              <td class="border border-gray-400 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                                <input
-                                  type="number"
-                                  placeholder="0"
-                                  class="bg-primary-200 placeholder:text-[#000] text-xs pl-1 w-full block text-[#000] outline-0 dark:bg-[#15203c] dark:text-white dark:border-[#15203c] dark:placeholder:text-gray-400"
-                                />
-                              </td>
-                              <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                                0
-                              </td>
-                              <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                                0
-                              </td>
-                              <td class="border border-gray-400 px-2 py-1 text-left ltr:text-left rtl:text-right whitespace-nowrap md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b dark:border-[#172036]">
-                                0
-                              </td>
-                            </tr>
-                          </>
-                        )}
-                      </tbody>
-                    </table>
-                    <div className="date and timer mt-3 flex gap-x-2">
-                      <div class="w-full">
-                        <label class="mb-[2px] text-black dark:text-white font-medium block">
-                          Delivery Date :{" "}
-                          <span className="text-red-500">*</span>
-                        </label>
-                        <div className="relative w-full">
-                          <Flatpickr
-                            value={deleveryDate}
-                            onChange={handleDeliveryDateChangeWithValidation}
-                            options={{ dateFormat: "d-m-Y" }}
-                            className={`h-[32px] rounded-md text-black dark:text-white border-2 ${
-                              validationErrors.deleveryDate
-                                ? "dark:!border-gray-400 !border-[#49557c]"
-                                : "dark:!border-[#49557c] !border-gray-400"
-                            } bg-white dark:bg-[#0c1427] px-4 pr-10 w-full outline-none placeholder-gray-500 dark:placeholder-[#fff] focus:border-primary-500`}
-                          />
-
-                          <i className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-red-500 pointer-events-none material-symbols-outlined !text-md">
-                            calendar_month
-                          </i>
-                        </div>
-                      </div>
-                      <div class="w-full">
-                        <label class="mb-[2px] text-black dark:text-white font-medium block">
-                          Delivery Time :
-                        </label>
-                        <input
-                          type="text"
-                          onChange={(e) =>
-                            setForm({ ...form, speciality: e.target.value })
-                          }
-                          value={form.speciality}
-                          class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500"
-                        />
-                      </div>
-                    </div>
-                    <div className="lastcalculation mt-4">
-                      <div class="w-full max-w-md ml-auto rounded text-black dark:text-white font-medium">
-                        <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
-                          <span class="text-right">Total Charge</span>
-                          <span class="text-center w-4">=</span>
-                          <span class="text-right">
-                            {totals?.totalDiscountedPrice +
-                              totals?.totalDiscountAmount || 0}
-                          </span>
-                        </div>
-
-                        <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
-                          <span class="text-right">Discount</span>
-                          <span class="text-center w-4">=</span>
-                          <span class="text-right">
-                            {totals?.totalDiscountAmount || 0}
-                          </span>
-                        </div>
-
-                        <hr class="border-white/40" />
-
-                        <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
-                          <span class="text-right">Discounted Amount</span>
-                          <span class="text-center w-4">=</span>
-                          <span class="text-right">
-                            {totals?.totalDiscountedPrice || 0}
-                          </span>
-                        </div>
-
-                        <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
-                          <span class="text-right">Paid</span>
-                          <span class="text-center w-4">=</span>
-                          <input
-                            type="number"
-                            class="no-arrow !w-full px-2 py-1 bg-yellow-100 text-black border border-gray-400 rounded text-right"
-                            placeholder=""
-                            value={
-                              totals?.totalDiscountedPrice - dueAmount || 0
-                            } // Paid = total - due
-                            onChange={handlerPaid}
-                          />
-                        </div>
-
-                        <hr class="border-white/40" />
-
-                        <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
-                          <span class="text-right">Due Amount</span>
-                          <span class="text-center w-4">=</span>
-                          <span class="text-right">{dueAmount || 0}</span>
-                        </div>
-
-                        <div class="flex justify-end gap-x-4 pt-4">
-                          <button
-                            type="button"
-                            onClick={closepopuphandler}
-                            disabled={isSubmitting}
-                            class="bg-white text-black px-6 py-2 rounded border border-gray-300 hover:bg-gray-100 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-                          >
-                            Close
-                          </button>
-                          <button
-                            type="button"
-                            onClick={handleNewPatient}
-                            disabled={isSubmitting}
-                            class="bg-blue-500 text-white px-6 py-2 rounded border border-blue-500 hover:bg-blue-600 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-                          >
-                            {isSubmitting ? "Saving..." : "New"}
-                          </button>
-                          <button
-                            type="button"
-                            onClick={patientReg}
-                            disabled={isSubmitting}
-                            class="bg-green-500 text-white px-6 py-2 rounded border border-green-500 hover:bg-green-600 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-                          >
-                            {isSubmitting ? "Saving..." : "Save"}
-                          </button>
-                        </div>
-                      </div>
+                    <div className="buttons">
+                      sss
                     </div>
                   </div>
                 </div>
