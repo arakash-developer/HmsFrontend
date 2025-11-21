@@ -60,7 +60,7 @@ const DueHeader = ({
               <i class="material-symbols-outlined !text-[22px] absolute ltr:-left-[4px] rtl:-right-[4px] top-1/2 -translate-y-1/2">
                 add
               </i>
-              Add New Patient
+              Due Collection
             </span>
           </div>
         </div>
