@@ -1,5 +1,6 @@
 import { useToast } from "@hooks/useToast";
 import { useEffect, useState } from "react";
+import useCrud from "@hooks/useCrud";
 
 const DueCreatePopup = ({
   patientSearchdata,
@@ -8,6 +9,7 @@ const DueCreatePopup = ({
   setPatientId,
 }) => {
   const { showSuccess, showError } = useToast();
+  const { update } = useCrud("api/duecollection/patientId");
 
   // Department collections and discounts
   const [departmentCollections, setDepartmentCollections] = useState({});
@@ -80,7 +82,7 @@ const DueCreatePopup = ({
     setPopup(false);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     // Validate if any collection is made
     if (totalCollection === 0) {
       showError(
@@ -94,27 +96,56 @@ const DueCreatePopup = ({
       return;
     }
 
-    // Prepare collection data
-    const collectionData = {
-      patientId: patientSearchdata?._id,
-      collections: Object.keys(departmentCollections).map((depname) => ({
-        depname,
-        collection: departmentCollections[depname],
-        againDiscount: departmentAgainDiscounts[depname] || 0,
-      })),
-      totalCollection,
-    };
+    // Prepare collection data with updated procedurecalculation
+    const updatedProcedureCalculation = patientSearchdata?.procedurecalculation?.map((dept) => {
+      const collection = departmentCollections[dept.depname] || 0;
+      const againDiscount = departmentAgainDiscounts[dept.depname] || 0;
+      const newPaid = (dept.paid || 0) + collection;
+      const newDiscount = (dept.discount || 0) + againDiscount;
+      const newDiscounted = dept.totalPrice - newDiscount;
+      const newDue = newDiscounted - newPaid;
 
-    console.log("Collection Data:", collectionData);
-    // TODO: Implement API call to save collection
-
-    showSuccess("Success", "Collection saved successfully", {
-      duration: 3000,
-      showCloseButton: true,
+      return {
+        depname: dept.depname,
+        totalPrice: dept.totalPrice,
+        discount: newDiscount,
+        discounted: newDiscounted,
+        paid: newPaid,
+        due: newDue > 0 ? newDue : 0,
+      };
     });
 
-    resetForm();
-    setPopup(false);
+    const payload = {
+      userId: "691c20c765b1956e514f1710", // Hardcoded as requested
+      procedurecalculation: updatedProcedureCalculation,
+    };
+
+    update.mutate(
+      {
+        id: patientId,
+        body: payload,
+        onSuccess: () => {
+          showSuccess("Success", "Collection saved successfully", {
+            duration: 3000,
+            showCloseButton: true,
+          });
+          resetForm();
+          setPopup(false);
+        },
+      },
+      {
+        onError: (error) => {
+          showError(
+            "Error",
+            error.response?.data?.message || "Failed to save collection",
+            {
+              duration: 3000,
+              showCloseButton: true,
+            }
+          );
+        },
+      }
+    );
   };
 
   return (
