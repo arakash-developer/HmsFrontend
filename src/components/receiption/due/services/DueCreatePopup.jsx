@@ -586,11 +586,25 @@ const DueCreatePopup = ({
               </legend>
               <form className="">
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-y-[6px] md:gap-y-[6px] gap-x-5">
+                  <div className="patientsearch sm:col-span-3">
+                    <fieldset class="trezo-card-content px-4 py-2 rounded-md">
+                      <div class="flex items-center gap-x-4">
+                        <label class="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0">
+                          Search Patient By Reg. No
+                        </label>
+                        <input
+                          type="number"
+                          class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500 no-arrow"
+                        />
+                      </div>
+                    </fieldset>
+                  </div>
                   <div className="patientinfo sm:col-span-3">
                     <fieldset class="trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
                       <legend className="px-2 text-sm text-[#000] dark:text-[#fff]">
                         Patient Info
                       </legend>
+
                       <div class="flex items-center gap-x-4">
                         <div className="">
                           <label class="text-black dark:text-white font-medium block flex-shrink-0">
