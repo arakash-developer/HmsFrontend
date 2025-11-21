@@ -187,15 +187,7 @@ const Table = () => {
 
                     <td class="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[17px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
                       <div class="flex items-center gap-[9px]">
-                        <div
-                          class="text-primary-500 leading-none custom-tooltip"
-                          id="customTooltip"
-                          data-text="View"
-                        >
-                          <i class="material-symbols-outlined !text-md">
-                            visibility
-                          </i>
-                        </div>
+            
                         <div
                           class="cursor-pointer text-gray-500 dark:text-gray-400 leading-none custom-tooltip"
                           id="customTooltip"
@@ -208,7 +200,7 @@ const Table = () => {
                             })
                           }
                         >
-                          <i class="material-symbols-outlined !text-md">edit</i>
+                          <i class="material-symbols-outlined !text-xl">edit</i>
                         </div>
                         <div
                           class="text-danger-500 leading-none custom-tooltip cursor-pointer"
@@ -216,7 +208,7 @@ const Table = () => {
                           data-text="Delete"
                           onClick={() => handleDeletepopup(department._id)}
                         >
-                          <i class="material-symbols-outlined !text-md">
+                          <i class="material-symbols-outlined !text-xl">
                             delete
                           </i>
                         </div>
