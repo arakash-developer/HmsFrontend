@@ -24,23 +24,25 @@ import Country from "@/components/receiption/Country";
 import Department from "@/components/receiption/Department";
 import Doctor from "@/components/receiption/Doctor";
 import Due from "@/components/receiption/Due";
+import GroupWiseReport from "@/components/receiption/groupWiseReport/GroupWiseReport";
+import GroupWiseStatement from "@/components/receiption/groupWiseStatement/GroupWiseStatement";
 import OutdoorIncome from "@/components/receiption/outdoorIncome/OutdoorIncome";
+import Outdoorincomestatement from "@/components/receiption/outdoorincomestatement/Outdoorincomestatement";
+import OutdoorStatement from "@/components/receiption/outdoorincomestatement/services/OutdoorStatement";
 import Patientinfo from "@/components/receiption/patientinfo/Patientinfo";
 import PatientReg from "@/components/receiption/patientregistration/PatientReg";
 import PeriodicalReport from "@/components/receiption/periodicalReport/periodicalReport";
-import PeriodicalStatementReport from "@/components/receiption/periodicalStatementReport/periodicalStatementReport";
+import PeriodicalStatement from "@/components/receiption/periodicalStatement/PeriodicalStatement";
 import RefferelDoctor from "@/components/receiption/RefferelDoctor";
 import Statement from "@/components/receiption/Statement";
+import Table from "@/components/receiption/table/Table";
+import TableIdField from "@/components/receiption/tableidfield/TableIdField";
 import Test from "@/components/receiption/Test";
-import UserWiseCollection from "@/components/receiption/userWiseCollection/UserWiseCollection";
+import UserWiseReport from "@/components/receiption/userWiseReport/UserWiseReport";
+import UserWiseStatement from "@/components/receiption/userWiseStatement/UserWiseStatement";
 import ReceiptionLayout from "@/layouts/receiption/ReceiptionLayout";
 import ProtectedRoute from "@/routes/ProtectedRoute";
 import PublicRoute from "@/routes/PublicRoute";
-import OutdoorReport from "@/components/receiption/outdoorIncome/services/OutdoorReport";
-import Table from "@/components/receiption/table/Table";
-import TableIdField from "@/components/receiption/tableidfield/TableIdField";
-import Outdoorincomestatement from "@/components/receiption/outdoorincomestatement/Outdoorincomestatement";
-import OutdoorStatement from "@/components/receiption/outdoorincomestatement/services/OutdoorStatement";
 // import { i } from "react-router/dist/development/index-react-server-client-kY8DvDF3";
 
 const routes = [
@@ -78,14 +80,20 @@ const routes = [
           { path: "search-patient-info", element: <Patientinfo /> },
           { path: "refferel-doctor", element: <RefferelDoctor /> },
           { path: "outdoor-income", element: <OutdoorIncome /> },
-          { path: "outdoor-income-statement", element: <Outdoorincomestatement /> },
-          { path: "outdoor-income-statement/outdoor-statement/:startingBackendDate/:endingBackendDate", element: <OutdoorStatement /> },
-          { path: "periodical-report", element: <PeriodicalReport /> },
           {
-            path: "periodical-statement-report",
-            element: <PeriodicalStatementReport />,
+            path: "outdoor-income-statement",
+            element: <Outdoorincomestatement />,
           },
-          { path: "user-wise-collection", element: <UserWiseCollection /> },
+          {
+            path: "outdoor-income-statement/outdoor-statement/:startingBackendDate/:endingBackendDate",
+            element: <OutdoorStatement />,
+          },
+          { path: "periodical-report", element: <PeriodicalReport /> },
+          { path: "periodical-statement", element: <PeriodicalStatement /> },
+          { path: "user-wise-report", element: <UserWiseReport /> },
+          { path: "user-wise-statement", element: <UserWiseStatement /> },
+          { path: "group-wise-report", element: <GroupWiseReport /> },
+          { path: "group-wise-statement", element: <GroupWiseStatement /> },
         ],
       },
     ],

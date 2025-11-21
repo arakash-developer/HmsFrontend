@@ -71,10 +71,30 @@ export default function ReceiptionLayout() {
       link: "/receiption/due-collection",
       icon: "money",
     },
+  ];
+  let settingsItemsList2 = [
     {
       title: "Statement",
-      link: "/receiption/statement",
+      link: "/admin/file",
       icon: "receipt",
+      subItems: [
+        {
+          title: "Outdoor Income Statement",
+          link: "/receiption/outdoor-income-statement",
+        },
+        {
+          title: "Periodical Statement",
+          link: "/receiption/periodical-statement",
+        },
+        {
+          title: "Group Wise Statement",
+          link: "/receiption/group-wise-statement",
+        },
+        {
+          title: "User Wise Statement",
+          link: "/receiption/user-wise-statement",
+        },
+      ],
     },
   ];
   let settingsItemsList = [
@@ -161,7 +181,7 @@ export default function ReceiptionLayout() {
       icon: "bar_chart",
       subItems: [
         {
-          title: "Outdoor Income",
+          title: "Outdoor Income Report",
           link: "/receiption/outdoor-income",
         },
         {
@@ -169,12 +189,12 @@ export default function ReceiptionLayout() {
           link: "/receiption/periodical-report",
         },
         {
-          title: "Periodical Statement Report",
-          link: "/receiption/periodical-statement-report",
+          title: "Group Wise Report",
+          link: "/receiption/group-wise-report",
         },
         {
-          title: "User Wise Collection",
-          link: "/receiption/user-wise-collection",
+          title: "User Wise Report",
+          link: "/receiption/user-wise-report",
         },
       ],
     },
@@ -316,6 +336,70 @@ export default function ReceiptionLayout() {
               </div>
             ))}
 
+            {/* Replace hardcoded File/Setup accordions with dynamic rendering */}
+            {settingsItemsList2?.map((sItem, sIndex) => {
+              const accId = `settings-${sIndex}`; // unique id per settings item
+              return (
+                <div
+                  key={accId}
+                  className="accordion-item rounded-md text-black dark:text-white mb-[5px] whitespace-nowrap"
+                >
+                  {sItem.subItems && sItem.subItems.length > 0 ? (
+                    <>
+                      <button
+                        className={`accordion-button toggle ${
+                          openAccordions[accId] ? "active" : ""
+                        } flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]`}
+                        type="button"
+                        onClick={(e) => toggleAccordion(e, accId)}
+                      >
+                        <i className="material-symbols-outlined transition-all text-gray-500 dark:text-gray-400 ltr:mr-[7px] rtl:ml-[7px] !text-[22px] leading-none relative -top-px">
+                          {sItem.icon || "folder"}
+                        </i>
+                        <span className="title leading-none">
+                          {sItem.title}
+                        </span>
+                      </button>
+                      <div
+                        className={`accordion-collapse transition-all duration-300 ease-in-out overflow-hidden ${
+                          openAccordions[accId]
+                            ? "max-h-[500px] opacity-100"
+                            : "max-h-0 opacity-0"
+                        }`}
+                      >
+                        <div className="pt-[4px]">
+                          <ul className="sidebar-sub-menu">
+                            {sItem.subItems.map((sub, subIdx) => (
+                              <li
+                                key={`${accId}-sub-${subIdx}`}
+                                className="sidemenu-item mb-[4px] last:mb-0"
+                              >
+                                <NavLink
+                                  to={sub.link}
+                                  className="sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c]"
+                                >
+                                  {sub.title}
+                                </NavLink>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <Link
+                      to={sItem.link || "#"}
+                      className="accordion-button flex items-center transition-all py-[9px] ltr:pl-[14px] ltr:pr-[28px] rtl:pr-[14px] rtl:pl-[28px] rounded-md font-medium w-full relative hover:bg-gray-50 text-left dark:hover:bg-[#15203c]"
+                    >
+                      <i className="material-symbols-outlined transition-all text-gray-500 dark:text-gray-400 ltr:mr-[7px] rtl:ml-[7px] !text-[22px] leading-none relative -top-px">
+                        pie_chart
+                      </i>
+                      <span className="title leading-none">{sItem.title}</span>
+                    </Link>
+                  )}
+                </div>
+              );
+            })}
             <span className="block relative font-medium uppercase text-gray-400 mb-[8px] text-xs [&:not(:first-child)]:mt-[22px]">
               Settings
             </span>
