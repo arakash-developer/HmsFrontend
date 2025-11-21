@@ -627,10 +627,10 @@ const DueCreatePopup = ({
                         </div>
                         <div className="">
                           <div class="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500">
-                            Bakul Miah
+                            {patientSearchdata?.patientname}{" "}
                           </div>
                           <div class="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500">
-                            17/11/2025
+                            {patientSearchdata?.date}{" "}
                           </div>
                         </div>
                       </div>
