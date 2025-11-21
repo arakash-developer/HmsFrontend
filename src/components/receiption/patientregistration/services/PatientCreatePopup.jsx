@@ -363,6 +363,7 @@ const PatientCreatePopup = ({
         deleveryDate: deleveryBackendDate,
         refDoctor: qualification,
         phone: form.phone.trim(),
+        receptionist: receptionistId, // Use extracted receptionist ID
         procedures: testIdObjects,
         procedurecalculation: procedureCalculationData,
         totalCharge:
@@ -406,6 +407,48 @@ const PatientCreatePopup = ({
       setIsSubmitting(false);
     }
   };
+  const [token, setToken] = useState(null);
+  const [receptionistId, setReceptionistId] = useState(null);
+
+  useEffect(() => {
+    let temptoken = localStorage.getItem("token") || null;
+
+    if (temptoken) {
+      try {
+        let tokenData = JSON.parse(temptoken);
+        setToken(tokenData);
+
+        // Debug: Log the token structure
+        console.log("Token data:", tokenData);
+
+        // Try different possible token structures
+        let extractedId = null;
+
+        if (tokenData && tokenData.user && tokenData.user._id) {
+          extractedId = tokenData.user._id;
+        } else if (tokenData && tokenData._id) {
+          extractedId = tokenData._id;
+        } else if (tokenData && tokenData.id) {
+          extractedId = tokenData.id;
+        } else if (tokenData && tokenData.userId) {
+          extractedId = tokenData.userId;
+        } else if (typeof tokenData === "string") {
+          // If token is just a string ID
+          extractedId = tokenData;
+        }
+
+        console.log("Extracted receptionist ID:", extractedId);
+        setReceptionistId(extractedId);
+      } catch (error) {
+        console.error("Error parsing token:", error);
+        setToken(null);
+        setReceptionistId(null);
+      }
+    } else {
+      setToken(null);
+      setReceptionistId(null);
+    }
+  }, []);
 
   const handleNewPatient = async () => {
     if (isSubmitting) return;
@@ -444,6 +487,7 @@ const PatientCreatePopup = ({
         deleveryDate: deleveryBackendDate,
         refDoctor: qualification,
         phone: form.phone.trim(),
+        receptionist: receptionistId, // Use extracted receptionist ID
         procedures: testList,
         procedurecalculation: procedureCalculationData,
         totalCharge:
