@@ -216,6 +216,7 @@ const PatientCreatePopup = ({
     setSelectedTest("");
     setTestList([]);
     setTestIds([]);
+    setTestIdObjects([]);
 
     // Reset calculation states
     setFinalTotalCalculation({});
@@ -487,8 +488,8 @@ const PatientCreatePopup = ({
         deleveryDate: deleveryBackendDate,
         refDoctor: qualification,
         phone: form.phone.trim(),
-        receptionist: receptionistId, // Use extracted receptionist ID
-        procedures: testList,
+        receptionist: receptionistId,
+        procedures: testIdObjects,
         procedurecalculation: procedureCalculationData,
         totalCharge:
           (totals?.totalDiscountedPrice || 0) +
@@ -510,22 +511,25 @@ const PatientCreatePopup = ({
         }
       );
 
-      // Call parent refetch first
-      patientrefetch();
-      refetchNextPatientId();
+      // Call parent refetch and get new patient ID
+      await patientrefetch();
+      await refetchNextPatientId();
 
       // Reset form but keep popup open for next patient
       resetForm();
     } catch (error) {
       console.error("Patient registration error:", error);
-      showError(
-        "Operation Failed",
-        "Something went wrong during patient registration. Please try again later",
-        {
-          duration: 5000,
-          showCloseButton: true,
-        }
-      );
+
+      // More detailed error handling
+      const errorMessage =
+        error?.response?.data?.message ||
+        error?.message ||
+        "Something went wrong during patient registration";
+
+      showError("Operation Failed", errorMessage, {
+        duration: 5000,
+        showCloseButton: true,
+      });
     } finally {
       setIsSubmitting(false);
     }
