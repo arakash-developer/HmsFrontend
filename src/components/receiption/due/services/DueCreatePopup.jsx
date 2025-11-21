@@ -932,7 +932,9 @@ const DueCreatePopup = ({
                             class="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500 no-arrow"
                           />
                         </div>
-                        <div className="buttons w-full">sss</div>
+                        <div className="buttons w-full flex justify-end">
+                          <div className="ss">ss</div>
+                        </div>
                       </div>
                     </fieldset>
                   </div>
