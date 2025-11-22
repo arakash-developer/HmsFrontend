@@ -96,25 +96,25 @@ const DueCreatePopup = ({
       return;
     }
 
-    // Prepare collection data with updated procedurecalculation
-    const updatedProcedureCalculation =
-      patientSearchdata?.procedurecalculation?.map((dept) => {
+    // Prepare collection data with only raw delta values
+    const updatedProcedureCalculation = patientSearchdata?.procedurecalculation
+      ?.map((dept) => {
         const collection = departmentCollections[dept.depname] || 0;
         const againDiscount = departmentAgainDiscounts[dept.depname] || 0;
-        const newPaid = (dept.paid || 0) + collection;
-        const newDiscount = (dept.discount || 0) + againDiscount;
-        const newDiscounted = dept.totalPrice - newDiscount;
-        const newDue = newDiscounted - newPaid;
+
+        // Only include departments where there's a change
+        if (collection === 0 && againDiscount === 0) {
+          return null;
+        }
 
         return {
           depname: dept.depname,
           totalPrice: dept.totalPrice,
-          discount: newDiscount,
-          discounted: newDiscounted,
-          paid: newPaid,
-          due: newDue > 0 ? newDue : 0,
+          discount: againDiscount,
+          paid: collection,
         };
-      });
+      })
+      .filter(Boolean); // Remove null entries
 
     const payload = {
       userId: "691c20c765b1956e514f1710", // Hardcoded as requested
