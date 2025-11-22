@@ -1,6 +1,6 @@
+import useCrud from "@hooks/useCrud";
 import { useToast } from "@hooks/useToast";
 import { useEffect, useState } from "react";
-import useCrud from "@hooks/useCrud";
 
 const DueCreatePopup = ({
   patientSearchdata,
@@ -97,23 +97,24 @@ const DueCreatePopup = ({
     }
 
     // Prepare collection data with updated procedurecalculation
-    const updatedProcedureCalculation = patientSearchdata?.procedurecalculation?.map((dept) => {
-      const collection = departmentCollections[dept.depname] || 0;
-      const againDiscount = departmentAgainDiscounts[dept.depname] || 0;
-      const newPaid = (dept.paid || 0) + collection;
-      const newDiscount = (dept.discount || 0) + againDiscount;
-      const newDiscounted = dept.totalPrice - newDiscount;
-      const newDue = newDiscounted - newPaid;
+    const updatedProcedureCalculation =
+      patientSearchdata?.procedurecalculation?.map((dept) => {
+        const collection = departmentCollections[dept.depname] || 0;
+        const againDiscount = departmentAgainDiscounts[dept.depname] || 0;
+        const newPaid = (dept.paid || 0) + collection;
+        const newDiscount = (dept.discount || 0) + againDiscount;
+        const newDiscounted = dept.totalPrice - newDiscount;
+        const newDue = newDiscounted - newPaid;
 
-      return {
-        depname: dept.depname,
-        totalPrice: dept.totalPrice,
-        discount: newDiscount,
-        discounted: newDiscounted,
-        paid: newPaid,
-        due: newDue > 0 ? newDue : 0,
-      };
-    });
+        return {
+          depname: dept.depname,
+          totalPrice: dept.totalPrice,
+          discount: newDiscount,
+          discounted: newDiscounted,
+          paid: newPaid,
+          due: newDue > 0 ? newDue : 0,
+        };
+      });
 
     const payload = {
       userId: "691c20c765b1956e514f1710", // Hardcoded as requested
@@ -176,7 +177,7 @@ const DueCreatePopup = ({
               </legend>
               <form className="">
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-y-[6px] md:gap-y-[6px] gap-x-5">
-                  <div className="patientsearch sm:col-span-3">
+                  <div className="patientsearch sm:col-span-2">
                     <fieldset className="trezo-card-content px-4 py-2 rounded-md">
                       <div className="flex items-center gap-x-4">
                         <label className="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0">
@@ -317,12 +318,200 @@ const DueCreatePopup = ({
                       )
                     )
                   ) : (
-                    <div className="sm:col-span-3 text-center py-4">
-                      <p className="text-gray-500 dark:text-gray-400">
-                        No department data available. Please search for a
-                        patient with due amounts.
-                      </p>
-                    </div>
+                    <>
+                      <div className="pathology sm:col-span-1">
+                        <fieldset className="trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
+                          <legend className="px-2 capitalize text-sm text-[#000] dark:text-[#fff]">
+                            Pathology
+                          </legend>
+                          <div className="flex items-center gap-x-4">
+                            <div className="">
+                              <label className="text-black dark:text-white font-medium block flex-shrink-0">
+                                Total
+                              </label>
+                              <label className="text-black dark:text-white font-medium block flex-shrink-0">
+                                Discount
+                              </label>
+                              <label className="text-black dark:text-white font-medium block flex-shrink-0">
+                                Paid
+                              </label>
+                              <label className="text-black dark:text-white font-medium block flex-shrink-0">
+                                Due
+                              </label>
+                            </div>
+                            <div className="">
+                              <div className="">:</div>
+                              <div className="">:</div>
+                              <div className="">:</div>
+                              <div className="">:</div>
+                            </div>
+                            <div className="">
+                              <div className="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500"></div>
+                              <div className="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500"></div>
+                              <div className="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500"></div>
+                              <div className="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500"></div>
+                            </div>
+                          </div>
+                        </fieldset>
+                        <fieldset className="sm:col-span-1 trezo-card-content border border-gray-400 px-4 py-2 rounded-md mt-2">
+                          <legend className="px-2 text-sm text-[#000] dark:text-[#fff]">
+                            Present
+                          </legend>
+                          <div className="flex gap-x-4 items-center">
+                            <div className="flex flex-col gap-y-2">
+                              <label className="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0">
+                                Collection
+                              </label>
+                              <label className="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0">
+                                Again Discount
+                              </label>
+                            </div>
+                            <div className="flex flex-col gap-y-2">
+                              <input
+                                type="number"
+                                placeholder=""
+                                className="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500 no-arrow"
+                                disabled
+                              />
+                              <input
+                                type="number"
+                                disabled
+                                placeholder=""
+                                className="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500 no-arrow"
+                              />
+                            </div>
+                          </div>
+                        </fieldset>
+                      </div>
+                      <div className="pathology sm:col-span-1">
+                        <fieldset className="trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
+                          <legend className="px-2 capitalize text-sm text-[#000] dark:text-[#fff]">
+                            Xray & Ecg
+                          </legend>
+                          <div className="flex items-center gap-x-4">
+                            <div className="">
+                              <label className="text-black dark:text-white font-medium block flex-shrink-0">
+                                Total
+                              </label>
+                              <label className="text-black dark:text-white font-medium block flex-shrink-0">
+                                Discount
+                              </label>
+                              <label className="text-black dark:text-white font-medium block flex-shrink-0">
+                                Paid
+                              </label>
+                              <label className="text-black dark:text-white font-medium block flex-shrink-0">
+                                Due
+                              </label>
+                            </div>
+                            <div className="">
+                              <div className="">:</div>
+                              <div className="">:</div>
+                              <div className="">:</div>
+                              <div className="">:</div>
+                            </div>
+                            <div className="">
+                              <div className="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500"></div>
+                              <div className="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500"></div>
+                              <div className="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500"></div>
+                              <div className="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500"></div>
+                            </div>
+                          </div>
+                        </fieldset>
+                        <fieldset className="sm:col-span-1 trezo-card-content border border-gray-400 px-4 py-2 rounded-md mt-2">
+                          <legend className="px-2 text-sm text-[#000] dark:text-[#fff]">
+                            Present
+                          </legend>
+                          <div className="flex gap-x-4 items-center">
+                            <div className="flex flex-col gap-y-2">
+                              <label className="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0">
+                                Collection
+                              </label>
+                              <label className="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0">
+                                Again Discount
+                              </label>
+                            </div>
+                            <div className="flex flex-col gap-y-2">
+                              <input
+                                type="number"
+                                placeholder=""
+                                className="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500 no-arrow"
+                                disabled
+                              />
+                              <input
+                                type="number"
+                                disabled
+                                placeholder=""
+                                className="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500 no-arrow"
+                              />
+                            </div>
+                          </div>
+                        </fieldset>
+                      </div>
+                      <div className="ultrasono sm:col-span-1">
+                        <fieldset className="trezo-card-content border border-gray-400 px-4 py-2 rounded-md">
+                          <legend className="px-2 capitalize text-sm text-[#000] dark:text-[#fff]">
+                            UltraSono
+                          </legend>
+                          <div className="flex items-center gap-x-4">
+                            <div className="">
+                              <label className="text-black dark:text-white font-medium block flex-shrink-0">
+                                Total
+                              </label>
+                              <label className="text-black dark:text-white font-medium block flex-shrink-0">
+                                Discount
+                              </label>
+                              <label className="text-black dark:text-white font-medium block flex-shrink-0">
+                                Paid
+                              </label>
+                              <label className="text-black dark:text-white font-medium block flex-shrink-0">
+                                Due
+                              </label>
+                            </div>
+                            <div className="">
+                              <div className="">:</div>
+                              <div className="">:</div>
+                              <div className="">:</div>
+                              <div className="">:</div>
+                            </div>
+                            <div className="">
+                              <div className="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500"></div>
+                              <div className="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500"></div>
+                              <div className="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500"></div>
+                              <div className="rounded-md text-black dark:text-white px-[17px] block w-full outline-0 transition-all focus:border-primary-500"></div>
+                            </div>
+                          </div>
+                        </fieldset>
+                        <fieldset className="sm:col-span-1 trezo-card-content border border-gray-400 px-4 py-2 rounded-md mt-2">
+                          <legend className="px-2 text-sm text-[#000] dark:text-[#fff]">
+                            Present
+                          </legend>
+                          <div className="flex gap-x-4 items-center">
+                            <div className="flex flex-col gap-y-2">
+                              <label className="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0">
+                                Collection
+                              </label>
+                              <label className="mb-[2px] text-black dark:text-white font-medium block flex-shrink-0">
+                                Again Discount
+                              </label>
+                            </div>
+                            <div className="flex flex-col gap-y-2">
+                              <input
+                                type="number"
+                                placeholder=""
+                                className="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500 no-arrow"
+                                disabled
+                              />
+                              <input
+                                type="number"
+                                disabled
+                                placeholder=""
+                                className="h-[32px] rounded-md text-black dark:text-white border border-gray-500 dark:border-[#49557c] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-[#fff] focus:border-primary-500 no-arrow"
+                              />
+                            </div>
+                          </div>
+                        </fieldset>
+                      </div>
+                    </>
                   )}
 
                   <div className="total sm:col-span-3">
